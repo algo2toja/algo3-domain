@@ -93,39 +93,23 @@ public class Usuario {
   }
   
   public boolean noTengoPeso() {
-    boolean _xifexpression = false;
-    if ((this.peso == 0)) {
-      _xifexpression = true;
-    }
-    return _xifexpression;
+    return (this.peso == 0);
   }
   
   public boolean noTengoAltura() {
-    boolean _xifexpression = false;
-    if ((this.altura == 0)) {
-      _xifexpression = true;
-    }
-    return _xifexpression;
+    return (this.altura == 0);
   }
   
   public boolean malaFechaDeNacimiento() {
-    throw new Error("Unresolved compilation problems:"
-      + "\nThe method or field fechaActual is undefined for the type Usuario"
-      + "\n- cannot be resolved"
-      + "\n<= cannot be resolved");
+    Date _date = new Date();
+    return this.fechaDeNacimiento.before(_date);
   }
   
   public boolean noTengoRutina() {
-    boolean _xifexpression = false;
-    boolean _equals = Objects.equal(this.rutina, null);
-    if (_equals) {
-      _xifexpression = true;
-    }
-    return _xifexpression;
+    return Objects.equal(this.rutina, null);
   }
   
   public boolean soyDiabeticoSinSexo() {
-    boolean _xifexpression = false;
     boolean _and = false;
     boolean _contains = this.condicionesPreexistentes.contains("diabetico");
     if (!_contains) {
@@ -134,14 +118,10 @@ public class Usuario {
       boolean _equals = Objects.equal(this.sexo, null);
       _and = _equals;
     }
-    if (_and) {
-      _xifexpression = true;
-    }
-    return _xifexpression;
+    return _and;
   }
   
   public boolean soyHipertensoODiabeticoSinPreferencia() {
-    boolean _xifexpression = false;
     boolean _and = false;
     boolean _or = false;
     boolean _contains = this.condicionesPreexistentes.contains("diabetico");
@@ -158,24 +138,25 @@ public class Usuario {
       boolean _equals = (_size == 0);
       _and = _equals;
     }
-    if (_and) {
-      _xifexpression = true;
-    }
-    return _xifexpression;
+    return _and;
   }
   
   public boolean sinNombreONombreCorto() {
-    boolean _xifexpression = false;
     int _length = this.nombre.length();
-    boolean _lessEqualsThan = (_length <= 4);
-    if (_lessEqualsThan) {
-      _xifexpression = true;
-    }
-    return _xifexpression;
+    return (_length <= 4);
   }
   
+  /**
+   * def soyVeganoConMalasPreferencias() {
+   * 			(condicionesPreexistentes.contains("vegano") && preferenciasAlimenticias.exists([ingrediente |  ingrediente.getNombre() == "pollo" ||
+   * 																											ingrediente.getNombre() == "carne" ||
+   * 																											ingrediente.getNombre() == "chivito" ||
+   * 																											ingrediente.getNombre() == "chori"]))
+   * 
+   * 
+   * 		}
+   */
   public boolean soyVeganoConMalasPreferencias() {
-    boolean _xifexpression = false;
     boolean _and = false;
     boolean _contains = this.condicionesPreexistentes.contains("vegano");
     if (!_contains) {
@@ -205,11 +186,7 @@ public class Usuario {
       }
       _and = _or;
     }
-    boolean _equals = (_and == true);
-    if (_equals) {
-      _xifexpression = true;
-    }
-    return _xifexpression;
+    return _and;
   }
   
   public int indiceDeMasaCorporal() {
@@ -256,8 +233,68 @@ public class Usuario {
     return this.rutina.rutinaSaludable(this);
   }
   
-  public Object nuevaReceta() {
-    return null;
+  public boolean agregarReceta(final String nombre, final String proceso, final int calorias, final String dificultad, final String epoca) {
+    boolean _xblockexpression = false;
+    {
+      Receta receta = new Receta(nombre, proceso, calorias, dificultad, epoca);
+      receta.agregarCondimentos();
+      receta.agregarIngredientes();
+      boolean _xifexpression = false;
+      boolean _and = false;
+      boolean _and_1 = false;
+      int _calorias = receta.getCalorias();
+      boolean _greaterEqualsThan = (_calorias >= 10);
+      if (!_greaterEqualsThan) {
+        _and_1 = false;
+      } else {
+        int _calorias_1 = receta.getCalorias();
+        boolean _lessEqualsThan = (_calorias_1 <= 5000);
+        _and_1 = _lessEqualsThan;
+      }
+      if (!_and_1) {
+        _and = false;
+      } else {
+        boolean _tieneIngredientes = receta.tieneIngredientes();
+        _and = _tieneIngredientes;
+      }
+      if (_and) {
+        _xifexpression = this.recetas.add(receta);
+      }
+      _xblockexpression = _xifexpression;
+    }
+    return _xblockexpression;
+  }
+  
+  public boolean puedeModificarReceta(final Receta receta) {
+    Usuario _creador = receta.getCreador();
+    return Objects.equal(_creador, this);
+  }
+  
+  public boolean puedeVerReceta(final Receta receta) {
+    boolean _or = false;
+    Usuario _creador = receta.getCreador();
+    boolean _equals = Objects.equal(_creador, this);
+    if (_equals) {
+      _or = true;
+    } else {
+      boolean _esPublica = receta.esPublica();
+      _or = _esPublica;
+    }
+    return _or;
+  }
+  
+  public void modificarReceta(final Receta receta) {
+    boolean _and = false;
+    boolean _puedeVerReceta = this.puedeVerReceta(receta);
+    if (!_puedeVerReceta) {
+      _and = false;
+    } else {
+      boolean _puedeModificarReceta = this.puedeModificarReceta(receta);
+      _and = _puedeModificarReceta;
+    }
+    if (_and) {
+      receta.setCreador(this);
+    }
   }
   
   @Pure
