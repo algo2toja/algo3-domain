@@ -1,5 +1,6 @@
 package ar.tp.dieta
 
+import ar.tp.dieta.Usuario
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test

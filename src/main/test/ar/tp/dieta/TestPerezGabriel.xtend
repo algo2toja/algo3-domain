@@ -1,5 +1,6 @@
 package ar.tp.dieta
 
+import ar.tp.dieta.Usuario
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -10,7 +11,7 @@ class TestGabrielPerez {
 	
 	@Before
 	def void init(){
-		Gabo = new Usuario => [ setPeso(76) setAltura(1.82)]
+		gabo = new Usuario => [ setPeso(76) setAltura(1.82)]
 	}
 	
 	@Test
