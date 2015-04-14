@@ -1,4 +1,4 @@
-package dieta
+package ar.tp.dieta
 
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors

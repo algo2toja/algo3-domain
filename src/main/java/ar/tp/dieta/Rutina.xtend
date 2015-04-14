@@ -1,4 +1,4 @@
-package dieta
+package ar.tp.dieta
 
 abstract class Rutina {
 	

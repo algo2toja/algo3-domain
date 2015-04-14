@@ -1,4 +1,4 @@
-package dieta
+package ar.tp.dieta
 
 import java.util.Date
 import java.util.List
@@ -7,8 +7,8 @@ import org.eclipse.xtend.lib.annotations.Accessors
 @Accessors
 class Usuario {
 	int edad
-	int peso
-	int altura
+	double peso
+	double altura
 	Date fechaDeNacimiento
 	String sexo
 	String nombre
@@ -74,7 +74,7 @@ class Usuario {
 				}
 		 
 		def indiceDeMasaCorporal() {
-			peso / (altura * altura)
+			peso / (Math.pow(altura,2))
 		}
 
 		def noTengoCondiciones() {
