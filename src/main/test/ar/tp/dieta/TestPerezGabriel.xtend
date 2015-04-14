@@ -4,9 +4,9 @@ import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 
-class TestTojaDaniel {
+class TestGabrielPerez {
 	
-	Usuario Gabo
+	Usuario gabo
 	
 	@Before
 	def void init(){
@@ -14,8 +14,8 @@ class TestTojaDaniel {
 	}
 	
 	@Test
-	def void casoDePruebaToja(){
-		Assert.assertEquals(24, TojaDaniel.indiceDeMasaCorporal, 0.2)
+	def void usuarioCalculaSuIMCconExito(){
+		Assert.assertEquals(24, gabo.indiceDeMasaCorporal, 0.2)
 	}
 	
 }
