@@ -17,7 +17,7 @@ class TestJuanCantarini {
 	}
 	
 	@Test
-	def void casoDePruebaGagliardo(){
+	def void casoDePruebaCantarini(){
 		Assert.assertEquals(22.3, JuanCantarini.indiceDeMasaCorporal, 0.5)
 	}
 	
