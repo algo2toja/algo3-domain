@@ -6,5 +6,4 @@ class CondicionDiabetico extends Condicion {
 	override esDiabetes(){
 		true
 	}
-	
 }
