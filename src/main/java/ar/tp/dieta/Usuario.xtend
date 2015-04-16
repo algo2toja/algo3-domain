@@ -32,8 +32,8 @@ class Usuario {
 			peso / (Math.pow(altura, 2))
 		}		
 		
-		def boolean meGustaLaFruta(){
-			preferencias.contains("frutas")
+		def meGustaComida(String unaComida){
+			preferencias.contains(unaComida)
 		}
 		
 		

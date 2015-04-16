@@ -8,6 +8,6 @@ class CondicionVegano extends Condicion {
 	}
 	
 	override seSubsana(Usuario unUsuario){
-		(unUsuario.meGustaLaFruta)
+		(unUsuario.meGustaComida("fruta"))
 	}
 }
