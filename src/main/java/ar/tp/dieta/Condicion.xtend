@@ -10,4 +10,16 @@ abstract class Condicion {
 		false
 	}
 
+	def esVegano(){
+		false
+	}
+	
+	def esCeliaco(){
+		false
+	}
+	
+	def seSubsana(Usuario unUsuario){
+		true
+	}
+	
 }

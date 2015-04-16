@@ -1,7 +1,15 @@
 package ar.tp.dieta
 
-class CondicionHipertension {
-	def esHipertension(){
+import ar.tp.dieta.Condicion
+
+class CondicionHipertension extends Condicion {
+	
+	override esHipertension(){
 		true
 	}
+	
+	override seSubsana(Usuario unUsuario){
+		(unUsuario.rutina == "activa con ejercicio")
+	}
+	
 }

@@ -11,6 +11,7 @@ class Usuario {
 		Date fechaNacimiento
 		String sexo
 		String nombre
+		String rutina
 		List<Condicion> condicionesPreexistentes
 		List<String> preferencias
 		List<String> cosasQueNoMeGustan
@@ -20,6 +21,7 @@ class Usuario {
 			setFechaNacimiento(fechaNacimiento)
 			setSexo(sexo)
 			setNombre(nombre)
+			setRutina(rutina)
 		}
 		
 		def void agregarCondicion(Condicion unaCondicion) {
@@ -29,6 +31,11 @@ class Usuario {
 		def indiceDeMasaCorporal() {
 			peso / (Math.pow(altura, 2))
 		}		
+		
+		def boolean meGustaLaFruta(){
+			preferencias.contains("frutas")
+		}
+		
 		
 		def todasLasValidaciones() {
 		}
@@ -72,5 +79,16 @@ class Usuario {
 			}
 			 else true
 		}
+		
+		//Averiguar por que la i no la toma
+		def subsanaTodasLasCondiciones(){
+			var int i = 0
+			
+			condicionesPreexistentes.forEach[condicion | if(condicion.seSubsana(this) == true){ i++}]
+			i == condicionesPreexistentes.size
+		}
+		
+
+		
 
 }
