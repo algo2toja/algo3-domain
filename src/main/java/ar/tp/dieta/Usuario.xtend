@@ -6,56 +6,68 @@ import java.util.List
 
 @Accessors
 class Usuario {
-	double peso
-	double altura
-	Date fechaNacimiento
-	String sexo
-	String nombre
-	List<Condicion> condicionesPreexistentes
-	List<String> preferencias
-	List<String> cosasQueNoMeGustan
-	
-//	new(double peso, double altura, Date fechaNacimiento, String sexo, String nombre)
-		setPeso(peso)
-		setAltura(altura)
-		setFechaNacimiento(fechaNacimiento)
-		setSexo(sexo)
-		SetNombre(nombre)
-		
-	//poner en 0
-	
-//	def validar(double peso, double altura, Date fechaNacimiento, sexo, nombre){
-		//implementar if
-		
-//	}
-	
-	def void agregarCondicion(Condicion unaCondicion){
-		condicionesPreexistentes.add(unaCondicion)
-	}
-	
-	def soyHipertensoODiabetico(){
-		if( this.soyHipertenso() || this.soyDiabetico() ){ //
-			preferencias.size !=		
+		double peso
+		double altura
+		Date fechaNacimiento
+		String sexo
+		String nombre
+		List<Condicion> condicionesPreexistentes
+		List<String> preferencias
+		List<String> cosasQueNoMeGustan
+
+		new(double peso, double altura, Date fechaNacimiento, String sexo, String nombre){
+			setAltura(altura)
+			setFechaNacimiento(fechaNacimiento)
+			setSexo(sexo)
+			setNombre(nombre)
 		}
-	}
-	
-	def soyHipertenso(){
-		condicionesPreexistentes.exists[ condicion | condicion.esHipertension() ]
-	}
-	
-	def soyDiabetico(){
-		if(condicionesPreexistentes.exists[ condicion | condicion.esDiabetes() ]){
-			this.validarSexo()
+		
+		def void agregarCondicion(Condicion unaCondicion) {
+			condicionesPreexistentes.add(unaCondicion)
 		}
-	}
+
+		def indiceDeMasaCorporal() {
+			peso / (Math.pow(altura, 2))
+		}		
+		
+		def todasLasValidaciones() {
+		}
+
+		def camposObligatorios() {
+ 		}
+
+		//Punto 3 usuario.
+		def soyDiabetico() {
+
+			// T o F. si existe condicion en condicionesPreexistentes que cumpla con diabetico
+			condicionesPreexistentes.exists([condicion|condicion.esDiabetes()])
+		}
+
+		def validarSexo() {
+
+			//T o F si esta seteado el sexo.
+			(this.sexo != null)
+
+		}
+
+		def diabeticoConSexo() {
+
+			// T o F si se cumplen simultaneamente diabetico y sexo seteado.
+			this.soyDiabetico() && this.validarSexo()
+		}
+
 	
-	def validarSexo(){
-		//Tiene que devolver true o false segun el atributo sexo este seteado o no.
-	}
-	
-	
-	def indiceDeMasaCorporal() {
-		peso / (Math.pow(altura,2))
-	}
-	
+		//Punto 4 Usuario.
+		def soyHipertenso() {
+
+			// T o F. si existe condicion en condicionesPreexistentes que cumpla con hioertenso
+			condicionesPreexistentes.exists[condicion|condicion.esHipertension()]
+		}
+
+		def soyHipertensoODiabeticoYTienePreferenciasAlimenticias() {
+
+			//T o F. Evalua si es (diabetico o hipertenso) y que tenga preferencias
+			(( this.soyHipertenso() || this.soyDiabetico() ) && !(preferencias.empty) )
+		}
+
 }
