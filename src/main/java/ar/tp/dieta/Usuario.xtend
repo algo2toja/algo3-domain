@@ -80,12 +80,9 @@ class Usuario {
 			 else true
 		}
 		
-		//Averiguar por que la i no la toma
 		def subsanaTodasLasCondiciones(){
-			var int i = 0
-			
-			condicionesPreexistentes.forEach[condicion | if(condicion.seSubsana(this) == true){ i++}]
-			i == condicionesPreexistentes.size
+			//T o F. Segun si las condiciones preexistentes estan subsanadas.
+			!condicionesPreexistentes.exists[condicion | !condicion.seSubsana(this)]
 		}
 		
 
