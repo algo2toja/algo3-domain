@@ -66,8 +66,11 @@ class Usuario {
 
 		def soyHipertensoODiabeticoYTienePreferenciasAlimenticias() {
 
-			//T o F. Evalua si es (diabetico o hipertenso) y que tenga preferencias
-			(( this.soyHipertenso() || this.soyDiabetico() ) && !(preferencias.empty) )
+			//T o F. Evalua si es (diabetico o hipertenso) tiene que tener preferencias
+			if ( this.soyHipertenso() || this.soyDiabetico()) {
+				!(preferencias.empty)
+			}
+			 else true
 		}
 
 }
