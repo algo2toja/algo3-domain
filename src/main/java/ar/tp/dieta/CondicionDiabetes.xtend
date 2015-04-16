@@ -2,8 +2,10 @@ package ar.tp.dieta
 
 import ar.tp.dieta.Condicion
 
-class CondicionDiabetico extends Condicion {
+class CondicionDiabetes extends Condicion {
+
 	override esDiabetes(){
 		true
 	}
+
 }

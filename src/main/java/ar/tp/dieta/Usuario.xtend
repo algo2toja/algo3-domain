@@ -12,8 +12,8 @@ class Usuario {
 	String sexo
 	String nombre
 	List<Condicion> condicionesPreexistentes
-	
-	
+	List<String> preferencias
+	List<String> cosasQueNoMeGustan
 	
 //	new(double peso, double altura, Date fechaNacimiento, String sexo, String nombre)
 	
@@ -24,15 +24,30 @@ class Usuario {
 		
 //	}
 	
-	
-	def agregarCondicion(Condicion unaCondicion){
+	def void agregarCondicion(Condicion unaCondicion){
 		condicionesPreexistentes.add(unaCondicion)
 	}
 	
-	def soyDiabetico(){
-		condicionesPreexistentes.exists(condicion | condicion.esDiabetes)
-		//si devuelve true debe indicar sexo distinto de null
+	def soyHipertensoODiabetico(){
+		if( this.soyHipertenso() || this.soyDiabetico() ){ //
+			preferencias.size !=		
+		}
 	}
+	
+	def soyHipertenso(){
+		condicionesPreexistentes.exists[ condicion | condicion.esHipertension() ]
+	}
+	
+	def soyDiabetico(){
+		if(condicionesPreexistentes.exists[ condicion | condicion.esDiabetes() ]){
+			this.validarSexo()
+		}
+	}
+	
+	def validarSexo(){
+		//Tiene que devolver true o false segun el atributo sexo este seteado o no.
+	}
+	
 	
 	def indiceDeMasaCorporal() {
 		peso / (Math.pow(altura,2))
