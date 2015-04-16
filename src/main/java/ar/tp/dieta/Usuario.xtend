@@ -16,7 +16,12 @@ class Usuario {
 	List<String> cosasQueNoMeGustan
 	
 //	new(double peso, double altura, Date fechaNacimiento, String sexo, String nombre)
-	
+		setPeso(peso)
+		setAltura(altura)
+		setFechaNacimiento(fechaNacimiento)
+		setSexo(sexo)
+		SetNombre(nombre)
+		
 	//poner en 0
 	
 //	def validar(double peso, double altura, Date fechaNacimiento, sexo, nombre){
