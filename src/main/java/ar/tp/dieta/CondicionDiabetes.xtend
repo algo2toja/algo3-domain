@@ -9,7 +9,7 @@ class CondicionDiabetes extends Condicion {
 	}
 	
 	override seSubsana(Usuario unUsuario){
-		(unUsuario.rutina == "activa" || unUsuario.rutina == "activa con ejercicio" || unUsuario.peso <= 70)
+		(unUsuario.rutina.rutinaActiva() || unUsuario.rutina.rutinaIntensiva || unUsuario.peso <= 70)
 	}
 
 }
