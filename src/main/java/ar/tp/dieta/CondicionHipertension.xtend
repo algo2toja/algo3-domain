@@ -9,7 +9,7 @@ class CondicionHipertension extends Condicion {
 	}
 	
 	override seSubsana(Usuario unUsuario){
-		(unUsuario.rutina == "activa con ejercicio")
+		(unUsuario.rutina.rutinaIntensiva())
 	}
 	
 }

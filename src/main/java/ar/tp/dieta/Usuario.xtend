@@ -11,17 +11,17 @@ class Usuario {
 		Date fechaNacimiento
 		String sexo
 		String nombre
-		String rutina
+		Rutina rutina
 		List<Condicion> condicionesPreexistentes
 		List<String> preferencias
 		List<String> cosasQueNoMeGustan
 
-		new(double peso, double altura, Date fechaNacimiento, String sexo, String nombre){
+		new(double peso, double altura, Date fechaNacimiento, String sexo, String nombre, Rutina unaRutina){
 			setAltura(altura)
 			setFechaNacimiento(fechaNacimiento)
 			setSexo(sexo)
 			setNombre(nombre)
-			setRutina(rutina)
+			setRutina(unaRutina)
 		}
 		
 		def void agregarCondicion(Condicion unaCondicion) {
@@ -42,6 +42,11 @@ class Usuario {
 
 		def camposObligatorios() {
  		}
+ 		
+ 		def subsanaTodasLasCondiciones(){
+			//T o F. Segun si las condiciones preexistentes estan subsanadas.
+			!condicionesPreexistentes.exists[condicion | !condicion.seSubsana(this)]
+		}
 
 		//Punto 3 usuario.
 		def soyDiabetico() {
@@ -80,12 +85,22 @@ class Usuario {
 			 else true
 		}
 		
-		def subsanaTodasLasCondiciones(){
-			//T o F. Segun si las condiciones preexistentes estan subsanadas.
-			!condicionesPreexistentes.exists[condicion | !condicion.seSubsana(this)]
+		//Punto 5 Usuario
+		def soyVegano(){
+			
+			//T o F. si existe condicion en condicionesPreexistentes que cumpla con vegano
+			condicionesPreexistentes.exists[condicion | condicion.esVegano]
+		}
+		//Revisa si en la coleccion preferencias esta carne, pollo, chivito o chori
+		def meGustaLaCarne(){
+			preferencias.exists[comida | comida == "carne" || comida == "chori" || comida == "chivito" || comida == "pollo"]
 		}
 		
+		//Revisa si se cumple soyVegano y si no le gusta la carne
+		def soyVeganoYTengoBuenasPreferencias(){
+			(this.soyVegano() && !meGustaLaCarne)
+			
+		}
 
-		
 
 }
