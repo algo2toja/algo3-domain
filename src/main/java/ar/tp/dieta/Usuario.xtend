@@ -17,6 +17,7 @@ class Usuario {
 		List<String> cosasQueNoMeGustan
 
 		new(double peso, double altura, Date fechaNacimiento, String sexo, String nombre, Rutina unaRutina){
+			setPeso(peso)
 			setAltura(altura)
 			setFechaNacimiento(fechaNacimiento)
 			setSexo(sexo)
