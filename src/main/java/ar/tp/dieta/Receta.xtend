@@ -5,8 +5,7 @@ import java.util.List
 class Receta {
 
 	double calorias
-	List<Condicion> noRecomendadaParaCondiciones
-	
+
 	List<Comida> ingredientes // tanto ingredientes como condimentos son clase comida?
 
 	def validar() {
@@ -26,12 +25,11 @@ class Receta {
 	}
 
 	def List<Condicion> inadecuadaParaCondiciones() {
-		// a cada ingrediente le digo que me diga para cuales condiciones no se recomienda
-		// y las agrego todas en una neva lista, luego tengo que eliminar repetidos. NO SE COMO HACERLO
-		
-		ingredientes.map[noSeRecomiendaParaCondiciones()].flatten()		
-	}
-	
 
-	
+		//devuelve la lista de condiciones preexistentes para la que no son recomendadas las comidas
+		//con que se prepara la receta.		
+		ingredientes.map[noSeRecomiendaParaCondicion()]
+
+	}
+
 }
