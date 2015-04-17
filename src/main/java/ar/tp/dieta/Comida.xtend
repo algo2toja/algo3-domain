@@ -1,6 +1,6 @@
 package ar.tp.dieta
 
-class Comida {
+abstract class Comida {
 
 	//asumimos que una comida (ingrediente) es no recomendable solamente para 1 condicion preexistente
 	String nombre   // hay q usarlas en los metodos de abajo
@@ -21,7 +21,7 @@ class Comida {
 	}
 	
 	def boolean deCarnivoros() {
-		//puede haber 500 comidas aca, se soluciona con una clase intermedia tipo carne?
+		(soyCarne == true)
 	}
 	
 	def boolean azucarSuperaCantidadMax() {
@@ -32,4 +32,23 @@ class Comida {
 		(nombre == "sal" || nombre == "caldo")
 	}
 	
+	def soyCarne(){
+		false
+	}
+	
+	def soyFruta(){
+		false
+	}
+	
+	def soyPescado(){
+		false
+	}
+	
+	def soyMarisco(){
+		false
+	}
+	
+	def soyCondimento(){
+		false
+	}
 }

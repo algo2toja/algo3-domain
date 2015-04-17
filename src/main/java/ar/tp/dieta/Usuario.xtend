@@ -28,6 +28,18 @@ class Usuario {
 		def void agregarCondicion(Condicion unaCondicion) {
 			condicionesPreexistentes.add(unaCondicion)
 		}
+		
+		def void establecerRutina(Rutina unaRutina){
+			rutina = unaRutina
+		}
+		
+		def void agregarPreferencia(String unaComida){
+			preferencias.add(unaComida)
+		}
+		
+		def void agregarComidaQueNoMeGusta(String unaComida){
+			cosasQueNoMeGustan.add(unaComida)
+		}
 
 		def indiceDeMasaCorporal() {
 			peso / (Math.pow(altura, 2))
