@@ -1,23 +1,23 @@
 package ar.tp.dieta
 
 abstract class Rutina {
-	def rutinaNula(){
+	def rutinaEsNula(){
 		false
 	} 
 	
-	def rutinaLeve(){
+	def rutinaEsLeve(){
 		false
 	}
 	
-	def rutinaMedia(){
+	def rutinaEsMedia(){
 		false
 	}
 	
-	def rutinaActiva(){
-		false
+	def rutinaEsActiva(){
+		true
 	}
 	
-	def rutinaIntensiva(){
+	def rutinaEsIntensiva(){
 		false
 	}
 	
