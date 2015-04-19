@@ -31,6 +31,14 @@ class Receta {
 		condimentos.add(unCondimento)
 	}
 	
+	def void removerIngrediente(Comida unaComida){
+		ingredientes.remove(unaComida)
+	}
+	
+	def void removerCondimento(Comida unCondimento){
+		condimentos.remove(unCondimento)
+	}
+	
 	def validar() {
 
 		//valida teniendo en cuenta que tenga 1 ingrediente al menos, 
@@ -53,6 +61,10 @@ class Receta {
 		//con que se prepara la receta.		
 		ingredientes.map[noSeRecomiendaParaCondicion()]
 
+	}
+	
+	def agregarSubreceta(Receta unaSubreceta){
+		subrecetas.add(unaSubreceta)
 	}
 
 }

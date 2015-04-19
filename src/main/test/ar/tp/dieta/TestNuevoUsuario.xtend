@@ -16,14 +16,13 @@ class TestNuevoUsuario {
 			setPeso(103.35)
 			setAltura(1.75)
 			agregarCondicion(new CondicionDiabetes)
-			setFechaNacimiento()//como poner una fecha
+			//setFechaNacimiento() como poner una fecha
 			setSexo("M")
 			setNombre("Juan")
 			establecerRutina(new RutinaLeve)
 			agregarPreferencia("Carne")
 			agregarComidaQueNoMeGusta("Fruta")
 			
-			)
 		]
 
 	}

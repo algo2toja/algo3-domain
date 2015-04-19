@@ -15,15 +15,16 @@ class Usuario {
 		List<Condicion> condicionesPreexistentes
 		List<String> preferencias
 		List<String> cosasQueNoMeGustan
+		List<Receta> misRecetas
 
-		new(double peso, double altura, Date fechaNacimiento, String sexo, String nombre, Rutina unaRutina){
+		/*new(double peso, double altura, Date fechaNacimiento, String sexo, String nombre, Rutina unaRutina){
 			setPeso(peso)
 			setAltura(altura)
 			setFechaNacimiento(fechaNacimiento)
 			setSexo(sexo)
 			setNombre(nombre)
 			setRutina(unaRutina)
-		}
+		}*/
 		
 		def void agregarCondicion(Condicion unaCondicion) {
 			condicionesPreexistentes.add(unaCondicion)
@@ -49,11 +50,14 @@ class Usuario {
 			preferencias.contains(unaComida)
 		}
 		
-		
+		//Punto 1 y 2 validacion usuario
 		def todasLasValidaciones() {
+			(camposObligatorios() && diabeticoConSexo() && soyHipertensoODiabeticoYTienePreferenciasAlimenticias() && soyVeganoYTengoBuenasPreferencias())
 		}
 
 		def camposObligatorios() {
+			(nombre.length()>=4 && peso!=0 && altura!=0 && fechaNacimiento!=null && rutina!=null) 
+			
  		}
  		
  		def subsanaTodasLasCondiciones(){
@@ -61,7 +65,7 @@ class Usuario {
 			!condicionesPreexistentes.exists[condicion | !condicion.seSubsana(this)]
 		}
 
-		//Punto 3 usuario.
+		//Punto 3 usuario validacion usuario
 		def soyDiabetico() {
 
 			// T o F. si existe condicion en condicionesPreexistentes que cumpla con diabetico
@@ -78,11 +82,11 @@ class Usuario {
 		def diabeticoConSexo() {
 
 			// T o F si se cumplen simultaneamente diabetico y sexo seteado.
-			this.soyDiabetico() && this.validarSexo()
+			!soyDiabetico() || (this.soyDiabetico() && this.validarSexo())
 		}
 
 	
-		//Punto 4 Usuario.
+		//Punto 4 Usuario validacion usuario
 		def soyHipertenso() {
 
 			// T o F. si existe condicion en condicionesPreexistentes que cumpla con hioertenso
@@ -98,7 +102,7 @@ class Usuario {
 			 else true
 		}
 		
-		//Punto 5 Usuario
+		//Punto 5 Usuario validacion usuario
 		def soyVegano(){
 			
 			//T o F. si existe condicion en condicionesPreexistentes que cumpla con vegano
@@ -113,6 +117,11 @@ class Usuario {
 		def soyVeganoYTengoBuenasPreferencias(){
 			(this.soyVegano() && !meGustaLaCarne)
 			
+		}
+		
+		//Agregar una receta del recetario publico a mi coleccion personal
+		def agregarRecetaPublicaAMiColeccion(String nombreReceta,RecetarioPublico recetario){
+			misRecetas.add(recetario.elegirReceta(nombreReceta))
 		}
 
 
