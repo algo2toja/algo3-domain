@@ -1,6 +1,6 @@
 package ar.tp.dieta
 
-abstract class Comida {
+class Comida {
 
 	//asumimos que una comida (ingrediente) es no recomendable solamente para 1 condicion preexistente
 	String nombre   // hay q usarlas en los metodos de abajo
@@ -36,7 +36,7 @@ abstract class Comida {
 		false
 	}
 	
-	def soyFruta(){
+	/*def soyFruta(){
 		false
 	}
 	
@@ -51,4 +51,8 @@ abstract class Comida {
 	def soyCondimento(){
 		false
 	}
+	
+	def soyVerdura(){
+		false
+	}*/
 }
