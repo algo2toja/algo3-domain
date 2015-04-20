@@ -3,7 +3,6 @@ package ar.tp.dieta
 import org.eclipse.xtend.lib.annotations.Accessors
 import java.util.List
 import java.util.GregorianCalendar
-import java.util.Calendar
 import java.util.ArrayList
 
 @Accessors
@@ -52,7 +51,7 @@ class Usuario {
 	}
 
 	def validarFechaDeNacimiento() {
-		(fechaDeNacimiento != null) && (fechaDeNacimiento != (this.getDiaDeHoy))
+		(fechaDeNacimiento != null) && (0 > fechaDeNacimiento.compareTo(this.getDiaDeHoy))
 	}
 
 	def setFechaDeNacimiento(int ano, int mes, int diaDelMes){
@@ -61,7 +60,8 @@ class Usuario {
 
 	def getDiaDeHoy() {
 		//Seteo el dia de la fecha en el momento que se pide validar, y devuelvo el dia de la fecha
-		diaDeHoy = new GregorianCalendar(Calendar.YEAR, Calendar.MONTH, Calendar.DAY_OF_MONTH)
+		//diaDeHoy = new GregorianCalendar(Calendar.YEAR, Calendar.MONTH, Calendar.DAY_OF_MONTH)
+		diaDeHoy = new GregorianCalendar()
 	}
 
 	def indiceDeMasaCorporal() {
