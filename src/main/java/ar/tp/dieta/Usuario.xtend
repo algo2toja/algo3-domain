@@ -22,7 +22,7 @@ class Usuario {
 	List<String> malasPreferencias
 	List<String> cosasQueNoMeGustan
 	List<Receta> misRecetas
-
+	
 	def camposObligatorios() {
 		((nombre.length() >= 4) && (peso != 0) && (altura != 0) && (this.validarFechaDeNacimiento) && (rutina != null))
 
@@ -133,10 +133,10 @@ class Usuario {
 	}
 
 	//Agregar una receta del recetario publico a mi coleccion personal
-	def agregarRecetaPublicaAMiColeccion(String nombreReceta, RecetarioPublico recetario) {
+	def void agregarRecetaPublicaAMiColeccion(String nombreReceta, RecetarioPublico recetario) {
 		misRecetas.add(recetario.elegirReceta(nombreReceta))
-	}
-	
+	}	
+		
 	def rutinaEsIntensiva() {
 		rutina.rutinaEsIntensiva
 	}

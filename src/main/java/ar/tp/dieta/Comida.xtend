@@ -3,56 +3,31 @@ package ar.tp.dieta
 class Comida {
 
 	//asumimos que una comida (ingrediente) es no recomendable solamente para 1 condicion preexistente
-	String nombre   // hay q usarlas en los metodos de abajo
+	String nombre   //Puede ser tanto un ingrediente como un condimento ya que todavia no hay una diferencia marcada. 
 	double cantidad
 
-	def Condicion noSeRecomiendaParaCondicion() {
-		
-		if (salOCaldo()) {			
-			new CondicionHipertension
-			
-		} else if (azucarSuperaCantidadMax()){
-			new CondicionDiabetes
-			
-		} else if (deCarnivoros()){
+	def Condicion noSeRecomiendaParaCondiciones() {
+		this.noRecomendableParaHipertensos
+		this.noRecomendableParaDiabeticos
+		this.noRecomendableParaVeganos
+	}
+	
+	def noRecomendableParaVeganos() {
+		if(nombre == "carne" || nombre == "chori" || nombre == "chivito" || nombre == "pollo"){
 			new CondicionVegano
-			
 		}
 	}
 	
-	def boolean deCarnivoros() {
-		(soyCarne == true)
+	def noRecomendableParaDiabeticos() {
+		if(nombre == "azucar" && cantidad >=100){
+			new CondicionDiabetes
+		}
 	}
 	
-	def boolean azucarSuperaCantidadMax() {
-		(nombre == "azucar" && cantidad >=100)
+	def noRecomendableParaHipertensos() {
+		if(nombre == "sal" || nombre == "caldo"){
+			new CondicionHipertension
+		}
 	}
-	
-	def boolean salOCaldo() {
-		(nombre == "sal" || nombre == "caldo")
-	}
-	
-	def soyCarne(){
-		false
-	}
-	
-	/*def soyFruta(){
-		false
-	}
-	
-	def soyPescado(){
-		false
-	}
-	
-	def soyMarisco(){
-		false
-	}
-	
-	def soyCondimento(){
-		false
-	}
-	
-	def soyVerdura(){
-		false
-	}*/
+
 }
