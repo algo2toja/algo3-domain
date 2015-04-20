@@ -2,23 +2,23 @@ package ar.tp.dieta
 
 abstract class Condicion {
 
-	def esDiabetes(){
+	def boolean esDiabetes(){
 		false
 	}
 	
-	def esHipertension(){
+	def boolean esHipertension(){
 		false
 	}
 
-	def esVegano(){
+	def boolean esVegano(){
 		false
 	}
 	
-	def esCeliaco(){
+	def boolean esCeliaco(){
 		false
 	}
 	
-	def seSubsana(Usuario unUsuario){
+	def boolean seSubsana(Usuario unUsuario){
 		true
 	}
 	

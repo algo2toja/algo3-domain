@@ -45,7 +45,6 @@ class TestNuevoUsuario {
 	}
 	
 	// @Test del IMC
-	
 	@Test
 	def void usuarioConRutinaSaludable(){
 		Assert.assertTrue(usuarioNuevo.sigoUnaRutinaSaludable())
