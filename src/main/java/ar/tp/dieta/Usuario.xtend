@@ -4,6 +4,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import java.util.List
 import java.util.GregorianCalendar
 import java.util.Calendar
+import java.util.ArrayList
 
 @Accessors
 class Usuario {
@@ -11,31 +12,56 @@ class Usuario {
 	Double altura
 	GregorianCalendar fechaDeNacimiento
 	GregorianCalendar diaDeHoy
-	int diaDelMes
-	int mes
-	int ano
 	String sexo
 	String nombre
 	Rutina rutina
-	List<Condicion> condicionesPreexistentes
+	List<Condicion> condicionesPreexistentes = new ArrayList<Condicion>()
+	
 	List<String> preferencias
 	List<String> malasPreferencias
 	List<String> cosasQueNoMeGustan
 	List<Receta> misRecetas
 	
-	def camposObligatorios() {
-		((nombre.length() >= 4) && (peso != 0) && (altura != 0) && (this.validarFechaDeNacimiento) && (rutina != null))
+	def validarUsuario() {
+		((this.validarNombre) && (this.validarPeso) && (this.validarAltura) && (rutina != null) && (this.validarFechaDeNacimiento))
 
 	}
 
+	def boolean validarNombre(){
+		if(nombre==null || nombre.length()<=4){
+			throw new IllegalArgumentException("El nombre no fue ingresado o tiene menos de 4 caracteres.")
+		}		
+		else
+			true
+	}
+	
+	def boolean validarPeso(){
+		if(peso==null){
+			throw new IllegalArgumentException("El peso no fue ingresado.")
+		}		
+		else
+			true
+	}
+
+	def boolean validarAltura(){
+		if(altura==null){
+			throw new IllegalArgumentException("La altura no fue ingresada.")
+		}		
+		else
+			true
+	}
+
 	def validarFechaDeNacimiento() {
-		(this.getFechaDeNacimiento != null) && (this.getFechaDeNacimiento != (this.getDiaDeHoy))
+		(fechaDeNacimiento != null) && (fechaDeNacimiento != (this.getDiaDeHoy))
+	}
+
+	def setFechaDeNacimiento(int ano, int mes, int diaDelMes){
+		fechaDeNacimiento = new GregorianCalendar(ano, mes, diaDelMes)
 	}
 
 	def getDiaDeHoy() {
 		//Seteo el dia de la fecha en el momento que se pide validar, y devuelvo el dia de la fecha
-		diaDeHoy.set(Calendar.YEAR, Calendar.MONTH, Calendar.DAY_OF_MONTH)
-		diaDeHoy
+		diaDeHoy = new GregorianCalendar(Calendar.YEAR, Calendar.MONTH, Calendar.DAY_OF_MONTH)
 	}
 
 	def indiceDeMasaCorporal() {
@@ -72,7 +98,7 @@ class Usuario {
 
 	//Punto 1 y 2 validacion usuario
 	def todasLasValidaciones() {
-		(camposObligatorios() && diabeticoConSexo() && soyHipertensoODiabeticoYTienePreferenciasAlimenticias() &&
+		(validarUsuario() && diabeticoConSexo() && soyHipertensoODiabeticoYTienePreferenciasAlimenticias() &&
 			soyVeganoYTengoBuenasPreferencias())
 	}
 
@@ -97,7 +123,7 @@ class Usuario {
 	def diabeticoConSexo() {
 
 		// T o F si se cumplen simultaneamente diabetico y sexo seteado.
-		!soyDiabetico() || (this.soyDiabetico() && this.validarSexo())
+		!soyDiabetico() || ((this.soyDiabetico() && this.validarSexo()))
 	}
 
 	def soyHipertenso() {
