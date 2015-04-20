@@ -2,16 +2,17 @@ package ar.tp.dieta
 
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
+import java.util.ArrayList
 
 @Accessors
 class Receta {
 	
 	String nombreDeLaReceta
-	int calorias
-	List<Comida> ingredientes // tanto ingredientes como condimentos son clase comida?
-	List<Comida> condimentos
+	double calorias
+	List<Comida> ingredientes = new ArrayList<Comida>()
+	List<Comida> condimentos = new ArrayList<Comida>()
 	String procesoDePreparacion
-	String dificultaDePreparacion
+	String dificultadDePreparacion
 	String temporadaALaQueCorresponde
 	List<Receta> subRecetas
 	

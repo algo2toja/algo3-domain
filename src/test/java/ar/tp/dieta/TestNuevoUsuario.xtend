@@ -51,4 +51,5 @@ class TestNuevoUsuario {
 		Assert.assertTrue(usuarioNuevo.sigoUnaRutinaSaludable())
 	}
  
+ 	 	
 }
