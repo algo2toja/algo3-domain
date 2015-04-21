@@ -165,9 +165,26 @@ class Usuario {
 	// Agregar una receta del recetario publico a mi coleccion personal
 	def void agregarRecetaPublicaAMiColeccion(String nombreReceta, RecetarioPublico recetario) {
 		//misRecetas.add(recetario.elegirReceta(nombreReceta))
-		var Receta receta
-		receta = recetario.elegirReceta(nombreReceta)
-		misRecetas.add(receta)
+		
+		var Receta recetaNueva
+		var List<Comida> ingredientes
+		var Comida ingrediente
+		
+		recetaNueva = new Receta => [
+			cambiarNombre(recetario.elegirReceta(nombreReceta).devolverNombre())
+			setCalorias(recetario.elegirReceta(nombreReceta).getCalorias())
+			setProcesoDePreparacion(recetario.elegirReceta(nombreReceta).getProcesoDePreparacion())
+			setDificultadDePreparacion(recetario.elegirReceta(nombreReceta).getDificultadDePreparacion())
+			setTemporadaALaQueCorresponde((recetario.elegirReceta(nombreReceta).getTemporadaALaQueCorresponde()))
+			
+			//ingredientes = recetario.elegirReceta(nombreReceta).ingredientes.clone()
+			//recetario.elegirReceta(nombreReceta).condimentos = condimentos
+			//recetario.elegirReceta(nombreReceta).subRecetas = subRecetas	
+		]
+		
+		recetaNueva.ingredientes.forEach[]
+				
+		misRecetas.add(recetaNueva)
 	}
 
 	def rutinaEsIntensiva() {

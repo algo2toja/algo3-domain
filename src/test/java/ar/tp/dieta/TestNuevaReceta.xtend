@@ -36,7 +36,7 @@ class TestNuevaReceta {
 		Assert.assertFalse(nuevaReceta.ingredientes.empty)
 	}
 
-	@Test //Testeando que tenga a diabeticos como condicion no compatible para la receta
+	@Test //Testeando que tenga  solo a diabeticos como condicion no compatible para la receta
 	def void recetaNoRecomendableParaDiabeticosNoParaVeganosYNoParaHipertensos() {
 		Assert.assertTrue(nuevaReceta.inadecuadaParaCondiciones().exists[esDiabetes])
 		Assert.assertFalse(nuevaReceta.inadecuadaParaCondiciones().exists[esVegano])
