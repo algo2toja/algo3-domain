@@ -38,5 +38,6 @@ class TestNuevaReceta {
 		Assert.assertTrue(nuevaReceta.(nuevaReceta.inadeacuadaParaCondiciones()).exists[condicion | condicion.esDiabetes()])
 		
 	}
+	
 
 }

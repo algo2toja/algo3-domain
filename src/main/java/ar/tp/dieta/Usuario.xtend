@@ -19,7 +19,9 @@ class Usuario {
 	List<String> preferencias
 	List<String> malasPreferencias
 	List<String> cosasQueNoMeGustan
-	List<Receta> misRecetas
+	List<Receta> misRecetas = new ArrayList<Receta>()
+	
+	//Metodo de validacion final
 	
 	def validarUsuario() {
 		((this.validarNombre) && (this.validarPeso) && (this.validarAltura) && (rutina != null) && (this.validarFechaDeNacimiento))
@@ -64,6 +66,8 @@ class Usuario {
 		diaDeHoy = new GregorianCalendar()
 	}
 
+	//Calcular indice de masa corporal
+	
 	def indiceDeMasaCorporal() {
 		peso / (Math.pow(altura, 2))
 	}
@@ -75,6 +79,8 @@ class Usuario {
 		else
 			this.subsanaTodasLasCondiciones
 	}
+
+	//Agregar condiciones preexistentes
 
 	def void agregarCondicion(Condicion unaCondicion) {
 		condicionesPreexistentes.add(unaCondicion)
@@ -171,4 +177,39 @@ class Usuario {
 		rutina.rutinaEsActiva
 	}
 
+	//Crear una receta privada
+	def void crearReceta(String nombre, double calorias, String proceso, String dificultad, String temporada){
+		var Receta nuevaReceta
+		
+		nuevaReceta = new Receta => [
+			cambiarNombre(nombre)
+			setCalorias(calorias)
+			setProcesoDePreparacion(proceso)
+			setDificultadDePreparacion(dificultad)
+			setTemporadaALaQueCorresponde(temporada)
+			/*List<Comida> ingredientes = new ArrayList<Comida>()
+			List<Comida> condimentos = new ArrayList<Comida>()
+			List<Receta> subRecetas = new ArrayList<Receta>()*/
+		]
+		
+		misRecetas.add(nuevaReceta)
+	}
+	
+	//Devuelve una receta por el nombre (falta que tire error cuando no encuentra)
+	
+	def devolverReceta(String nombre){
+		misRecetas.findFirst[receta | receta.devolverNombre == nombre]
+	}
+	
+	//Modificacion de receta. Si el parametro no cambia, se debe ingresar un 0
+	
+	def void modificarReceta(String nombreOriginal, String nombreNuevo, double calorias, String proceso, String dificultad, String temporada){
+			
+			if(calorias != 0) (devolverReceta(nombreOriginal)).setCalorias(calorias)
+			if(proceso != "0") (devolverReceta(nombreOriginal)).setProcesoDePreparacion(proceso)
+			if(dificultad != "0") (devolverReceta(nombreOriginal)).setDificultadDePreparacion(dificultad)
+			if(temporada != "0") (devolverReceta(nombreOriginal)).setTemporadaALaQueCorresponde(temporada)
+			if(nombreNuevo != "0") (devolverReceta(nombreOriginal)).cambiarNombre(nombreNuevo)
+			
+	}
 }

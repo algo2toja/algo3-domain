@@ -14,7 +14,7 @@ class Receta {
 	String procesoDePreparacion
 	String dificultadDePreparacion
 	String temporadaALaQueCorresponde
-	List<Receta> subRecetas
+	List<Receta> subRecetas = new ArrayList<Receta>()
 	
 	def void agregarIngrediente(Comida unaComida){
 		ingredientes.add(unaComida)
@@ -47,6 +47,14 @@ class Receta {
 	
 	def agregarSubreceta(Receta unaSubreceta){
 		subRecetas.add(unaSubreceta)
+	}
+	
+	def cambiarNombre(String nombre){
+		nombreDeLaReceta = nombre
+	}
+	
+	def devolverNombre(){
+		nombreDeLaReceta
 	}
 	
 }

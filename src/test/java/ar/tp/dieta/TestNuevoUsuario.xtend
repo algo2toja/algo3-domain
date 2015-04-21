@@ -1,8 +1,9 @@
 package ar.tp.dieta
 
+import java.util.ArrayList
+import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
-import org.junit.Assert
 
 class TestNuevoUsuario {
 
@@ -18,7 +19,6 @@ class TestNuevoUsuario {
 		
 			setFechaDeNacimiento(1989, 6, 28) //Nacio el 28 de junio de 1989
 			setRutina(new RutinaIntensiva)
-			
 			agregarCondicion(new CondicionHipertension)
 		]
 		
@@ -50,5 +50,22 @@ class TestNuevoUsuario {
 		Assert.assertTrue(usuarioNuevo.sigoUnaRutinaSaludable())
 	}
  
- 	 	
+ 	@Test
+ 	def void usuarioCreaReceta(){
+
+ 		usuarioNuevo.crearReceta("Pure", 200, "1) Papar 2) Pisar", "Facil", "Todo el año")
+ 		Assert.assertFalse(usuarioNuevo.misRecetas.empty)
+ 		Assert.assertTrue(usuarioNuevo.misRecetas.exists[receta | receta.devolverNombre() == "Pure"])
+ 	}
+ 		
+ 	 
+ 	@Test
+ 	def void modificaReceta(){
+ 		
+ 		usuarioNuevo.crearReceta("Pure", 200, "1) Papar 2) Pisar", "Facil", "Todo el año")
+ 		usuarioNuevo.modificarReceta("Pure", "Papada", 0, "0", "0", "0")
+ 		Assert.assertTrue((usuarioNuevo.devolverReceta("Papada")).devolverNombre() == "Papada")
+ 		
+ 	}
+ 	 
 }
