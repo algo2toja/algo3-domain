@@ -13,12 +13,13 @@ class TestNuevoUsuario {
 	def void init() {
 		usuarioNuevo = new Usuario => [
 			setNombre("Carlos")
-			setPeso(103.35)
+			setPeso(150.35)
 			setAltura(1.75)
 
 			setFechaDeNacimiento(1989, 6, 28) // Nacio el 28 de junio de 1989
-			setRutina(new RutinaIntensiva)
+			setRutina(new RutinaNula)
 			agregarCondicion(new CondicionHipertension)
+			
 		]
 
 		usuarioSinNombre = new Usuario => [
@@ -27,7 +28,6 @@ class TestNuevoUsuario {
 
 			setFechaDeNacimiento(1930, 3, 15) // Nacio el 15 de Marzo de 1930
 			setRutina(new RutinaIntensiva)
-
 			agregarCondicion(new CondicionHipertension)
 		]
 
@@ -43,7 +43,6 @@ class TestNuevoUsuario {
 		usuarioSinNombre.validarCampos()
 	}
 
-	// @Test del IMC
 	@Test
 	def void usuarioConRutinaSaludable() {
 		Assert.assertTrue(usuarioNuevo.sigoUnaRutinaSaludable())

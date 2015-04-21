@@ -37,7 +37,10 @@ class Receta implements Cloneable{
 	}
 
 	def validarCalorias() {
-		10 >= this.getCalorias && this.getCalorias <= 5000
+		if(10 >= this.getCalorias && this.getCalorias <= 5000){
+			throw new ArgumentException("Verificar la cantidad de calorias")
+		}
+		true
 	}
 
 	def List<Condicion> inadecuadaParaCondiciones() {
@@ -55,7 +58,7 @@ class Receta implements Cloneable{
 		// las cuales no se recomienda
 		if (ingredientes.exists[noRecomendableParaVeganos] || condimentos.exists[noRecomendableParaVeganos]) {
 			condicions.add(new CondicionVegano)
-		}
+		}1
 	}
 
 	def checkHipertenso(List<Condicion> condicions) {
