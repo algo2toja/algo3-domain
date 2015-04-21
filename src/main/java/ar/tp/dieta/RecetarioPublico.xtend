@@ -20,8 +20,16 @@ class RecetarioPublico implements Cloneable{
 	}
 
 	def elegirReceta(String nombre) {
+		if(this.busquedaReceta(nombre)==null){
+			throw new ArgumentException("La receta buscada no existe.")
+		}
+		this.busquedaReceta(nombre)
 		// devuelve la primer receta que conincide con el nombre pasado
-		recetas.findFirst[receta|receta.getNombreDeLaReceta == nombre]
+		
+	}
+	
+	def busquedaReceta(String nombreReceta){
+		recetas.findFirst[receta|receta.getNombreDeLaReceta == nombreReceta]
 	}
 	
 
