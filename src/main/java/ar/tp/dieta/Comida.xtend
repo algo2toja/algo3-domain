@@ -1,5 +1,8 @@
 package ar.tp.dieta
 
+import org.eclipse.xtend.lib.annotations.Accessors
+
+@Accessors
 class Comida {
 
 	// asumimos que una comida (ingrediente) es no recomendable solamente para 1 condicion preexistente

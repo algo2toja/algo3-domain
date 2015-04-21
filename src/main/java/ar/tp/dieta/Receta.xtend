@@ -5,7 +5,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import java.util.ArrayList
 
 @Accessors
-class Receta {
+class Receta implements Cloneable{
 
 	String nombreDeLaReceta
 	double calorias

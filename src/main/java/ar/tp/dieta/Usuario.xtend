@@ -167,8 +167,6 @@ class Usuario {
 		//misRecetas.add(recetario.elegirReceta(nombreReceta))
 		
 		var Receta recetaNueva
-		var List<Comida> ingredientes
-		var Comida ingrediente
 		
 		recetaNueva = new Receta => [
 			cambiarNombre(recetario.elegirReceta(nombreReceta).devolverNombre())
@@ -177,13 +175,11 @@ class Usuario {
 			setDificultadDePreparacion(recetario.elegirReceta(nombreReceta).getDificultadDePreparacion())
 			setTemporadaALaQueCorresponde((recetario.elegirReceta(nombreReceta).getTemporadaALaQueCorresponde()))
 			
-			//ingredientes = recetario.elegirReceta(nombreReceta).ingredientes.clone()
-			//recetario.elegirReceta(nombreReceta).condimentos = condimentos
-			//recetario.elegirReceta(nombreReceta).subRecetas = subRecetas	
+			ingredientes = recetario.elegirReceta(nombreReceta).ingredientes.clone()
+			condimentos = recetario.elegirReceta(nombreReceta).condimentos.clone()
+			subRecetas = recetario.elegirReceta(nombreReceta).subRecetas.clone()	
 		]
-		
-		recetaNueva.ingredientes.forEach[]
-				
+			
 		misRecetas.add(recetaNueva)
 	}
 

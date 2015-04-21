@@ -6,7 +6,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 
 @Accessors
 
-class RecetarioPublico {
+class RecetarioPublico implements Cloneable{
 	List<Receta> recetas = new ArrayList<Receta>()
 
 	def void agregarReceta(Receta unaReceta) {
