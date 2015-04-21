@@ -195,7 +195,8 @@ class Usuario {
 
 	// Devuelve una receta por el nombre (falta que tire error cuando no encuentra)
 	def devolverReceta(String nombre) {
-		misRecetas.findFirst[receta|receta.devolverNombre == nombre]
+		var Receta receta = misRecetas.findFirst[receta|receta.devolverNombre == nombre]
+		if ( receta != null){ receta }
 	}
 
 	// Modificacion de receta. Si el parametro no cambia, se debe ingresar un 0
