@@ -12,18 +12,15 @@ class Comida {
 	}
 
 	def noRecomendableParaVeganos() {
-		(nombre == "carne" || nombre == "chori" || nombre == "chivito" || nombre == "pollo"
-		)
+		(nombre == "carne" || nombre == "chori" || nombre == "chivito" || nombre == "pollo")
 	}
 
 	def noRecomendableParaDiabeticos() {
-		(nombre == "azucar" && cantidad >= 100
-		)
+		(nombre == "azucar" && cantidad >= 100)
 	}
 
 	def noRecomendableParaHipertensos() {
-		(nombre == "sal" || nombre == "caldo"
-		)
+		(nombre == "sal" || nombre == "caldo")
 	}
 
 }
