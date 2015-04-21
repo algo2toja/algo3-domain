@@ -1,9 +1,13 @@
 package ar.tp.dieta
 
+import java.util.ArrayList
 import java.util.List
+import org.eclipse.xtend.lib.annotations.Accessors
+
+@Accessors
 
 class RecetarioPublico {
-	List<Receta> recetas
+	List<Receta> recetas = new ArrayList<Receta>()
 
 	def void agregarReceta(Receta unaReceta) {
 		recetas.add(unaReceta)
@@ -17,5 +21,6 @@ class RecetarioPublico {
 		// copiar esa receta a colleccion recetas de usuario
 		recetas.findFirst[receta|receta.getNombreDeLaReceta == nombre]
 	}
+	
 
 }

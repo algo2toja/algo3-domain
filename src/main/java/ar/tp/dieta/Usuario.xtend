@@ -164,7 +164,10 @@ class Usuario {
 
 	// Agregar una receta del recetario publico a mi coleccion personal
 	def void agregarRecetaPublicaAMiColeccion(String nombreReceta, RecetarioPublico recetario) {
-		misRecetas.add(recetario.elegirReceta(nombreReceta))
+		//misRecetas.add(recetario.elegirReceta(nombreReceta))
+		var Receta receta
+		receta = recetario.elegirReceta(nombreReceta)
+		misRecetas.add(receta)
 	}
 
 	def rutinaEsIntensiva() {
