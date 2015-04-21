@@ -25,7 +25,7 @@ class TestNuevoUsuario {
 			setPeso(85.6)
 			setAltura(1.81)
 
-			setFechaDeNacimiento(1930, 3, 15) // Nacio el 28 de junio de 1989
+			setFechaDeNacimiento(1930, 3, 15) // Nacio el 15 de Marzo de 1930
 			setRutina(new RutinaIntensiva)
 
 			agregarCondicion(new CondicionHipertension)
@@ -35,12 +35,12 @@ class TestNuevoUsuario {
 
 	@Test
 	def void validarUnUsuario() {
-		usuarioNuevo.validarUsuario()
+		usuarioNuevo.validarCampos()
 	}
 
-	@Test(expected=typeof(IllegalArgumentException))
+	@Test(expected=typeof(ArgumentException))
 	def void usuarioSinNombreNoSeValida() { // Intentamos validar sin nombre, los demas requisitos se construyen igual.
-		usuarioSinNombre.validarUsuario()
+		usuarioSinNombre.validarCampos()
 	}
 
 	// @Test del IMC
