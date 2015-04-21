@@ -10,11 +10,15 @@ class TestNuevaReceta {
 	Comida zanahoria
 	Comida sal
 	
+	Comida azucar
+	
 	@Before
 	def void init(){
 		
-		zanahoria = new Comida
-		sal = new Comida
+		zanahoria = new Comida("zanahoria",10)
+		sal = new Comida("sal",20)
+		azucar = new Comida("azucar", 120)
+		
 		nuevaReceta = new Receta => [
 			setNombreDeLaReceta("Bife")
 			setCalorias(500.5)
@@ -26,6 +30,8 @@ class TestNuevaReceta {
 		
 		nuevaReceta.agregarIngrediente(zanahoria)
 		nuevaReceta.agregarCondimento(sal)
+		
+		nuevaReceta.agregarCondimento(azucar)
 	}
 
 	@Test
@@ -35,8 +41,8 @@ class TestNuevaReceta {
 	
 	@Test
 	def void recetaNoRecomendableParaDiabeticos(){
-		Assert.assertTrue(nuevaReceta.(nuevaReceta.inadeacuadaParaCondiciones()).exists[condicion | condicion.esDiabetes()])
-		
+		Assert.assertTrue(nuevaReceta.inadecuadaParaCondiciones().exists[esDiabetes])
+
 	}
 	
 
