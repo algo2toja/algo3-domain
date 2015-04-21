@@ -3,11 +3,11 @@ package ar.tp.dieta
 import ar.tp.dieta.Rutina
 
 class RutinaNula extends Rutina {
-	override rutinaEsNula(){
+	override rutinaEsNula() {
 		true
 	}
-	
-	override rutinaEsActiva(){
+
+	override rutinaEsActiva() {
 		false
 	}
 

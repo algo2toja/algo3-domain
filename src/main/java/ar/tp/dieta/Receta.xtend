@@ -41,9 +41,8 @@ class Receta {
 	}
 
 	def List<Condicion> inadecuadaParaCondiciones() {
-		//checkea por Diabetico, Hipertenso o Vegano, y agrega la condicion correspondiente
-		//a la lista que devuelve.
-
+		// checkea por Diabetico, Hipertenso o Vegano, y agrega la condicion correspondiente
+		// a la lista que devuelve.
 		var List<Condicion> condicionesADevolver = new ArrayList<Condicion>()
 		this.checkDiabetico(condicionesADevolver)
 		this.checkHipertenso(condicionesADevolver)

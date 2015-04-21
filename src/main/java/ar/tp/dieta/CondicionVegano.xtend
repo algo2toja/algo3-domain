@@ -3,11 +3,12 @@ package ar.tp.dieta
 import ar.tp.dieta.Condicion
 
 class CondicionVegano extends Condicion {
-	override esVegano(){
+	override esVegano() {
 		true
 	}
-	
-	override seSubsana(Usuario unUsuario){
-		(unUsuario.meGustaComida("fruta"))
+
+	override seSubsana(Usuario unUsuario) {
+		(unUsuario.meGustaComida("fruta")
+		)
 	}
 }

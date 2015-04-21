@@ -4,12 +4,13 @@ import ar.tp.dieta.Condicion
 
 class CondicionDiabetes extends Condicion {
 
-	override esDiabetes(){
+	override esDiabetes() {
 		true
 	}
-	
-	override seSubsana(Usuario unUsuario){
-		(unUsuario.rutinaEsActiva || unUsuario.getPeso <= 70)
+
+	override seSubsana(Usuario unUsuario) {
+		(unUsuario.rutinaEsActiva || unUsuario.getPeso <= 70
+		)
 	}
 
 }

@@ -15,40 +15,38 @@ class Usuario {
 	String nombre
 	Rutina rutina
 	List<Condicion> condicionesPreexistentes = new ArrayList<Condicion>()
-	
+
 	List<String> preferencias
 	List<String> malasPreferencias
 	List<String> cosasQueNoMeGustan
 	List<Receta> misRecetas = new ArrayList<Receta>()
-	
-	//Metodo de validacion final
-	
+
+	// Metodo de validacion final
 	def validarUsuario() {
-		((this.validarNombre) && (this.validarPeso) && (this.validarAltura) && (rutina != null) && (this.validarFechaDeNacimiento))
+		((this.validarNombre) && (this.validarPeso) && (this.validarAltura) && (rutina != null) &&
+			(this.validarFechaDeNacimiento)
+		)
 
 	}
 
-	def boolean validarNombre(){
-		if(nombre==null || nombre.length()<=4){
+	def boolean validarNombre() {
+		if (nombre == null || nombre.length() <= 4) {
 			throw new IllegalArgumentException("El nombre no fue ingresado o tiene menos de 4 caracteres.")
-		}		
-		else
-			true
-	}
-	
-	def boolean validarPeso(){
-		if(peso==null){
-			throw new IllegalArgumentException("El peso no fue ingresado.")
-		}		
-		else
+		} else
 			true
 	}
 
-	def boolean validarAltura(){
-		if(altura==null){
+	def boolean validarPeso() {
+		if (peso == null) {
+			throw new IllegalArgumentException("El peso no fue ingresado.")
+		} else
+			true
+	}
+
+	def boolean validarAltura() {
+		if (altura == null) {
 			throw new IllegalArgumentException("La altura no fue ingresada.")
-		}		
-		else
+		} else
 			true
 	}
 
@@ -56,32 +54,29 @@ class Usuario {
 		(fechaDeNacimiento != null) && (0 > fechaDeNacimiento.compareTo(this.getDiaDeHoy))
 	}
 
-	def setFechaDeNacimiento(int ano, int mes, int diaDelMes){
+	def setFechaDeNacimiento(int ano, int mes, int diaDelMes) {
 		fechaDeNacimiento = new GregorianCalendar(ano, mes, diaDelMes)
 	}
 
 	def getDiaDeHoy() {
-		//Seteo el dia de la fecha en el momento que se pide validar, y devuelvo el dia de la fecha
-		//diaDeHoy = new GregorianCalendar(Calendar.YEAR, Calendar.MONTH, Calendar.DAY_OF_MONTH)
+		// Seteo el dia de la fecha en el momento que se pide validar, y devuelvo el dia de la fecha
+		// diaDeHoy = new GregorianCalendar(Calendar.YEAR, Calendar.MONTH, Calendar.DAY_OF_MONTH)
 		diaDeHoy = new GregorianCalendar()
 	}
 
-	//Calcular indice de masa corporal
-	
+	// Calcular indice de masa corporal
 	def indiceDeMasaCorporal() {
 		peso / (Math.pow(altura, 2))
 	}
-	
-	def sigoUnaRutinaSaludable(){
-		if(condicionesPreexistentes.empty){
-			(18>=this.indiceDeMasaCorporal) && (this.indiceDeMasaCorporal<=30)
-		}
-		else
+
+	def sigoUnaRutinaSaludable() {
+		if (condicionesPreexistentes.empty) {
+			(18 >= this.indiceDeMasaCorporal) && (this.indiceDeMasaCorporal <= 30)
+		} else
 			this.subsanaTodasLasCondiciones
 	}
 
-	//Agregar condiciones preexistentes
-
+	// Agregar condiciones preexistentes
 	def void agregarCondicion(Condicion unaCondicion) {
 		condicionesPreexistentes.add(unaCondicion)
 	}
@@ -102,19 +97,20 @@ class Usuario {
 		preferencias.contains(unaComida)
 	}
 
-	//Punto 1 y 2 validacion usuario
+	// Punto 1 y 2 validacion usuario
 	def todasLasValidaciones() {
 		(validarUsuario() && diabeticoConSexo() && soyHipertensoODiabeticoYTienePreferenciasAlimenticias() &&
-			soyVeganoYTengoBuenasPreferencias())
+			soyVeganoYTengoBuenasPreferencias()
+		)
 	}
 
 	def subsanaTodasLasCondiciones() {
 
-		//T o F. Segun si las condiciones preexistentes estan subsanadas.
+		// T o F. Segun si las condiciones preexistentes estan subsanadas.
 		!condicionesPreexistentes.exists[condicion|!condicion.seSubsana(this)]
 	}
 
-	//Punto 3 usuario validacion usuario
+	// Punto 3 usuario validacion usuario
 	def soyDiabetico() {
 
 		// T o F. si existe condicion en condicionesPreexistentes que cumpla con diabetico
@@ -122,8 +118,9 @@ class Usuario {
 	}
 
 	def validarSexo() {
-		//T o F si esta seteado el sexo.
-		(sexo!=null)
+		// T o F si esta seteado el sexo.
+		(sexo != null
+		)
 	}
 
 	def diabeticoConSexo() {
@@ -139,77 +136,77 @@ class Usuario {
 	}
 
 	def soyHipertensoODiabeticoYTienePreferenciasAlimenticias() {
-		//T o F. Evalua si es (diabetico o hipertenso) tiene que tener preferencias
+		// T o F. Evalua si es (diabetico o hipertenso) tiene que tener preferencias
 		if (this.soyHipertenso() || this.soyDiabetico()) {
 			!(preferencias.empty)
 		} else
 			true
 	}
 
-	//Punto 5 Usuario validacion usuario
+	// Punto 5 Usuario validacion usuario
 	def soyVegano() {
 
-		//T o F. si existe condicion en condicionesPreexistentes que cumpla con vegano
-		condicionesPreexistentes.exists[ condicion | condicion.esVegano ]
+		// T o F. si existe condicion en condicionesPreexistentes que cumpla con vegano
+		condicionesPreexistentes.exists[condicion|condicion.esVegano]
 	}
 
-	//Revisa si en la coleccion preferencias esta carne, pollo, chivito o chori
+	// Revisa si en la coleccion preferencias esta carne, pollo, chivito o chori
 	def meGustaLaCarne() {
 		preferencias.exists[comida|comida == "carne" || comida == "chori" || comida == "chivito" || comida == "pollo"]
 	}
 
-	//Revisa si se cumple soyVegano y si no le gusta la carne
+	// Revisa si se cumple soyVegano y si no le gusta la carne
 	def soyVeganoYTengoBuenasPreferencias() {
-		(this.soyVegano() && !this.meGustaLaCarne)
+		(this.soyVegano() && !this.meGustaLaCarne
+		)
 
 	}
 
-	//Agregar una receta del recetario publico a mi coleccion personal
+	// Agregar una receta del recetario publico a mi coleccion personal
 	def void agregarRecetaPublicaAMiColeccion(String nombreReceta, RecetarioPublico recetario) {
 		misRecetas.add(recetario.elegirReceta(nombreReceta))
-	}	
-		
+	}
+
 	def rutinaEsIntensiva() {
 		rutina.rutinaEsIntensiva
 	}
-	
+
 	def rutinaEsActiva() {
 		rutina.rutinaEsActiva
 	}
 
-	//Crear una receta privada
-	def void crearReceta(String nombre, double calorias, String proceso, String dificultad, String temporada){
+	// Crear una receta privada
+	def void crearReceta(String nombre, double calorias, String proceso, String dificultad, String temporada) {
 		var Receta nuevaReceta
-		
+
 		nuevaReceta = new Receta => [
 			cambiarNombre(nombre)
 			setCalorias(calorias)
 			setProcesoDePreparacion(proceso)
 			setDificultadDePreparacion(dificultad)
 			setTemporadaALaQueCorresponde(temporada)
-			/*List<Comida> ingredientes = new ArrayList<Comida>()
-			List<Comida> condimentos = new ArrayList<Comida>()
-			List<Receta> subRecetas = new ArrayList<Receta>()*/
+		/*List<Comida> ingredientes = new ArrayList<Comida>()
+		 * List<Comida> condimentos = new ArrayList<Comida>()
+		 List<Receta> subRecetas = new ArrayList<Receta>()*/
 		]
-		
+
 		misRecetas.add(nuevaReceta)
 	}
-	
-	//Devuelve una receta por el nombre (falta que tire error cuando no encuentra)
-	
-	def devolverReceta(String nombre){
-		misRecetas.findFirst[receta | receta.devolverNombre == nombre]
+
+	// Devuelve una receta por el nombre (falta que tire error cuando no encuentra)
+	def devolverReceta(String nombre) {
+		misRecetas.findFirst[receta|receta.devolverNombre == nombre]
 	}
-	
-	//Modificacion de receta. Si el parametro no cambia, se debe ingresar un 0
-	
-	def void modificarReceta(String nombreOriginal, String nombreNuevo, double calorias, String proceso, String dificultad, String temporada){
-			
-			if(calorias != 0) (devolverReceta(nombreOriginal)).setCalorias(calorias)
-			if(proceso != "0") (devolverReceta(nombreOriginal)).setProcesoDePreparacion(proceso)
-			if(dificultad != "0") (devolverReceta(nombreOriginal)).setDificultadDePreparacion(dificultad)
-			if(temporada != "0") (devolverReceta(nombreOriginal)).setTemporadaALaQueCorresponde(temporada)
-			if(nombreNuevo != "0") (devolverReceta(nombreOriginal)).cambiarNombre(nombreNuevo)
-			
+
+	// Modificacion de receta. Si el parametro no cambia, se debe ingresar un 0
+	def void modificarReceta(String nombreOriginal, String nombreNuevo, double calorias, String proceso,
+		String dificultad, String temporada) {
+
+		if(calorias != 0) (devolverReceta(nombreOriginal)).setCalorias(calorias)
+		if(proceso != "0") (devolverReceta(nombreOriginal)).setProcesoDePreparacion(proceso)
+		if(dificultad != "0") (devolverReceta(nombreOriginal)).setDificultadDePreparacion(dificultad)
+		if(temporada != "0") (devolverReceta(nombreOriginal)).setTemporadaALaQueCorresponde(temporada)
+		if(nombreNuevo != "0") (devolverReceta(nombreOriginal)).cambiarNombre(nombreNuevo)
+
 	}
 }
