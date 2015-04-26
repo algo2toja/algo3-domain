@@ -11,16 +11,25 @@ class TestNuevoUsuario {
 	Usuario usuarioNuevo2
 	Fruta kiwi
 	Carne chori
+	RutinaSedentaria rutinaSedentaria
+	RutinaActiva rutinaIntensiva
 
 	@Before
 	def void init() {
+		
+		rutinaSedentaria = new RutinaSedentaria
+		rutinaSedentaria.setTiempoDeEjercicio(0)
+		
+		rutinaIntensiva = new RutinaActiva
+		rutinaIntensiva.setTiempoDeEjercicio(90)
+		
 		usuarioNuevo = new Usuario => [
 			setNombre("Carlos")
 			setPeso(150.10)
 			setAltura(1.75)
 
 			setFechaDeNacimiento(1989, 6, 28) // Nacio el 28 de junio de 1989
-			setRutina(new RutinaNula)
+			setRutina(rutinaSedentaria)	
 			agregarCondicion(new CondicionVegano)
 			//agregarPreferencia(chori = new Carne)
 			agregarPreferencia(kiwi = new Fruta)
@@ -34,7 +43,7 @@ class TestNuevoUsuario {
 			setAltura(1.75)
 
 			setFechaDeNacimiento(1989, 6, 28) // Nacio el 28 de junio de 1989
-			setRutina(new RutinaIntensiva)
+			setRutina(rutinaIntensiva)
 			agregarCondicion(new CondicionHipertension)
 			agregarPreferencia(kiwi = new Fruta)
 			
@@ -45,7 +54,7 @@ class TestNuevoUsuario {
 			setAltura(1.81)
 
 			setFechaDeNacimiento(1930, 3, 15) // Nacio el 15 de Marzo de 1930
-			setRutina(new RutinaIntensiva)
+			setRutina(rutinaIntensiva)
 			agregarCondicion(new CondicionHipertension)
 		]
 
