@@ -1,9 +1,28 @@
 package ar.tp.dieta
 
-import ar.tp.dieta.Rutina
-
-class RutinaActiva extends Rutina {
-	override rutinaEsActiva() {
+class RutinaActiva implements Rutina {
+	int tiempoDeEjercicio
+	
+	override rutinaEsNula(){
+		false
+	}
+	
+	override rutinaEsLeve(){
+		false
+	}
+	
+	override rutinaEsMedia(){
+		false
+	}	
+	
+//Si la rutina no tiene ejercicio adicional o tiempoDeEjercicio<30 será sólo activa.
+	override rutinaEsActiva(){
 		true
 	}
+	
+//Si la rutina tiene tiempoDeEjercicio>30 será intensiva.
+	override boolean rutinaEsIntensiva() {
+		tiempoDeEjercicio>30
+	}
+
 }

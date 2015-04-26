@@ -174,11 +174,6 @@ class Usuario {
 		preferencias.exists[comida|comida.meGustaLaCarne()]
 	}
 
-
-	/*def preferenciaCarne(Preferencia preferencia){
-		(preferencia == "carne" || preferencia == "chori" || preferencia == "chivito" || preferencia== "pollo")		
-	}*/
-
 	def rutinaEsIntensiva() {
 		rutina.rutinaEsIntensiva
 	}

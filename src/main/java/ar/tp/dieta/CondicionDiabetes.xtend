@@ -9,8 +9,7 @@ class CondicionDiabetes extends Condicion {
 	}
 
 	override seSubsana(Usuario unUsuario) {
-		(unUsuario.rutinaEsActiva || unUsuario.getPeso <= 70
-		)
+		(unUsuario.rutinaEsActiva || unUsuario.getPeso <= 70)
 	}
 
 }
