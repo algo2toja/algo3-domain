@@ -13,16 +13,17 @@ class TestUsuarioInteractuaRecetas {
 	Receta polloAsado
 	Receta papasEspañolas
 	
-	Comida lechuga = new Comida("lechuga", 1)
-	Comida patitas = new Comida("patitas", 232)
-	Comida sal = new Comida("sal", 90)
-	Comida ajo = new Comida("ajo", 2)
+	Ingrediente lechuga = new Ingrediente //1 lechuga
+	Ingrediente patitas = new IngredienteCarne //232 gramos
+	Condimento sal = new CondimentoSalado //90 gramos
+	Condimento ajo = new Condimento //2 cabezas de ajo
 
 	@Before
 	def void init() {
+		
+		lechuga.setCantidad(1)	
 
 		polloAsado = new Receta => [
-
 			cambiarNombre("pollo asado")
 			setCalorias(390)
 			setProcesoDePreparacion("	1) Cocinar 2) Comer")
@@ -38,7 +39,7 @@ class TestUsuarioInteractuaRecetas {
 
 			cambiarNombre("papas españolas")
 			setCalorias(10)
-			setProcesoDePreparacion("	1) Cocinar 2) Papar")
+			setProcesoDePreparacion("1) Cocinar 2) Papar")
 			setDificultadDePreparacion("extrema")
 			setTemporadaALaQueCorresponde("Todo el año")
 

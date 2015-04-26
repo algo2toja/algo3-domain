@@ -135,8 +135,7 @@ class Usuario {
 
 	def validarSexo() {
 		// T o F si esta seteado el sexo.
-		(sexo != null
-		)
+		(sexo != null)
 	}
 
 	def diabeticoConSexo() {

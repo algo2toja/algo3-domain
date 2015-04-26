@@ -9,26 +9,26 @@ class Receta implements Cloneable{
 
 	String nombreDeLaReceta
 	double calorias
-	List<Comida> ingredientes = new ArrayList<Comida>()
-	List<Comida> condimentos = new ArrayList<Comida>()
+	List<Ingrediente> ingredientes = new ArrayList<Ingrediente>()
+	List<Condimento> condimentos = new ArrayList<Condimento>()
 	String procesoDePreparacion
 	String dificultadDePreparacion
 	String temporadaALaQueCorresponde
 	List<Receta> subRecetas = new ArrayList<Receta>()
 
-	def void agregarIngrediente(Comida unaComida) {
-		ingredientes.add(unaComida)
+	def void agregarIngrediente(Ingrediente unIngrediente){
+		ingredientes.add(unIngrediente)
 	}
 
-	def void agregarCondimento(Comida unCondimento) {
+	def void agregarCondimento(Condimento unCondimento) {
 		condimentos.add(unCondimento)
 	}
 
-	def void removerIngrediente(Comida unaComida) {
-		ingredientes.remove(unaComida)
+	def void removerIngrediente(Ingrediente unIngrediente) {
+		ingredientes.remove(unIngrediente)
 	}
 
-	def void removerCondimento(Comida unCondimento) {
+	def void removerCondimento(Condimento unCondimento) {
 		condimentos.remove(unCondimento)
 	}
 
@@ -42,7 +42,7 @@ class Receta implements Cloneable{
 		}
 		true
 	}
-
+	
 	def List<Condicion> inadecuadaParaCondiciones() {
 		// checkea por Diabetico, Hipertenso o Vegano, y agrega la condicion correspondiente
 		// a la lista que devuelve.
@@ -53,26 +53,23 @@ class Receta implements Cloneable{
 		condicionesADevolver
 	}
 
-	def checkVegano(List<Condicion> condicions) {
-		// si algun ingrediente o condimento no se recomienda para Veganos, agrega vegano a las condiciones para
-		// las cuales no se recomienda
-		if (ingredientes.exists[noRecomendableParaVeganos] || condimentos.exists[noRecomendableParaVeganos]) {
-			condicions.add(new CondicionVegano)
-		}1
+	def checkVegano(List<Condicion> condiciones) {
+		// Si algun ingrediente no se recomienda para Veganos, agrega vegano a las condiciones para las cuales no se recomienda
+		if (ingredientes.exists[soyCarne]){
+			condiciones.add(new CondicionVegano)
+		}
 	}
 
 	def checkHipertenso(List<Condicion> condicions) {
-		// si algun ingrediente o condimento no se recomienda para hipertensos, agrega hipertension a las condiciones para
-		// las cuales no se recomienda
-		if (ingredientes.exists[noRecomendableParaHipertensos] || condimentos.exists[noRecomendableParaHipertensos]) {
+		//Si algun condimento no se recomienda para hipertensos, agrega hipertension a las condiciones para las cuales no se recomienda
+		if (condimentos.exists[noRecomendableParaHipertensos]) {
 			condicions.add(new CondicionHipertension)
 		}
 	}
 
 	def checkDiabetico(List<Condicion> condicions) {
-		// si algun ingrediente o condimento no se recomienda para diabeticos, agrega diabetes a las condiciones para
-		// las cuales no se recomienda
-		if (ingredientes.exists[noRecomendableParaDiabeticos] || condimentos.exists[noRecomendableParaDiabeticos]) {
+		//Si algun condimento no se recomienda para diabeticos, agrega diabetes a las condiciones para las cuales no se recomienda
+		if (condimentos.exists[noRecomendableParaDiabeticos]) {
 			condicions.add(new CondicionDiabetes)
 		}
 	}

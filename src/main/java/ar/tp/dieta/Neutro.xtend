@@ -8,4 +8,5 @@ class Neutro implements Preferencia {
 	}
 	override meGustaLaCarne(){
 		false
-	}}
+	}
+}
