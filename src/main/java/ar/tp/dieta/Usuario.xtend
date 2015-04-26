@@ -15,10 +15,9 @@ class Usuario {
 	String nombre
 	Rutina rutina
 	List<Condicion> condicionesPreexistentes = new ArrayList<Condicion>()
-
-	List<String> preferencias
-	List<String> malasPreferencias
-	List<String> cosasQueNoMeGustan
+	List<Preferencia> preferencias = new ArrayList<Preferencia>
+	//List<String> malasPreferencias = new ArrayList<String>     QUE HACE ESTO
+	List<String> cosasQueNoMeGustan = new ArrayList<String>
 	List<Receta> misRecetas = new ArrayList<Receta>()
 
 	// Metodo de validacion final
@@ -100,7 +99,7 @@ class Usuario {
 		rutina = unaRutina
 	}
 
-	def void agregarPreferencia(String unaComida) {
+	def void agregarPreferencia(Preferencia unaComida) {
 		preferencias.add(unaComida)
 	}
 
@@ -108,13 +107,17 @@ class Usuario {
 		cosasQueNoMeGustan.add(unaComida)
 	}
 
-	def meGustaComida(String unaComida) {
+	/*def meGustaComida(Preferencia unaComida) {
 		preferencias.contains(unaComida)
+	}*/
+	
+	def meGustaLaFruta(){
+		preferencias.exists[comida | comida.meGustaLaFruta()]
 	}
 
 	// Punto 1 y 2 validacion usuario
 	def validacionUsuario() {
-		(this.validarCampos() && this.diabeticoConSexo() && !this.validarDiabetesEHipertensionConPrefencias() &&
+		(this.validarCampos() && this.diabeticoConSexo() && this.validarDiabetesEHipertensionConPrefencias() &&
 			this.soyVeganoYTengoBuenasPreferencias()
 		)
 	}
@@ -157,7 +160,7 @@ class Usuario {
 	
 	// Revisa si se cumple soyVegano y si no le gusta la carne
 	def soyVeganoYTengoBuenasPreferencias() {
-		if((this.soyVegano() && this.soyCarnivoro)){
+		if((this.soyVegano() && this.meGustaLaCarne())){
 			throw new ArgumentException("Sos vegano y carnivoro. Asesino!")	
 		}
 		true
@@ -168,14 +171,14 @@ class Usuario {
 		condicionesPreexistentes.exists[condicion|condicion.esVegano]
 	}
 
-	def soyCarnivoro() {
-		preferencias.exists[comida|this.preferenciaCarne(comida)]
+	def meGustaLaCarne() {
+		preferencias.exists[comida|comida.meGustaLaCarne()]
 	}
 
 
-	def preferenciaCarne(String preferencia){
+	/*def preferenciaCarne(Preferencia preferencia){
 		(preferencia == "carne" || preferencia == "chori" || preferencia == "chivito" || preferencia== "pollo")		
-	}
+	}*/
 
 	def rutinaEsIntensiva() {
 		rutina.rutinaEsIntensiva

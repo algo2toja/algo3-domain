@@ -8,17 +8,35 @@ class TestNuevoUsuario {
 
 	Usuario usuarioNuevo
 	Usuario usuarioSinNombre
+	Usuario usuarioNuevo2
+	Fruta kiwi
+	Carne chori
 
 	@Before
 	def void init() {
 		usuarioNuevo = new Usuario => [
 			setNombre("Carlos")
-			setPeso(150.35)
+			setPeso(150.10)
 			setAltura(1.75)
 
 			setFechaDeNacimiento(1989, 6, 28) // Nacio el 28 de junio de 1989
 			setRutina(new RutinaNula)
+			agregarCondicion(new CondicionVegano)
+			//agregarPreferencia(chori = new Carne)
+			agregarPreferencia(kiwi = new Fruta)
+			
+			
+		]
+		
+		usuarioNuevo2 = new Usuario => [
+			setNombre("Miguel")
+			setPeso(150.35)
+			setAltura(1.75)
+
+			setFechaDeNacimiento(1989, 6, 28) // Nacio el 28 de junio de 1989
+			setRutina(new RutinaIntensiva)
 			agregarCondicion(new CondicionHipertension)
+			agregarPreferencia(kiwi = new Fruta)
 			
 		]
 
@@ -35,7 +53,9 @@ class TestNuevoUsuario {
 
 	@Test
 	def void validarUnUsuario() {
-		usuarioNuevo.validarCampos()
+		Assert.assertTrue(usuarioNuevo.validarCampos())
+		Assert.assertTrue(usuarioNuevo.validacionUsuario())
+			
 	}
 
 	@Test(expected=typeof(ArgumentException))
@@ -43,9 +63,10 @@ class TestNuevoUsuario {
 		usuarioSinNombre.validarCampos()
 	}
 
-	@Test
+	@Test //Prueba condicion vegano e hipertension subsanadas
 	def void usuarioConRutinaSaludable() {
 		Assert.assertTrue(usuarioNuevo.sigoUnaRutinaSaludable())
+		Assert.assertTrue(usuarioNuevo2.sigoUnaRutinaSaludable())
 	}
 
 	@Test
