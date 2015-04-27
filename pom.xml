@@ -9,9 +9,4 @@
 	  <artifactId>uqbar-xtend-parent</artifactId>
 	  <version>2.7.3</version>
   </parent>
-  <dependency>
-  	  <groupId>joda-time</groupId>
-  	  <artifactId>joda-time</artifactId>
-  	  <version>2.7</version>
-  </dependency>
 </project>

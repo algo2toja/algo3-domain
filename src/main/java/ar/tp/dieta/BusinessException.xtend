@@ -1,6 +1,6 @@
 package ar.tp.dieta
 
-class ArgumentException extends RuntimeException {
+class BusinessException extends RuntimeException {
 	
 	new(String message) {
 		super(message)

@@ -38,7 +38,7 @@ class Receta implements Cloneable{
 
 	def validarCalorias() {
 		if(10 >= this.getCalorias && this.getCalorias <= 5000){
-			throw new ArgumentException("Verificar la cantidad de calorias")
+			throw new BusinessException("Verificar la cantidad de calorias")
 		}
 		true
 	}

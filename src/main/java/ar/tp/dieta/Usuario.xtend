@@ -16,7 +16,6 @@ class Usuario {
 	Rutina rutina
 	List<Condicion> condicionesPreexistentes = new ArrayList<Condicion>()
 	List<Preferencia> preferencias = new ArrayList<Preferencia>
-	//List<String> malasPreferencias = new ArrayList<String>     QUE HACE ESTO
 	List<String> cosasQueNoMeGustan = new ArrayList<String>
 	List<Receta> misRecetas = new ArrayList<Receta>()
 
@@ -30,35 +29,35 @@ class Usuario {
 
 	def boolean validarRutina() {
 		if (rutina == null) {
-			throw new ArgumentException("La rutina no existe")
+			throw new BusinessException("La rutina no existe")
 		}
 		true
 	}
 
 	def boolean validarNombre() {
 		if (nombre == null || nombre.length() <= 4) {
-			throw new ArgumentException("El nombre no fue ingresado o tiene menos de 4 caracteres.")
+			throw new BusinessException("El nombre no fue ingresado o tiene menos de 4 caracteres.")
 		}
 		true
 	}
 
 	def boolean validarPeso() {
 		if (peso == null) {
-			throw new ArgumentException("El peso no fue ingresado")
+			throw new BusinessException("El peso no fue ingresado")
 		}
 		true
 	}
 
 	def boolean validarAltura() {
 		if (altura == null) {
-			throw new ArgumentException("La altura no fue ingresada.")
+			throw new BusinessException("La altura no fue ingresada.")
 		}
 		true
 	}
 
 	def validarFechaDeNacimiento() {
 		if ((fechaDeNacimiento == null) && (0 <= fechaDeNacimiento.compareTo(this.getDiaDeHoy))) {
-			throw new ArgumentException("La fecha ingresada es incorrecta")
+			throw new BusinessException("La fecha ingresada es incorrecta")
 		}
 		true
 	}
@@ -85,7 +84,7 @@ class Usuario {
 		} else
 			this.subsanaTodasLasCondiciones
 	}
-
+	
 	def validarIMC() {
 		(18 >= this.indiceDeMasaCorporal) && (this.indiceDeMasaCorporal <= 30)
 	}
@@ -124,7 +123,10 @@ class Usuario {
 
 	def subsanaTodasLasCondiciones() {
 		// T o F. Segun si las condiciones preexistentes estan subsanadas.
-		!condicionesPreexistentes.exists[condicion|!condicion.seSubsana(this)]
+		if(!condicionesPreexistentes.exists[ condicion | !condicion.seSubsana(this) ]){
+			throw new BusinessException("El usuario no subsana sus condiciones preexistentes.")
+		}
+		true
 	}
 
 	// Punto 3 usuario validacion usuario
@@ -152,7 +154,7 @@ class Usuario {
 	def validarDiabetesEHipertensionConPrefencias(){
 		// T o F. Evalua si es (diabetico o hipertenso) y no tiene preferencias
 		if( ((this.soyHipertenso) || (this.soyDiabetico()) && (preferencias.empty)) ){
-			throw new ArgumentException("La fecha ingresada es incorrecta")
+			throw new BusinessException("La fecha ingresada es incorrecta")
 		}
 			true
 	}
@@ -160,7 +162,7 @@ class Usuario {
 	// Revisa si se cumple soyVegano y si no le gusta la carne
 	def soyVeganoYTengoBuenasPreferencias() {
 		if((this.soyVegano() && this.meGustaLaCarne())){
-			throw new ArgumentException("Sos vegano y carnivoro. Asesino!")	
+			throw new BusinessException("Sos vegano y carnivoro. Asesino!")	
 		}
 		true
 	}
@@ -207,14 +209,14 @@ class Usuario {
 	// Devuelve una receta buscandola por su nombre.
 	def devolverReceta(String nombre) {
 		var Receta receta = misRecetas.findFirst[receta|receta.devolverNombre == nombre]
-		if (receta==null) {
-			throw new ArgumentException("No existe la receta en la lista de recetas.")
+		if (receta.equals(null)) {
+			throw new BusinessException("No existe la receta en la lista de recetas.")
 		}
 		receta
 	}
 
 	// Modificacion de receta.
-	def void modificarReceta(String nombreOriginal, String nombreNuevo, double calorias, String proceso,
+	def void modificarReceta(String nombreOriginal, String nombreNuevo, int calorias, String proceso,
 		String dificultad, String temporada) {
 	
 		var Receta nuevaReceta = new Receta
