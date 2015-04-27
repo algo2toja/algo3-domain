@@ -22,8 +22,9 @@ class TestAll {
 	
 	@Before
 	def void init(){
-		taeBo = new RutinaActiva
-		taeBo.setTiempoDeEjercicio(90)
+		taeBo = new RutinaActiva => [
+			setTiempoDeEjercicio(90)
+		]
 		
 		chori = new Carne
 		
@@ -83,6 +84,13 @@ class TestAll {
 		
 		//Verifica si el nombre de la receta se mantiene en la coleccion de recetas publicas
 		Assert.assertTrue((recetarioPublico.busquedaReceta("Arroz con Pollo")).getNombreDeLaReceta.equals("Arroz con Pollo"))
+	}
+	
+	@Test //Testeando que es inadecuada para veganos e hipertensos, pero no para diabeticos
+	def void recetaNoRecomendable(){
+		Assert.assertFalse(arrozConPollo.inadecuadaParaCondiciones().exists[esDiabetes])
+		Assert.assertTrue(arrozConPollo.inadecuadaParaCondiciones().exists[esVegano])
+		Assert.assertTrue(arrozConPollo.inadecuadaParaCondiciones().exists[esHipertension])
 	}
 	
 }
