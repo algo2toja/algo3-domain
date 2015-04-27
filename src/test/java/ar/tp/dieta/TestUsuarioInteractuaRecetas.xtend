@@ -13,19 +13,21 @@ class TestUsuarioInteractuaRecetas {
 	Receta polloAsado 
 	Receta papasEspañolas
 
-	Comida patitas = new Comida("patitas", 232)
-	Comida sal = new Comida("sal", 90)
-	Comida ajo = new Comida("ajo", 2)
-
+	Ingrediente patitas = new IngredienteCarne
+	Condimento sal = new CondimentoSalado
+	Condimento ajo = new Condimento
+	
 	@Before
 	def void init() {
 
-
+		patitas.setCantidad(232)
+		sal.setCantidad(90)
+		ajo.setCantidad(2)
 		polloAsado = new Receta => [
 
 			cambiarNombre("pollo asado")
 			setCalorias(390)
-			setProcesoDePreparacion("	1) Cocinar 2) Comer")
+			setProcesoDePreparacion("1) Cocinar 2) Comer")
 			setDificultadDePreparacion("jodida")
 			setTemporadaALaQueCorresponde("jueves santo")
 			agregarIngrediente(patitas)
@@ -37,7 +39,7 @@ class TestUsuarioInteractuaRecetas {
 
 			cambiarNombre("papas españolas")
 			setCalorias(10)
-			setProcesoDePreparacion("	1) Cocinar 2) Papar")
+			setProcesoDePreparacion("1) Cocinar 2) Papar")
 			setDificultadDePreparacion("extrema")
 			setTemporadaALaQueCorresponde("Todo el año")
 
@@ -62,47 +64,22 @@ class TestUsuarioInteractuaRecetas {
 	}
 	
 	@Test
-	//Ver si recetario tiene dos recetas
 	def void recetarioConDosRecetas(){
-		Assert.assertTrue(recetario.recetas.size() == 2)
+		//Ver si recetario tiene dos recetas
+		Assert.assertTrue(recetario.recetas.size().equals(2))
 	
-	//Usuario agrega una de esas recetas a su recetario
-		usuarioDePruebas.agregarRecetaPublicaAMiColeccion("pollo asado",recetario)
-		Assert.assertTrue(usuarioDePruebas.misRecetas.size == 1)
-		usuarioDePruebas.modificarReceta("pollo asado","pollito",0,"0","0","0")
-		Assert.assertTrue((usuarioDePruebas.devolverReceta("pollito")).devolverNombre() == "pollito")	
-		Assert.assertTrue((recetario.elegirReceta("pollo asado")).devolverNombre() == "pollo asado")
+		//Usuario agrega una de esas recetas a su recetario
+		usuarioDePruebas.agregarRecetaPublicaAMiColeccion("pollo asado", recetario)
+		Assert.assertTrue(usuarioDePruebas.misRecetas.size.equals(1))
 		
-	
-	
-	}
-
-
-	/*@Test
-	def void usuarioCreaReceta() {
-
-		usuarioDePruebas.crearReceta("Pure", 200, "1) Papar 2) Pisar", "Facil", "Todo el año")
-		Assert.assertFalse(usuarioDePruebas.misRecetas.empty)
-		Assert.assertTrue(usuarioDePruebas.misRecetas.exists[receta|receta.devolverNombre() == "Pure"])
-	}
-
-	@Test
-	def void modificaReceta() {
-
-		usuarioDePruebas.crearReceta("Pure", 200, "1) Papar 2) Pisar", "Facil", "Todo el año")
-		usuarioDePruebas.modificarReceta("Pure", "Papada", 0, "0", "0", "0")
-		Assert.assertTrue((usuarioDePruebas.devolverReceta("Papada")).devolverNombre() == "Papada")
-
-	}
-	@Test
-	def void modificaRecetaPublica() {
+		usuarioDePruebas.modificarReceta("pollo asado", "Pollo Asado", 1500, "1)Cocinar 2)Comer", "Dificil", "Cualquiera")
 		
-		usuarioDePruebas.modificarReceta(polloAsado.devolverNombre(), "Pollo a la parrilla", 0, "0", "0", "0")
-		Assert.assertTrue((usuarioDePruebas.devolverReceta("Pollo a la parrilla")).devolverNombre() == "Pollo a la parrilla")
-
-	}*/
-	
-	
+		//La receta ahora existe como "Pollo Asado" en la colección del usuario.
+		Assert.assertTrue((usuarioDePruebas.devolverReceta("Pollo Asado")).devolverNombre().equals("Pollo Asado"))
+		
+		//Verifico que se generó una copia de esa receta y no se modificó la original (En recetario)
+		Assert.assertTrue((recetario.elegirReceta("pollo asado")).devolverNombre().equals("pollo asado"))
+	}
 
 }
 

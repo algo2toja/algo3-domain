@@ -10,7 +10,6 @@ class TestNuevoUsuario {
 	Usuario usuarioSinNombre
 	Usuario usuarioNuevo2
 	Fruta kiwi
-	Carne chori
 	RutinaSedentaria rutinaSedentaria
 	RutinaActiva rutinaIntensiva
 
@@ -67,7 +66,7 @@ class TestNuevoUsuario {
 			
 	}
 
-	@Test(expected=typeof(ArgumentException))
+	@Test(expected=typeof(BusinessException))
 	def void usuarioSinNombreNoSeValida() { // Intentamos validar sin nombre, los demas requisitos se construyen igual.
 		usuarioSinNombre.validarCampos()
 	}
