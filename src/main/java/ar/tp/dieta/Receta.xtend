@@ -9,8 +9,8 @@ class Receta implements Cloneable{
 
 	String nombreDeLaReceta
 	double calorias
-	List<Ingrediente> ingredientes = new ArrayList<Ingrediente>()
-	List<Condimento> condimentos = new ArrayList<Condimento>()
+	ArrayList<Ingrediente> ingredientes = new ArrayList<Ingrediente>
+	List<Condimento> condimentos = new ArrayList<Condimento>
 	String procesoDePreparacion
 	String dificultadDePreparacion
 	String temporadaALaQueCorresponde

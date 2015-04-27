@@ -181,29 +181,11 @@ class Usuario {
 	def rutinaEsActiva() {
 		rutina.rutinaEsActiva
 	}
-
-
-
-/////////////////////////////////////////////////  OPTIMIZAR    /////////////////////////////
-
-	// Agregar una receta del recetario publico a mi coleccion personal
+	
+	//Copiar una recetaPublica a la coleccion de recetas del usuario
 	def void agregarRecetaPublicaAMiColeccion(String nombreReceta, RecetarioPublico recetario) {
-
-		//misRecetas.add(recetario.elegirReceta(nombreReceta))
-		var Receta recetaNueva
-
-		recetaNueva = new Receta => [
-			cambiarNombre(recetario.elegirReceta(nombreReceta).devolverNombre())
-			setCalorias(recetario.elegirReceta(nombreReceta).getCalorias())
-			setProcesoDePreparacion(recetario.elegirReceta(nombreReceta).getProcesoDePreparacion())
-			setDificultadDePreparacion(recetario.elegirReceta(nombreReceta).getDificultadDePreparacion())
-			setTemporadaALaQueCorresponde((recetario.elegirReceta(nombreReceta).getTemporadaALaQueCorresponde()))
-			ingredientes = recetario.elegirReceta(nombreReceta).ingredientes.clone()
-			condimentos = recetario.elegirReceta(nombreReceta).condimentos.clone()
-			subRecetas = recetario.elegirReceta(nombreReceta).subRecetas.clone()
-		]
-
-		misRecetas.add(recetaNueva)
+		var Receta recetaNueva = new Receta
+		misRecetas.add(recetario.copiarReceta(recetaNueva, nombreReceta))
 	}
 
 
@@ -217,31 +199,34 @@ class Usuario {
 			setProcesoDePreparacion(proceso)
 			setDificultadDePreparacion(dificultad)
 			setTemporadaALaQueCorresponde(temporada)
-		/*List<Comida> ingredientes = new ArrayList<Comida>()
-		 * List<Comida> condimentos = new ArrayList<Comida>()
-		 List<Receta> subRecetas = new ArrayList<Receta>()*/
 		]
 
 		misRecetas.add(nuevaReceta)
 	}
 
-	// Devuelve una receta por el nombre (falta que tire error cuando no encuentra)
+	// Devuelve una receta buscandola por su nombre.
 	def devolverReceta(String nombre) {
 		var Receta receta = misRecetas.findFirst[receta|receta.devolverNombre == nombre]
-		if (receta != null) {
-			receta
+		if (receta==null) {
+			throw new ArgumentException("No existe la receta en la lista de recetas.")
 		}
+		receta
 	}
 
-	// Modificacion de receta. Si el parametro no cambia, se debe ingresar un 0
+	// Modificacion de receta.
 	def void modificarReceta(String nombreOriginal, String nombreNuevo, double calorias, String proceso,
 		String dificultad, String temporada) {
-
-		if(calorias != 0) (devolverReceta(nombreOriginal)).setCalorias(calorias)
-		if(proceso != "0") (devolverReceta(nombreOriginal)).setProcesoDePreparacion(proceso)
-		if(dificultad != "0") (devolverReceta(nombreOriginal)).setDificultadDePreparacion(dificultad)
-		if(temporada != "0") (devolverReceta(nombreOriginal)).setTemporadaALaQueCorresponde(temporada)
-		if(nombreNuevo != "0") (devolverReceta(nombreOriginal)).cambiarNombre(nombreNuevo)
-
+	
+		var Receta nuevaReceta = new Receta
+		nuevaReceta = devolverReceta(nombreOriginal) //nuevaReceta ahora apunta a la receta buscada (si es que existe)
+		
+		nuevaReceta =>[
+			setProcesoDePreparacion(proceso)
+			setCalorias(calorias)
+			setDificultadDePreparacion(dificultad)
+			setTemporadaALaQueCorresponde(temporada)
+			cambiarNombre(nombreNuevo)
+		]
 	}
+
 }

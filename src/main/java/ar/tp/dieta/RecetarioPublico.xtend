@@ -29,8 +29,31 @@ class RecetarioPublico implements Cloneable{
 	}
 	
 	def busquedaReceta(String nombreReceta){
-		recetas.findFirst[receta|receta.getNombreDeLaReceta == nombreReceta]
+		recetas.findFirst[receta|receta.getNombreDeLaReceta.equals(nombreReceta)]
 	}
 	
+/*copiarReceta inicializa una nueva variable recetaTemporal, a 
+ * la que se le va a asignar la coincidencia de buscar la receta
+ * requerida en el listado de recetas (metodo busquedaReceta)
+ * luego se copiaran todos los atributos 1x1 de una receta a otra y
+ *  se retornara la nueva Receta con todos los atributos copiados*/
+	
+	def Receta copiarReceta(Receta unaReceta, String nombreReceta){
+		var Receta recetaTemporal = this.busquedaReceta(nombreReceta)
+		
+		unaReceta.setNombreDeLaReceta(recetaTemporal.getNombreDeLaReceta())
+		unaReceta.setCalorias(recetaTemporal.getCalorias())
+		unaReceta.setProcesoDePreparacion(recetaTemporal.getProcesoDePreparacion())
+		unaReceta.setDificultadDePreparacion(recetaTemporal.getDificultadDePreparacion())
+		unaReceta.setTemporadaALaQueCorresponde(recetaTemporal.getTemporadaALaQueCorresponde())
+		unaReceta.condimentos = recetaTemporal.condimentos.clone()
+		unaReceta.subRecetas = recetaTemporal.subRecetas.clone()
+		
+		//Workaround para ArrayList, en vez de usar clone se inicializa un nuevo ArrayList con el mismo contenido que recetaTemporal
+		unaReceta.ingredientes = new ArrayList<Ingrediente>(recetaTemporal.ingredientes)
 
+		//Devuelvo el objeto
+		unaReceta
+	}
+	
 }
