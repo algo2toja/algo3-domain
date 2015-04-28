@@ -9,6 +9,7 @@ class TestAll {
 	//Objetos para Usuario
 	Usuario nuevoUsuario
 	Carne chori
+	Fruta kiwi
 	RutinaActiva taeBo
 
 	//Objetos para Receta
@@ -30,6 +31,7 @@ class TestAll {
 		]
 		
 		chori = new Carne
+		kiwi = new Fruta
 		
 		nuevoUsuario = new Usuario =>[
 			setPeso(105.3)
@@ -40,6 +42,7 @@ class TestAll {
 			setRutina(taeBo)
 			agregarCondicion(new CondicionVegano)
 			agregarPreferencia(chori)
+			agregarPreferencia(kiwi)
 		]
 		
 		pollo = new IngredienteCarne
