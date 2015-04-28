@@ -6,7 +6,10 @@ import org.eclipse.xtend.lib.annotations.Accessors
 class CondimentoSalado extends Condimento{
 
 	override noRecomendableParaHipertensos() {
-		true
+		if(cantidad !=0){
+			true
+	}else{false}
+	
 	}
 	
 	override noRecomendableParaDiabeticos() {

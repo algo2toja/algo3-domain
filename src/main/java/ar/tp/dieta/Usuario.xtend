@@ -123,7 +123,7 @@ class Usuario {
 
 	def subsanaTodasLasCondiciones() {
 		// T o F. Segun si las condiciones preexistentes estan subsanadas.
-		if(!condicionesPreexistentes.exists[ condicion | !condicion.seSubsana(this) ]){
+		if(condicionesPreexistentes.exists[ condicion | !condicion.seSubsana(this) ]){
 			throw new BusinessException("El usuario no subsana sus condiciones preexistentes.")
 		}
 		true
@@ -213,6 +213,16 @@ class Usuario {
 			throw new BusinessException("No existe la receta en la lista de recetas.")
 		}
 		receta
+	}
+	
+	//Devuelve una subreceta
+	def devolverSubReceta(String nombreReceta,String nombreSubreceta){
+		
+		var Receta subreceta = devolverReceta(nombreReceta).subRecetas.findFirst[subreceta | subreceta.devolverNombre == nombreSubreceta] 
+		if(subreceta.equals(null)){
+			throw new BusinessException("No existe la subreceta en la lista de subrecetas.")
+		}
+		subreceta
 	}
 
 	// Modificacion de receta.

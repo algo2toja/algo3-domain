@@ -25,7 +25,7 @@ class RutinaActiva implements Rutina {
 	
 //Si la rutina tiene tiempoDeEjercicio>30 será intensiva.
 	override boolean rutinaEsIntensiva() {
-		tiempoDeEjercicio>30
+		(tiempoDeEjercicio>30)
 	}
 
 }

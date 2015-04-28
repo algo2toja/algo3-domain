@@ -10,11 +10,11 @@ class Receta implements Cloneable{
 	String nombreDeLaReceta
 	double calorias
 	ArrayList<Ingrediente> ingredientes = new ArrayList<Ingrediente>
-	List<Condimento> condimentos = new ArrayList<Condimento>
+	ArrayList<Condimento> condimentos = new ArrayList<Condimento>
 	String procesoDePreparacion
 	String dificultadDePreparacion
 	String temporadaALaQueCorresponde
-	List<Receta> subRecetas = new ArrayList<Receta>()
+	ArrayList<Receta> subRecetas = new ArrayList<Receta>()
 
 	def void agregarIngrediente(Ingrediente unIngrediente){
 		ingredientes.add(unIngrediente)

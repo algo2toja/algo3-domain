@@ -46,12 +46,13 @@ class RecetarioPublico implements Cloneable{
 		unaReceta.setProcesoDePreparacion(recetaTemporal.getProcesoDePreparacion())
 		unaReceta.setDificultadDePreparacion(recetaTemporal.getDificultadDePreparacion())
 		unaReceta.setTemporadaALaQueCorresponde(recetaTemporal.getTemporadaALaQueCorresponde())
-		unaReceta.condimentos = recetaTemporal.condimentos.clone()
-		unaReceta.subRecetas = recetaTemporal.subRecetas.clone()
+		//unaReceta.subRecetas = recetaTemporal.subRecetas.clone()
 		
 		//Workaround para ArrayList, en vez de usar clone se inicializa un nuevo ArrayList con el mismo contenido que recetaTemporal
 		unaReceta.ingredientes = new ArrayList<Ingrediente>(recetaTemporal.ingredientes)
-
+		unaReceta.condimentos = new ArrayList<Condimento>(recetaTemporal.condimentos)
+		unaReceta.subRecetas = new ArrayList<Receta>(recetaTemporal.subRecetas)
+		
 		//Devuelvo el objeto
 		unaReceta
 	}

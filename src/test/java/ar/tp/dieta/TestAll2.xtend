@@ -4,12 +4,13 @@ import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 
-class TestAll {
+class TestAll2 {
 	
 	//Objetos para Usuario
 	Usuario nuevoUsuario
 	Carne chori
-	RutinaActiva taeBo
+	Fruta manzana
+	RutinaSedentaria taebo
 
 	//Objetos para Receta
 	Receta arrozConPollo
@@ -20,26 +21,25 @@ class TestAll {
 	Condimento sal
 	Condimento caldo
 	
-	
-	
-	
 	@Before
 	def void init(){
-		taeBo = new RutinaActiva => [
+		taebo = new RutinaSedentaria => [
 			setTiempoDeEjercicio(90)
 		]
 		
 		chori = new Carne
+		manzana = new Fruta
 		
 		nuevoUsuario = new Usuario =>[
-			setPeso(105.3)
+			setPeso(106.2)
 			setAltura(1.95)
 			setFechaDeNacimiento(1985, 4, 13) // Nacio el 28 de junio de 1989
-			setSexo("Masculino")
+			//setSexo("Masculino")
 			setNombre("Marco")
-			setRutina(taeBo)
-			agregarCondicion(new CondicionVegano)
+			setRutina(taebo)
+			agregarCondicion(new CondicionDiabetes)
 			agregarPreferencia(chori)
+			agregarPreferencia(manzana)
 		]
 		
 		pollo = new IngredienteCarne
@@ -73,12 +73,12 @@ class TestAll {
 	
 	}
 	
-	@Test(expected=typeof(BusinessException)) //Vegano y le gusta el chori :P
+	@Test
 	def void validarUnUsuario() {
 		Assert.assertTrue(nuevoUsuario.validacionUsuario())	
 	}
 	
-	@Test
+	@Test(expected=typeof(BusinessException))
 	def void usuarioConRutinaSaludable(){
 		Assert.assertTrue(nuevoUsuario.sigoUnaRutinaSaludable())
 	}
