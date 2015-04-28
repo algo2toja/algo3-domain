@@ -5,6 +5,8 @@ import java.util.List
 import java.util.GregorianCalendar
 import java.util.ArrayList
 
+
+//ENTREGA 1
 @Accessors
 class Usuario {
 	Double peso
