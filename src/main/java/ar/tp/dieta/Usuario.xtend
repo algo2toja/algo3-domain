@@ -16,52 +16,79 @@ class Usuario {
 	String sexo
 	String nombre
 	Rutina rutina
-	List<Condicion> condicionesPreexistentes = new ArrayList<Condicion>()
-	List<Preferencia> preferencias = new ArrayList<Preferencia>
+	List<Condicion> condicionesPreexistentes = new ArrayList<Condicion>
+	List<String> preferencias = new ArrayList<String>
 	List<String> cosasQueNoMeGustan = new ArrayList<String>
-	List<Receta> misRecetas = new ArrayList<Receta>()
-
+	List<Receta> misRecetas = new ArrayList<Receta>
+	val String[] carnes = #["carne", "chivito", "chori"]
+	val String[] frutas = #["kiwi", "manzana", "pera"]
+	
+	new(String unNombre, Double unPeso, Double unaAltura,Rutina unaRutina,GregorianCalendar unaFechaDeNacimiento,List<Condicion> CondicionesPreexistentes,List<String> preferencias){
+		
+		if(!validacionUsuario(unNombre, unPeso, unaAltura, unaRutina, unaFechaDeNacimiento, CondicionesPreexistentes,preferencias)){
+			throw new BusinessException("El usuario no es valido")
+		}
+		peso = unPeso
+		altura = unaAltura
+		nombre = unNombre
+		rutina = unaRutina
+	 	fechaDeNacimiento= unaFechaDeNacimiento
+	 	condicionesPreexistentes = new ArrayList<Condicion>
+	 	preferencias = new ArrayList<String>
+	 	misRecetas = new ArrayList<Receta>
+	 	sexo = null
+		condicionesPreexistentes.validarUsuario(this)
+	}
+	
+	new(String unNombre, Double unPeso, Double unaAltura,Rutina unaRutina,GregorianCalendar unaFechaDeNacimiento,List<Condicion> CondicionesPreexistentes,List<String> preferencias,String unSexo){
+		if(!validacionUsuario(unNombre, unPeso, unaAltura, unaRutina, unaFechaDeNacimiento, CondicionesPreexistentes,preferencias)){
+			throw new BusinessException("El usuario no es valido")
+		}
+		peso = unPeso
+		altura = unaAltura
+		nombre = unNombre
+		rutina = unaRutina
+	 	fechaDeNacimiento= unaFechaDeNacimiento
+	 	condicionesPreexistentes = new ArrayList<Condicion>
+	 	preferencias = new ArrayList<String>
+	 	misRecetas = new ArrayList<Receta>
+	 	sexo = unSexo
+		condicionesPreexistentes.validarUsuario(this)
+	}
+	def boolean meGustaLaCarne(){
+		preferencias.contains(carnes)
+	}
+	
+	def boolean meGustaLaFruta(){
+		preferencias.contains(frutas)
+	}
+	
 	// Metodo de validacion final
-	def validarCampos() {
-		((this.validarNombre) && (this.validarPeso) && (this.validarAltura) && (this.validarRutina) &&
-			(this.validarFechaDeNacimiento)
+	def validarCampos(String unNombre, Double unPeso, Double unaAltura,Rutina unaRutina,GregorianCalendar unaFechaDeNacimiento,List<Condicion> CondicionesPreexistentes) {
+		!((this.validarNombre(unNombre)) && (this.validarPeso(unPeso)) && (this.validarAltura(unaAltura)) && (this.validarRutina(unaRutina)) &&
+			(this.validarFechaDeNacimiento(unaFechaDeNacimiento))
 		)
 
 	}
 
-	def boolean validarRutina() {
-		if (rutina == null) {
-			throw new BusinessException("La rutina no existe")
-		}
-		true
+	def boolean validarRutina(Rutina rutina) {
+		(rutina.equals(null))
 	}
 
-	def boolean validarNombre() {
-		if (nombre == null || nombre.length() <= 4) {
-			throw new BusinessException("El nombre no fue ingresado o tiene menos de 4 caracteres.")
-		}
-		true
+	def boolean validarNombre(String nombre) {
+		(nombre.equals(null) && nombre.length() <= 4)
 	}
 
-	def boolean validarPeso() {
-		if (peso == null) {
-			throw new BusinessException("El peso no fue ingresado")
-		}
-		true
+	def boolean validarPeso(double peso) {
+		(peso == 0)
 	}
 
-	def boolean validarAltura() {
-		if (altura == null) {
-			throw new BusinessException("La altura no fue ingresada.")
-		}
-		true
+	def boolean validarAltura(double altura) {
+		(altura == 0)
 	}
 
-	def validarFechaDeNacimiento() {
-		if ((fechaDeNacimiento == null) && (0 <= fechaDeNacimiento.compareTo(this.getDiaDeHoy))) {
-			throw new BusinessException("La fecha ingresada es incorrecta")
-		}
-		true
+	def validarFechaDeNacimiento(GregorianCalendar fechaDeNacimiento) {
+		((fechaDeNacimiento.equals(null)) && (0 <= fechaDeNacimiento.compareTo(this.getDiaDeHoy)))
 	}
 
 	def setFechaDeNacimiento(int ano, int mes, int diaDelMes) {
@@ -100,7 +127,7 @@ class Usuario {
 		rutina = unaRutina
 	}
 
-	def void agregarPreferencia(Preferencia unaComida) {
+	def void agregarPreferencia(String unaComida) {
 		preferencias.add(unaComida)
 	}
 
@@ -112,23 +139,17 @@ class Usuario {
 		preferencias.contains(unaComida)
 	}*/
 	
-	def meGustaLaFruta(){
-		preferencias.exists[comida | comida.meGustaLaFruta()]
-	}
-
 	// Punto 1 y 2 validacion usuario
-	def validacionUsuario() {
-		(this.validarCampos() && this.diabeticoConSexo() && this.validarDiabetesEHipertensionConPrefencias() &&
+	def validacionUsuario(String unNombre, Double unPeso, Double unaAltura,Rutina unaRutina,GregorianCalendar unaFechaDeNacimiento,List<Condicion> CondicionesPreexistentes,List<String> preferencias) {
+		(this.validarCampos(unNombre, unPeso, unaAltura, unaRutina, unaFechaDeNacimiento, CondicionesPreexistentes) && this.diabeticoConSexo() && this.validarDiabetesEHipertensionConPrefencias() &&
 			this.soyVeganoYTengoBuenasPreferencias()
 		)
 	}
 
 	def subsanaTodasLasCondiciones() {
 		// T o F. Segun si las condiciones preexistentes estan subsanadas.
-		if(condicionesPreexistentes.exists[ condicion | !condicion.seSubsana(this) ]){
-			throw new BusinessException("El usuario no subsana sus condiciones preexistentes.")
-		}
-		true
+		(condicionesPreexistentes.exists[ condicion | !condicion.seSubsana(this) ])
+			
 	}
 
 	// Punto 3 usuario validacion usuario
@@ -163,7 +184,7 @@ class Usuario {
 	
 	// Revisa si se cumple soyVegano y si no le gusta la carne
 	def soyVeganoYTengoBuenasPreferencias() {
-		if((this.soyVegano() && this.meGustaLaCarne())){
+		if((this.soyVegano() && this.meGustaLaFruta())){
 			throw new BusinessException("Sos vegano y carnivoro. Asesino!")	
 		}
 		true
@@ -172,10 +193,6 @@ class Usuario {
 	def soyVegano() {
 		// T o F. si existe condicion en condicionesPreexistentes que cumpla con vegano
 		condicionesPreexistentes.exists[condicion|condicion.esVegano]
-	}
-
-	def meGustaLaCarne() {
-		preferencias.exists[comida|comida.meGustaLaCarne()]
 	}
 
 	def rutinaEsIntensiva() {
