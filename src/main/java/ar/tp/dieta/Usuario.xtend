@@ -153,41 +153,9 @@ class Usuario {
 	}
 
 	// Punto 3 usuario validacion usuario
-	def soyDiabetico() {
-		// T o F. si existe condicion en condicionesPreexistentes que cumpla con diabetico
-		condicionesPreexistentes.exists([condicion|condicion.esDiabetes()])
-	}
-
-	def validarSexo() {
-		// T o F si esta seteado el sexo.
-		(sexo != null)
-	}
-
-	def diabeticoConSexo() {
-		// T o F si se cumplen simultaneamente diabetico y sexo seteado.
-		!this.soyDiabetico() || ((this.soyDiabetico() && this.validarSexo()))
-	}
-
-	def soyHipertenso() {
-
-		// T o F. si existe condicion en condicionesPreexistentes que cumpla con hioertenso
-		condicionesPreexistentes.exists[condicion|condicion.esHipertension()]
-	}
-
-	def validarDiabetesEHipertensionConPrefencias(){
-		// T o F. Evalua si es (diabetico o hipertenso) y no tiene preferencias
-		if( ((this.soyHipertenso) || (this.soyDiabetico()) && (preferencias.empty)) ){
-			throw new BusinessException("La fecha ingresada es incorrecta")
-		}
-			true
-	}
 	
-	// Revisa si se cumple soyVegano y si no le gusta la carne
-	def soyVeganoYTengoBuenasPreferencias() {
-		if((this.soyVegano() && this.meGustaLaFruta())){
-			throw new BusinessException("Sos vegano y carnivoro. Asesino!")	
-		}
-		true
+	def boolean condicionesValidas(Usuario unUsuario){
+		!(condicionesPreexistentes.exists[condicion | condicion.validarCondicion(unUsuario) == false])
 	}
 
 	def soyVegano() {

@@ -12,4 +12,7 @@ class CondicionHipertension extends Condicion {
 		(unUsuario.rutinaEsIntensiva())
 	}
 
+	override validarCondicion(Usuario unUsuario){
+		!(unUsuario.preferencias.empty)
+	}
 }

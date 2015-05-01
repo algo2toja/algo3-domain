@@ -21,5 +21,9 @@ abstract class Condicion {
 	def boolean seSubsana(Usuario unUsuario) {
 		true
 	}
+	
+	def boolean validarCondicion(Usuario unUsuario){
+		true
+	}
 
 }
