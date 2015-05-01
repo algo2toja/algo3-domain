@@ -18,168 +18,116 @@ class Usuario {
 	Rutina rutina
 	List<Condicion> condicionesPreexistentes = new ArrayList<Condicion>
 	List<String> preferencias = new ArrayList<String>
-	List<String> cosasQueNoMeGustan = new ArrayList<String>
+	List<String> comidasQueNoMeGustan = new ArrayList<String>
 	List<Receta> misRecetas = new ArrayList<Receta>
 	val String[] carnes = #["carne", "chivito", "chori"]
 	val String[] frutas = #["kiwi", "manzana", "pera"]
 	
-	new(String unNombre, Double unPeso, Double unaAltura,Rutina unaRutina,GregorianCalendar unaFechaDeNacimiento,List<Condicion> CondicionesPreexistentes,List<String> preferencias){
-		
-		if(!validacionUsuario(unNombre, unPeso, unaAltura, unaRutina, unaFechaDeNacimiento, CondicionesPreexistentes,preferencias)){
-			throw new BusinessException("El usuario no es valido")
-		}
-		peso = unPeso
-		altura = unaAltura
-		nombre = unNombre
-		rutina = unaRutina
-	 	fechaDeNacimiento= unaFechaDeNacimiento
-	 	condicionesPreexistentes = new ArrayList<Condicion>
-	 	preferencias = new ArrayList<String>
-	 	misRecetas = new ArrayList<Receta>
-	 	sexo = null
-		condicionesPreexistentes.validarUsuario(this)
-	}
-	
-	new(String unNombre, Double unPeso, Double unaAltura,Rutina unaRutina,GregorianCalendar unaFechaDeNacimiento,List<Condicion> CondicionesPreexistentes,List<String> preferencias,String unSexo){
-		if(!validacionUsuario(unNombre, unPeso, unaAltura, unaRutina, unaFechaDeNacimiento, CondicionesPreexistentes,preferencias)){
-			throw new BusinessException("El usuario no es valido")
-		}
-		peso = unPeso
-		altura = unaAltura
-		nombre = unNombre
-		rutina = unaRutina
-	 	fechaDeNacimiento= unaFechaDeNacimiento
-	 	condicionesPreexistentes = new ArrayList<Condicion>
-	 	preferencias = new ArrayList<String>
-	 	misRecetas = new ArrayList<Receta>
-	 	sexo = unSexo
-		condicionesPreexistentes.validarUsuario(this)
-	}
-	def boolean meGustaLaCarne(){
-		preferencias.contains(carnes)
-	}
-	
-	def boolean meGustaLaFruta(){
-		preferencias.contains(frutas)
+	// Punto 1 y 2 validacion usuario
+	public def validacionUsuario() {
+		(this.validarCampos() && this.condicionesValidas())
 	}
 	
 	// Metodo de validacion final
-	def validarCampos(String unNombre, Double unPeso, Double unaAltura,Rutina unaRutina,GregorianCalendar unaFechaDeNacimiento,List<Condicion> CondicionesPreexistentes) {
-		!((this.validarNombre(unNombre)) && (this.validarPeso(unPeso)) && (this.validarAltura(unaAltura)) && (this.validarRutina(unaRutina)) &&
-			(this.validarFechaDeNacimiento(unaFechaDeNacimiento))
-		)
-
+	protected def validarCampos() {
+		((this.validarNombre) && (this.validarPeso) && (this.validarAltura) && (this.validarRutina) && (this.validarFechaDeNacimiento))
 	}
 
-	def boolean validarRutina(Rutina rutina) {
-		(rutina.equals(null))
+	protected def boolean validarRutina() {
+		!(rutina.equals(null))
 	}
 
-	def boolean validarNombre(String nombre) {
-		(nombre.equals(null) && nombre.length() <= 4)
+	protected def boolean validarNombre(){
+		!(nombre.equals(null) && (nombre.length<=4))
+	//Probar solo con funcion length
 	}
 
-	def boolean validarPeso(double peso) {
-		(peso == 0)
+	protected def boolean validarPeso() {
+		!peso.equals(0)
 	}
 
-	def boolean validarAltura(double altura) {
-		(altura == 0)
+	protected def boolean validarAltura() {
+		!altura.equals(0)
 	}
 
-	def validarFechaDeNacimiento(GregorianCalendar fechaDeNacimiento) {
-		((fechaDeNacimiento.equals(null)) && (0 <= fechaDeNacimiento.compareTo(this.getDiaDeHoy)))
+	protected def validarFechaDeNacimiento() {
+		!((fechaDeNacimiento.equals(null)) && (0 <= fechaDeNacimiento.compareTo(this.getDiaDeHoy)))
 	}
 
-	def setFechaDeNacimiento(int ano, int mes, int diaDelMes) {
+	public def setFechaDeNacimiento(int ano, int mes, int diaDelMes) {
 		fechaDeNacimiento = new GregorianCalendar(ano, mes, diaDelMes)
 	}
 
-	def getDiaDeHoy() {
-
+	protected def getDiaDeHoy() {
 		// Seteo el dia de la fecha en el momento que se pide validar, y devuelvo el dia de la fecha
 		// diaDeHoy = new GregorianCalendar(Calendar.YEAR, Calendar.MONTH, Calendar.DAY_OF_MONTH)
 		diaDeHoy = new GregorianCalendar()
 	}
 
 	// Calcular indice de masa corporal
-	def indiceDeMasaCorporal() {
+	public def indiceDeMasaCorporal() {
 		peso / (Math.pow(altura, 2))
 	}
 
-	def sigoUnaRutinaSaludable() {
+	public def sigoUnaRutinaSaludable() {
 		if (condicionesPreexistentes.empty) {
 			this.validarIMC()
 		} else
 			this.subsanaTodasLasCondiciones
 	}
 	
-	def validarIMC() {
+	protected def validarIMC() {
 		(18 >= this.indiceDeMasaCorporal) && (this.indiceDeMasaCorporal <= 30)
 	}
 
-	// Agregar condiciones preexistentes
-	def void agregarCondicion(Condicion unaCondicion) {
+	//Agregar condiciones preexistentes
+	public def void agregarCondicion(Condicion unaCondicion) {
 		condicionesPreexistentes.add(unaCondicion)
 	}
 
-	def void establecerRutina(Rutina unaRutina) {
-		rutina = unaRutina
-	}
-
-	def void agregarPreferencia(String unaComida) {
+	public def void agregarPreferencia(String unaComida) {
 		preferencias.add(unaComida)
 	}
 
-	def void agregarComidaQueNoMeGusta(String unaComida) {
-		cosasQueNoMeGustan.add(unaComida)
+	public def void agregarComidaQueMeDisgusta(String unaComida) {
+		comidasQueNoMeGustan.add(unaComida)
 	}
 
-	/*def meGustaComida(Preferencia unaComida) {
-		preferencias.contains(unaComida)
-	}*/
-	
-	// Punto 1 y 2 validacion usuario
-	def validacionUsuario(String unNombre, Double unPeso, Double unaAltura,Rutina unaRutina,GregorianCalendar unaFechaDeNacimiento,List<Condicion> CondicionesPreexistentes,List<String> preferencias) {
-		(this.validarCampos(unNombre, unPeso, unaAltura, unaRutina, unaFechaDeNacimiento, CondicionesPreexistentes) && this.diabeticoConSexo() && this.validarDiabetesEHipertensionConPrefencias() &&
-			this.soyVeganoYTengoBuenasPreferencias()
-		)
-	}
-
-	def subsanaTodasLasCondiciones() {
+	protected def subsanaTodasLasCondiciones() {
 		// T o F. Segun si las condiciones preexistentes estan subsanadas.
-		(condicionesPreexistentes.exists[ condicion | !condicion.seSubsana(this) ])
-			
+		(condicionesPreexistentes.exists[ condicion | !condicion.seSubsana(this)])			
 	}
 
 	// Punto 3 usuario validacion usuario
-	
-	def boolean condicionesValidas(Usuario unUsuario){
-		!(condicionesPreexistentes.exists[condicion | condicion.validarCondicion(unUsuario) == false])
+	protected def boolean condicionesValidas(){
+		!(condicionesPreexistentes.exists[condicion | condicion.validarCondicion(this).equals(false)])
 	}
 
-	def soyVegano() {
-		// T o F. si existe condicion en condicionesPreexistentes que cumpla con vegano
-		condicionesPreexistentes.exists[condicion|condicion.esVegano]
-	}
-
-	def rutinaEsIntensiva() {
+	protected def rutinaEsIntensiva() {
 		rutina.rutinaEsIntensiva
 	}
 
-	def rutinaEsActiva() {
+	protected def rutinaEsActiva() {
 		rutina.rutinaEsActiva
 	}
 	
+	protected def boolean meGustaLaCarne(){
+		preferencias.contains(carnes)
+	}
+	
+	protected def boolean meGustaLaFruta(){
+		preferencias.contains(frutas)
+	}
+	
 	//Copiar una recetaPublica a la coleccion de recetas del usuario
-	def void agregarRecetaPublicaAMiColeccion(String nombreReceta, RecetarioPublico recetario) {
+	public def void agregarRecetaPublicaAMiColeccion(String nombreReceta, RecetarioPublico recetario) {
 		var Receta recetaNueva = new Receta
 		misRecetas.add(recetario.copiarReceta(recetaNueva, nombreReceta))
 	}
 
 
 	// Crear una receta privada
-	def void crearReceta(String nombre, double calorias, String proceso, String dificultad, String temporada) {
+	public def void crearReceta(String nombre, double calorias, String proceso, String dificultad, String temporada) {
 		var Receta nuevaReceta
 
 		nuevaReceta = new Receta => [
@@ -194,7 +142,7 @@ class Usuario {
 	}
 
 	// Devuelve una receta buscandola por su nombre.
-	def devolverReceta(String nombre) {
+	protected def devolverReceta(String nombre) {
 		var Receta receta = misRecetas.findFirst[receta|receta.devolverNombre == nombre]
 		if (receta.equals(null)) {
 			throw new BusinessException("No existe la receta en la lista de recetas.")
@@ -203,8 +151,7 @@ class Usuario {
 	}
 	
 	//Devuelve una subreceta
-	def devolverSubReceta(String nombreReceta,String nombreSubreceta){
-		
+	public def devolverSubReceta(String nombreReceta,String nombreSubreceta){
 		var Receta subreceta = devolverReceta(nombreReceta).subRecetas.findFirst[subreceta | subreceta.devolverNombre == nombreSubreceta] 
 		if(subreceta.equals(null)){
 			throw new BusinessException("No existe la subreceta en la lista de subrecetas.")
@@ -213,7 +160,7 @@ class Usuario {
 	}
 
 	// Modificacion de receta.
-	def void modificarReceta(String nombreOriginal, String nombreNuevo, int calorias, String proceso,
+	public def void modificarReceta(String nombreOriginal, String nombreNuevo, int calorias, String proceso,
 		String dificultad, String temporada) {
 	
 		var Receta nuevaReceta = new Receta

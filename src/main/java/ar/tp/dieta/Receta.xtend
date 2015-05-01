@@ -8,7 +8,7 @@ import java.util.ArrayList
 class Receta implements Cloneable{
 
 	String nombreDeLaReceta
-	double calorias
+	double calorias //Tiene que ser sumatoria de ingredientes/condimentos
 	ArrayList<Ingrediente> ingredientes = new ArrayList<Ingrediente>
 	ArrayList<Condimento> condimentos = new ArrayList<Condimento>
 	String procesoDePreparacion
