@@ -3,7 +3,7 @@ package ar.tp.dieta
 import org.eclipse.xtend.lib.annotations.Accessors
 
 @Accessors
-class RutinaSedentaria implements Rutina{
+class RutinaSedentaria extends Rutina{
 	int tiempoDeEjercicio
 	
 	override rutinaEsNula() {

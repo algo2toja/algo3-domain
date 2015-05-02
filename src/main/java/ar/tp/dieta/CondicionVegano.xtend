@@ -12,6 +12,6 @@ class CondicionVegano extends Condicion {
 	}
 	
 	override validarCondicion(Usuario unUsuario){
-		!(unUsuario.preferencias.exists[comida | comida == "chori" || comida == "chivito" || comida == "pollo" || comida == "carne"])
+		!(unUsuario.meGustaLaCarne())
 	}
 }

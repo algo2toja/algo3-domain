@@ -20,7 +20,7 @@ class Usuario {
 	List<String> preferencias = new ArrayList<String>
 	List<String> comidasQueNoMeGustan = new ArrayList<String>
 	List<Receta> misRecetas = new ArrayList<Receta>
-	val String[] carnes = #["carne", "chivito", "chori"]
+	val String[] carnes = #["carne", "chivito", "chori", "pollo"]
 	val String[] frutas = #["kiwi", "manzana", "pera"]
 	
 	// Punto 1 y 2 validacion usuario
@@ -67,13 +67,6 @@ class Usuario {
 	// Calcular indice de masa corporal
 	public def indiceDeMasaCorporal() {
 		peso / (Math.pow(altura, 2))
-	}
-
-	public def sigoUnaRutinaSaludable() {
-		if (condicionesPreexistentes.empty) {
-			this.validarIMC()
-		} else
-			this.subsanaTodasLasCondiciones
 	}
 	
 	protected def validarIMC() {
