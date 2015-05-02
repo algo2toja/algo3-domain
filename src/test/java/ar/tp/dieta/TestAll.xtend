@@ -1,7 +1,6 @@
 package ar.tp.dieta
 
 import java.util.ArrayList
-import java.util.GregorianCalendar
 import java.util.List
 import org.junit.Assert
 import org.junit.Before
@@ -11,8 +10,6 @@ class TestAll {
 	
 	//Objetos para Usuario
 	Usuario nuevoUsuario
-	//Carne chori
-	//Fruta kiwi
 	RutinaActiva taeBo
 	List<Condicion> condiciones = new ArrayList<Condicion>
 	List<String> preferencias = new ArrayList<String>
@@ -34,10 +31,7 @@ class TestAll {
 			setTiempoDeEjercicio(90)
 		]
 		
-		condiciones.add(new CondicionVegano)
-		preferencias.add("carne")
-		
-		nuevoUsuario = new Usuario("Marco",60.5,1.95,taeBo,new GregorianCalendar(1985, 4, 13),condiciones,preferencias) =>[
+		nuevoUsuario = new Usuario() =>[
 			setPeso(105.3)
 			setAltura(1.95)
 			setFechaDeNacimiento(1985, 4, 13) // Nacio el 28 de junio de 1989
@@ -45,8 +39,7 @@ class TestAll {
 			setNombre("Marco")
 			setRutina(taeBo)
 			agregarCondicion(new CondicionVegano)
-			agregarPreferencia(chori)
-			agregarPreferencia(kiwi)
+			agregarPreferencia("fruta")
 		]
 		
 		pollo = new IngredienteCarne
@@ -78,6 +71,11 @@ class TestAll {
 		recetarioPublico = new RecetarioPublico
 		recetarioPublico.agregarReceta(arrozConPollo)
 	
+	}
+	
+	@Test
+	def void validarUsuario(){
+		Assert.assertTrue(nuevoUsuario.validacionUsuario())
 	}
 	
 	@Test

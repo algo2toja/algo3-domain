@@ -21,7 +21,7 @@ class Usuario {
 	List<String> comidasQueNoMeGustan = new ArrayList<String>
 	List<Receta> misRecetas = new ArrayList<Receta>
 	val String[] carnes = #["carne", "chivito", "chori", "pollo"]
-	val String[] frutas = #["kiwi", "manzana", "pera"]
+	val String[] frutas = #["frutas", "kiwi", "manzana", "pera"]
 	
 	// Punto 1 y 2 validacion usuario
 	public def validacionUsuario() {
@@ -73,6 +73,9 @@ class Usuario {
 		(18 >= this.indiceDeMasaCorporal) && (this.indiceDeMasaCorporal <= 30)
 	}
 
+	public def boolean sigoUnaRutinaSaludable(){
+		rutina.rutinaSaludable(this)
+	} 
 	//Agregar condiciones preexistentes
 	public def void agregarCondicion(Condicion unaCondicion) {
 		condicionesPreexistentes.add(unaCondicion)
@@ -105,11 +108,13 @@ class Usuario {
 	}
 	
 	protected def boolean meGustaLaCarne(){
-		preferencias.contains(carnes)
+		//preferencias.contains(carnes)
+		preferencias.contains("carne")
 	}
 	
 	protected def boolean meGustaLaFruta(){
-		preferencias.contains(frutas)
+		//preferencias.contains(frutas)
+		preferencias.contains("fruta")
 	}
 	
 	//Copiar una recetaPublica a la coleccion de recetas del usuario
