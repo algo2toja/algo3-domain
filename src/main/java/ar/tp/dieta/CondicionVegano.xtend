@@ -3,6 +3,9 @@ package ar.tp.dieta
 import ar.tp.dieta.Condicion
 
 class CondicionVegano extends Condicion {
+	//Lista de "elementos" que no son buenos para una condicion
+	val String[] elementosNoRecomendables = #["pollo", "carne", "chivito", "chori"]
+
 	override esVegano() {
 		true
 	}
@@ -12,6 +15,11 @@ class CondicionVegano extends Condicion {
 	}
 	
 	override validarCondicion(Usuario unUsuario){
-		!(unUsuario.preferencias.exists[comida | comida == "chori" || comida == "chivito" || comida == "pollo" || comida == "carne"])
+			!(unUsuario.meGustaLaCarne())
+	}
+
+	override ingredienteEsInadecuado(ElementoDeReceta unElemento) {
+		//Si entre los elementos no recomendables esta alguno de los contenidos de la receta.
+		elementosNoRecomendables.contains(unElemento.getNombre())
 	}
 }

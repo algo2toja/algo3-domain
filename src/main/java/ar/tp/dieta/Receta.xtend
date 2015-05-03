@@ -1,89 +1,67 @@
 package ar.tp.dieta
 
-import java.util.List
-import org.eclipse.xtend.lib.annotations.Accessors
 import java.util.ArrayList
+import org.eclipse.xtend.lib.annotations.Accessors
 
 @Accessors
-class Receta implements Cloneable{
+class Receta extends ElementoDeReceta implements Cloneable {
 
 	String nombreDeLaReceta
 	double calorias //Tiene que ser sumatoria de ingredientes/condimentos
-	ArrayList<Ingrediente> ingredientes = new ArrayList<Ingrediente>
-	ArrayList<Condimento> condimentos = new ArrayList<Condimento>
+	ArrayList<ElementoDeReceta> elementosDeReceta = new ArrayList<ElementoDeReceta> //Integra ingredientes, condimentos y subrecetas.	
 	String procesoDePreparacion
 	String dificultadDePreparacion
 	String temporadaALaQueCorresponde
-	ArrayList<Receta> subRecetas = new ArrayList<Receta>()
 
 	def void agregarIngrediente(Ingrediente unIngrediente){
-		ingredientes.add(unIngrediente)
+		elementosDeReceta.add(unIngrediente)
 	}
 
-	def void agregarCondimento(Condimento unCondimento) {
-		condimentos.add(unCondimento)
+	def void agregarCondimento(Ingrediente unCondimento) {
+		elementosDeReceta.add(unCondimento)
 	}
 
 	def void removerIngrediente(Ingrediente unIngrediente) {
-		ingredientes.remove(unIngrediente)
+		elementosDeReceta.remove(unIngrediente)
 	}
 
-	def void removerCondimento(Condimento unCondimento) {
-		condimentos.remove(unCondimento)
+	def void removerCondimento(Ingrediente unCondimento) {
+		elementosDeReceta.remove(unCondimento)
 	}
 
-	def validar() {
-		this.validarCalorias && !ingredientes.empty
+	def validar(){
+		this.validarCalorias && !elementosDeReceta.empty
 	}
 
 	def validarCalorias() {
-		if(10 >= this.getCalorias && this.getCalorias <= 5000){
-			throw new BusinessException("Verificar la cantidad de calorias")
-		}
-		true
+		//Devuelve T o F segun la receta tenga las calorias necesarias o no
+		(10 >= this.getCalorias && this.getCalorias <= 5000)
 	}
 	
-	def List<Condicion> inadecuadaParaCondiciones() {
-		// checkea por Diabetico, Hipertenso o Vegano, y agrega la condicion correspondiente
-		// a la lista que devuelve.
-		var List<Condicion> condicionesADevolver = new ArrayList<Condicion>()
-		this.checkDiabetico(condicionesADevolver)
-		this.checkHipertenso(condicionesADevolver)
-		this.checkVegano(condicionesADevolver)
-		condicionesADevolver
+	public def boolean inadecuadaParaCondiciones(Condicion unaCondicion){
+		//Para cada condicion de la receta, que chequee si cada uno de los elementos de la receta es conveniente o no.
+		elementosDeReceta.exists[ elemento | elemento.soyInadecuadoParaCondicion(unaCondicion) ]
 	}
-
-	def checkVegano(List<Condicion> condiciones) {
-		// Si algun ingrediente no se recomienda para Veganos, agrega vegano a las condiciones para las cuales no se recomienda
-		if (ingredientes.exists[soyCarne]){
-			condiciones.add(new CondicionVegano)
-		}
-	}
-
-	def checkHipertenso(List<Condicion> condicions) {
-		//Si algun condimento no se recomienda para hipertensos, agrega hipertension a las condiciones para las cuales no se recomienda
-		if (condimentos.exists[noRecomendableParaHipertensos]) {
-			condicions.add(new CondicionHipertension)
-		}
-	}
-
-	def checkDiabetico(List<Condicion> condicions) {
-		//Si algun condimento no se recomienda para diabeticos, agrega diabetes a las condiciones para las cuales no se recomienda
-		if (condimentos.exists[noRecomendableParaDiabeticos]) {
-			condicions.add(new CondicionDiabetes)
-		}
+	
+	public def boolean esInadecuadaParaUsuario(Usuario unUsuario) {
+		//Para cada condicion del usuario, llamo al método para ver si es inadecuada la receta.
+		unUsuario.condicionesPreexistentes.exists[ condicion | this.inadecuadaParaCondiciones(condicion)]
 	}
 
 	def agregarSubreceta(Receta unaSubreceta) {
-		subRecetas.add(unaSubreceta)
+		 elementosDeReceta.add(unaSubreceta)
 	}
 
 	def cambiarNombre(String nombre) {
-		nombreDeLaReceta = nombre
+		setNombreDeLaReceta(nombre)
 	}
 
 	def devolverNombre() {
-		nombreDeLaReceta
+		getNombreDeLaReceta()
+	}
+	
+	override soyInadecuadoParaCondicion(Condicion unaCondicion) {
+		elementosDeReceta.exists[ elemento | elemento.soyInadecuadoParaCondicion(unaCondicion)]
 	}
 
 }

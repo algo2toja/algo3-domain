@@ -20,8 +20,6 @@ class Usuario {
 	List<String> preferencias = new ArrayList<String>
 	List<String> comidasQueNoMeGustan = new ArrayList<String>
 	List<Receta> misRecetas = new ArrayList<Receta>
-	val String[] carnes = #["carne", "chivito", "chori"]
-	val String[] frutas = #["kiwi", "manzana", "pera"]
 	
 	// Punto 1 y 2 validacion usuario
 	public def validacionUsuario() {
@@ -112,11 +110,11 @@ class Usuario {
 	}
 	
 	protected def boolean meGustaLaCarne(){
-		preferencias.contains(carnes)
+		preferencias.contains("carne")
 	}
 	
 	protected def boolean meGustaLaFruta(){
-		preferencias.contains(frutas)
+		preferencias.contains("fruta")
 	}
 	
 	//Copiar una recetaPublica a la coleccion de recetas del usuario
@@ -143,7 +141,7 @@ class Usuario {
 
 	// Devuelve una receta buscandola por su nombre.
 	protected def devolverReceta(String nombre) {
-		var Receta receta = misRecetas.findFirst[receta|receta.devolverNombre == nombre]
+		var Receta receta = misRecetas.findFirst[receta|receta.devolverNombre.equals(nombre)]
 		if (receta.equals(null)) {
 			throw new BusinessException("No existe la receta en la lista de recetas.")
 		}
@@ -152,11 +150,11 @@ class Usuario {
 	
 	//Devuelve una subreceta
 	public def devolverSubReceta(String nombreReceta,String nombreSubreceta){
-		var Receta subreceta = devolverReceta(nombreReceta).subRecetas.findFirst[subreceta | subreceta.devolverNombre == nombreSubreceta] 
-		if(subreceta.equals(null)){
+		var ElementoDeReceta subReceta = devolverReceta(nombreReceta).elementosDeReceta.findFirst[subReceta | subReceta.getNombre.equals(nombreSubreceta)] 
+		if(subReceta.equals(null)){
 			throw new BusinessException("No existe la subreceta en la lista de subrecetas.")
 		}
-		subreceta
+		subReceta
 	}
 
 	// Modificacion de receta.
@@ -173,6 +171,10 @@ class Usuario {
 			setTemporadaALaQueCorresponde(temporada)
 			cambiarNombre(nombreNuevo)
 		]
+	}
+	
+	def boolean meConvieneReceta(Receta receta) {
+		receta.esInadecuadaParaUsuario(this) 
 	}
 
 }
