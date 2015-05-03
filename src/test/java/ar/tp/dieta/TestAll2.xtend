@@ -8,8 +8,6 @@ class TestAll2 {
 	
 	//Objetos para Usuario
 	Usuario nuevoUsuario
-	Carne chori
-	Fruta manzana
 	RutinaSedentaria taebo
 
 	//Objetos para Receta
@@ -27,9 +25,6 @@ class TestAll2 {
 			setTiempoDeEjercicio(90)
 		]
 		
-		chori = new Carne
-		manzana = new Fruta
-		
 		nuevoUsuario = new Usuario =>[
 			setPeso(106.2)
 			setAltura(1.95)
@@ -38,8 +33,8 @@ class TestAll2 {
 			setNombre("Marco")
 			setRutina(taebo)
 			agregarCondicion(new CondicionDiabetes)
-			agregarPreferencia(chori)
-			agregarPreferencia(manzana)
+			agregarPreferencia("chori")
+			agregarPreferencia("manzana")
 		]
 		
 		pollo = new IngredienteCarne

@@ -20,6 +20,8 @@ class Usuario {
 	List<String> preferencias = new ArrayList<String>
 	List<String> comidasQueNoMeGustan = new ArrayList<String>
 	List<Receta> misRecetas = new ArrayList<Receta>
+	List<Grupo> misGrupos
+	List<Receta> recetasFavoritas = new ArrayList<Receta>
 	val String[] carnes = #["carne", "chivito", "chori", "pollo"]
 	val String[] frutas = #["frutas", "kiwi", "manzana", "pera"]
 	
@@ -123,6 +125,12 @@ class Usuario {
 		misRecetas.add(recetario.copiarReceta(recetaNueva, nombreReceta))
 	}
 
+	public def void agregarRecetaDeGrupo(Grupo unGrupo, String nombreReceta){
+		var Receta recetaNueva = new Receta
+		misRecetas.add(unGrupo.copiarReceta(this, unGrupo, recetaNueva,nombreReceta))
+		
+	}
+		
 
 	// Crear una receta privada
 	public def void crearReceta(String nombre, double calorias, String proceso, String dificultad, String temporada) {
@@ -140,9 +148,11 @@ class Usuario {
 	}
 
 	// Devuelve una receta buscandola por su nombre.
-	protected def devolverReceta(String nombre) {
+	public def devolverReceta(String nombre) {
 		var Receta receta = misRecetas.findFirst[receta|receta.devolverNombre == nombre]
 		if (receta.equals(null)) {
+		
+			
 			throw new BusinessException("No existe la receta en la lista de recetas.")
 		}
 		receta
@@ -172,5 +182,14 @@ class Usuario {
 			cambiarNombre(nombreNuevo)
 		]
 	}
+
+	def void agregarRecetaFavoritaDeRecetario(String nombre, RecetarioPublico recetario){
+		recetasFavoritas.add(recetario.busquedaReceta(nombre))
+	}
+	
+	def void agregarRecetaFavoritaDeGrupo(Grupo unGrupo, String nombre){
+		recetasFavoritas.add(unGrupo.devolverRecetaDeMiembro(this, nombre))
+	}
+	
 
 }
