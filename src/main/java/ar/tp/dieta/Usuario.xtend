@@ -20,10 +20,13 @@ class Usuario {
 	List<String> preferencias = new ArrayList<String>
 	List<String> comidasQueNoMeGustan = new ArrayList<String>
 	List<Receta> misRecetas = new ArrayList<Receta>
+<<<<<<< HEAD
 	List<Grupo> misGrupos
 	List<Receta> recetasFavoritas = new ArrayList<Receta>
 	val String[] carnes = #["carne", "chivito", "chori", "pollo"]
 	val String[] frutas = #["frutas", "kiwi", "manzana", "pera"]
+=======
+>>>>>>> fix_receta
 	
 	// Punto 1 y 2 validacion usuario
 	public def validacionUsuario() {
@@ -110,12 +113,18 @@ class Usuario {
 	}
 	
 	protected def boolean meGustaLaCarne(){
+<<<<<<< HEAD
 		//preferencias.contains(carnes)
+=======
+>>>>>>> fix_receta
 		preferencias.contains("carne")
 	}
 	
 	protected def boolean meGustaLaFruta(){
+<<<<<<< HEAD
 		//preferencias.contains(frutas)
+=======
+>>>>>>> fix_receta
 		preferencias.contains("fruta")
 	}
 	
@@ -148,8 +157,13 @@ class Usuario {
 	}
 
 	// Devuelve una receta buscandola por su nombre.
+<<<<<<< HEAD
 	public def devolverReceta(String nombre) {
 		var Receta receta = misRecetas.findFirst[receta|receta.devolverNombre == nombre]
+=======
+	protected def devolverReceta(String nombre) {
+		var Receta receta = misRecetas.findFirst[receta|receta.devolverNombre.equals(nombre)]
+>>>>>>> fix_receta
 		if (receta.equals(null)) {
 		
 			
@@ -160,11 +174,11 @@ class Usuario {
 	
 	//Devuelve una subreceta
 	public def devolverSubReceta(String nombreReceta,String nombreSubreceta){
-		var Receta subreceta = devolverReceta(nombreReceta).subRecetas.findFirst[subreceta | subreceta.devolverNombre == nombreSubreceta] 
-		if(subreceta.equals(null)){
+		var ElementoDeReceta subReceta = devolverReceta(nombreReceta).elementosDeReceta.findFirst[subReceta | subReceta.getNombre.equals(nombreSubreceta)] 
+		if(subReceta.equals(null)){
 			throw new BusinessException("No existe la subreceta en la lista de subrecetas.")
 		}
-		subreceta
+		subReceta
 	}
 
 	// Modificacion de receta.
@@ -181,6 +195,10 @@ class Usuario {
 			setTemporadaALaQueCorresponde(temporada)
 			cambiarNombre(nombreNuevo)
 		]
+	}
+	
+	def boolean meConvieneReceta(Receta receta) {
+		receta.esInadecuadaParaUsuario(this) 
 	}
 
 	def void agregarRecetaFavoritaDeRecetario(String nombre, RecetarioPublico recetario){

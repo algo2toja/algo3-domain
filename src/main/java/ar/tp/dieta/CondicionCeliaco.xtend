@@ -7,5 +7,9 @@ class CondicionCeliaco extends Condicion {
 	override esCeliaco() {
 		true
 	}
-
+	
+	override ingredienteEsInadecuado(ElementoDeReceta unElemento) {
+		false
+	}
+		
 }

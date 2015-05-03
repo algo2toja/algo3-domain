@@ -1,13 +1,10 @@
 package ar.tp.dieta
 
-import org.eclipse.xtend.lib.annotations.Accessors
-
-@Accessors
-class Ingrediente{
+//Ingrediente integra tanto condimentos (sal,azucar, etc.) como ingredientes (carne, pollo, etc.)
+class Ingrediente extends ElementoDeReceta{
 	
-	int cantidad
-	
-	def boolean soyCarne(){
-		false
+	override soyInadecuadoParaCondicion(Condicion unaCondicion) {
+		unaCondicion.ingredienteEsInadecuado(this)
 	}
+	
 }
