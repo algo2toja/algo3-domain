@@ -15,15 +15,11 @@ class CondicionVegano extends Condicion {
 	}
 	
 	override validarCondicion(Usuario unUsuario){
-<<<<<<< HEAD
 		!(unUsuario.meGustaLaCarne())
-=======
-			!(unUsuario.meGustaLaCarne())
 	}
 
 	override ingredienteEsInadecuado(ElementoDeReceta unElemento) {
 		//Si entre los elementos no recomendables esta alguno de los contenidos de la receta.
 		elementosNoRecomendables.contains(unElemento.getNombre())
->>>>>>> fix_receta
 	}
 }
