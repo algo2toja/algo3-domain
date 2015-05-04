@@ -1,10 +1,10 @@
 package ar.tp.dieta
 
-import org.eclipse.xtend.lib.annotations.Accessors
-import java.util.List
-import java.util.GregorianCalendar
 import java.util.ArrayList
-
+import java.util.GregorianCalendar
+import java.util.Iterator
+import java.util.List
+import org.eclipse.xtend.lib.annotations.Accessors
 
 //ENTREGA 1
 @Accessors
@@ -195,23 +195,24 @@ class Usuario {
 						//////////////////////RECETAS QUE PUEDO VER//////////////////////////
 	def List<Receta> recetasQuePuedoVer(RecetarioPublico recetario){
 		val List<Receta> recetasQueVeo = new ArrayList<Receta>
-		misRecetas.forEach[receta | recetasQueVeo.add(receta)]
 		recetario.recetas.forEach[receta | recetasQueVeo.add(receta)]
 		misGrupos.forEach[grupo | grupo.devolverTodosLosMiembros.forEach[usuario | usuario.misRecetas.forEach[receta | recetasQueVeo.add(receta)]]]
 		recetasQueVeo
 	}
 
-	def List<Receta> busquedaFiltrada(){
-		var List<Receta> recetasSinFiltrar = new ArrayList<Receta>
-		if(misFiltros.equals(null)){
-			recetasSinFiltrar
-		}else{
-			
-		}
+	def List<Receta> busquedaFiltrada(RecetarioPublico recetario){
+		var List<Receta> recetasFiltradas = recetasQuePuedoVer(recetario)
+	
+		if(!misFiltros.empty){
+			var Iterator<Filtro> iterFiltro = misFiltros.iterator()
+	 		while(iterFiltro.hasNext){
+	   			recetasFiltradas = (iterFiltro.next).aplicarFiltro(this,recetasFiltradas)
+			}
+		}recetasFiltradas
 	}
 	
 	def tePuedoSugerirEstaReceta(Receta receta){
-		(!receta.esInadecuadaParaUsuario(this) && noMeGustaEstaReceta(receta)).equals(true)
+		(!receta.esInadecuadaParaUsuario(this) && noMeGustaEstaReceta(receta))
 		
 	}
 	
