@@ -2,7 +2,9 @@ package ar.tp.dieta
 
 import java.util.ArrayList
 import java.util.List
+import org.eclipse.xtend.lib.annotations.Accessors
 
+@Accessors
 class Grupo {
 	String nombre
 	List<String> preferencias = new ArrayList<String>
@@ -18,17 +20,14 @@ class Grupo {
 		miembros.contains(unUsuario)
 	}
 	
-	def Receta devolverRecetaDeMiembro(Usuario unUsuario, String nombreReceta){
+	def Receta devolverRecetaDeMiembro(String nombreReceta){
 		var Usuario miembro
-		if(esMiembro(unUsuario)){
-			miembro = miembros.findFirst[usuario | usuario.devolverReceta(nombreReceta) != null]
-			miembro.devolverReceta(nombreReceta)	
+		miembro = miembros.findFirst[usuario | usuario.devolverReceta(nombreReceta) != null]
+		miembro.devolverReceta(nombreReceta)	
 		}
-	}
-	
 	
 	def Receta copiarReceta(Usuario unUsuario, Grupo unGrupo,Receta unaReceta, String nombreReceta){
-		var Receta recetaTemporal = this.devolverRecetaDeMiembro(unUsuario, nombreReceta)
+		var Receta recetaTemporal = this.devolverRecetaDeMiembro(nombreReceta)
 		
 		unaReceta.setNombreDeLaReceta(recetaTemporal.getNombreDeLaReceta())
 		unaReceta.setCalorias(recetaTemporal.getCalorias())
@@ -38,12 +37,23 @@ class Grupo {
 		//unaReceta.subRecetas = recetaTemporal.subRecetas.clone()
 		
 		//Workaround para ArrayList, en vez de usar clone se inicializa un nuevo ArrayList con el mismo contenido que recetaTemporal
-		unaReceta.ingredientes = new ArrayList<Ingrediente>(recetaTemporal.ingredientes)
-		unaReceta.condimentos = new ArrayList<Condimento>(recetaTemporal.condimentos)
-		unaReceta.subRecetas = new ArrayList<Receta>(recetaTemporal.subRecetas)
+		unaReceta.elementosDeReceta = new ArrayList<ElementoDeReceta>(recetaTemporal.elementosDeReceta)
 		
 		//Devuelvo el objeto
 		unaReceta
 	}
+	
+	def List<Usuario> devolverTodosLosMiembros(){
+		miembros
+	}
+	
+	def tePuedoSugerirEstaReceta(Receta receta){
+		!miembros.exists[usuario | receta.esInadecuadaParaUsuario(usuario)] && meGustaEstaReceta(receta)
+	}
+	
+	def meGustaEstaReceta(Receta receta){
+		preferencias.exists[ingrediente | receta.elementosDeReceta.contains(ingrediente)]
+	}
+	
 	
 }

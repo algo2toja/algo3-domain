@@ -20,8 +20,9 @@ class Usuario {
 	List<String> preferencias = new ArrayList<String>
 	List<String> comidasQueNoMeGustan = new ArrayList<String>
 	List<Receta> misRecetas = new ArrayList<Receta>
-	List<Grupo> misGrupos
+	List<Grupo> misGrupos = new ArrayList<Grupo>
 	List<Receta> recetasFavoritas = new ArrayList<Receta>
+	List<Filtro> misFiltros = new ArrayList<Filtro>
 
 	// Punto 1 y 2 validacion usuario
 	public def validacionUsuario() {
@@ -145,7 +146,7 @@ class Usuario {
 	}
 
 	// Devuelve una receta buscandola por su nombre.
-	protected def devolverReceta(String nombre) {
+	public def devolverReceta(String nombre) {
 		var Receta receta = misRecetas.findFirst[receta|receta.devolverNombre.equals(nombre)]
 		if (receta.equals(null)) {
 			throw new BusinessException("No existe la receta en la lista de recetas.")
@@ -181,13 +182,41 @@ class Usuario {
 	def boolean meConvieneReceta(Receta receta) {
 		receta.esInadecuadaParaUsuario(this) 
 	}
-
+	
+						////////////////////////RECETA FAVORITA//////////////////////////////
 	def void agregarRecetaFavoritaDeRecetario(String nombre, RecetarioPublico recetario){
 		recetasFavoritas.add(recetario.busquedaReceta(nombre))
 	}
 	
 	def void agregarRecetaFavoritaDeGrupo(Grupo unGrupo, String nombre){
-		recetasFavoritas.add(unGrupo.devolverRecetaDeMiembro(this, nombre))
+		recetasFavoritas.add(unGrupo.devolverRecetaDeMiembro(nombre))
+	}
+
+						//////////////////////RECETAS QUE PUEDO VER//////////////////////////
+	def List<Receta> recetasQuePuedoVer(RecetarioPublico recetario){
+		val List<Receta> recetasQueVeo = new ArrayList<Receta>
+		misRecetas.forEach[receta | recetasQueVeo.add(receta)]
+		recetario.recetas.forEach[receta | recetasQueVeo.add(receta)]
+		misGrupos.forEach[grupo | grupo.devolverTodosLosMiembros.forEach[usuario | usuario.misRecetas.forEach[receta | recetasQueVeo.add(receta)]]]
+		recetasQueVeo
+	}
+
+	def List<Receta> busquedaFiltrada(){
+		var List<Receta> recetasSinFiltrar = new ArrayList<Receta>
+		if(misFiltros.equals(null)){
+			recetasSinFiltrar
+		}else{
+			
+		}
+	}
+	
+	def tePuedoSugerirEstaReceta(Receta receta){
+		(!receta.esInadecuadaParaUsuario(this) && noMeGustaEstaReceta(receta)).equals(true)
+		
+	}
+	
+	def noMeGustaEstaReceta(Receta receta){
+		comidasQueNoMeGustan.exists[ingrediente | receta.elementosDeReceta.contains(ingrediente)]
 	}
 
 }
