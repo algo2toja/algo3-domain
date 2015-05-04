@@ -8,8 +8,8 @@ class TestNuevaReceta {
 
 	Receta nuevaReceta
 	Ingrediente zanahoria
-	Condimento sal
-	Condimento azucar
+	Ingrediente sal
+	Ingrediente azucar
 
 	@Before
 	def void init() {
@@ -17,12 +17,13 @@ class TestNuevaReceta {
 		zanahoria = new Ingrediente
 		zanahoria.setCantidad(10)
 		
-		sal = new CondimentoSalado
+		sal = new Ingrediente
 		sal.setCantidad(20)
 		
-		azucar = new CondimentoAzucarado
-		azucar.setCantidad(120)
-
+		azucar = new Ingrediente =>[
+			setNombre("azucar")
+			setCantidad(120)
+		]
 		nuevaReceta = new Receta => [
 			setNombreDeLaReceta("Bife")
 			setCalorias(500.5)
@@ -37,14 +38,6 @@ class TestNuevaReceta {
 
 	@Test
 	def void tengoIngredientes() {
-		Assert.assertFalse(nuevaReceta.ingredientes.empty)
+		Assert.assertFalse(nuevaReceta.elementosDeReceta.empty)
 	}
-
-	@Test //Testeando que tenga  solo a diabeticos como condicion no compatible para la receta
-	def void recetaNoRecomendable(){
-		Assert.assertTrue(nuevaReceta.inadecuadaParaCondiciones().exists[esDiabetes])
-		Assert.assertFalse(nuevaReceta.inadecuadaParaCondiciones().exists[esVegano])
-		Assert.assertFalse(nuevaReceta.inadecuadaParaCondiciones().exists[esHipertension])
-	}
-
 }

@@ -9,7 +9,6 @@ class TestNuevoUsuario {
 	Usuario usuarioNuevo
 	Usuario usuarioSinNombre
 	Usuario usuarioNuevo2
-	Fruta kiwi
 	RutinaSedentaria rutinaSedentaria
 	RutinaActiva rutinaIntensiva
 
@@ -27,11 +26,11 @@ class TestNuevoUsuario {
 			setPeso(150.10)
 			setAltura(1.75)
 
-			setFechaDeNacimiento(1989, 6, 28) // Nacio el 28 de junio de 1989
+			setFechaDeNacimiento(1989, 6, 28)
 			setRutina(rutinaSedentaria)	
 			agregarCondicion(new CondicionVegano)
-			//agregarPreferencia(chori = new Carne)
-			agregarPreferencia(kiwi = new Fruta)
+			agregarPreferencia("chori")
+			agregarPreferencia("fruta")
 			
 			
 		]
@@ -41,10 +40,10 @@ class TestNuevoUsuario {
 			setPeso(150.35)
 			setAltura(1.75)
 
-			setFechaDeNacimiento(1989, 6, 28) // Nacio el 28 de junio de 1989
+			setFechaDeNacimiento(1989, 6, 28)
 			setRutina(rutinaIntensiva)
 			agregarCondicion(new CondicionHipertension)
-			agregarPreferencia(kiwi = new Fruta)
+			agregarPreferencia("fruta")
 			
 		]
 
@@ -66,8 +65,9 @@ class TestNuevoUsuario {
 			
 	}
 
-	@Test(expected=typeof(BusinessException))
-	def void usuarioSinNombreNoSeValida() { // Intentamos validar sin nombre, los demas requisitos se construyen igual.
+	@Test(expected=typeof(NullPointerException))
+	def void usuarioSinNombreNoSeValida() {
+		//NullPointer ya que no tiene nombre
 		usuarioSinNombre.validarCampos()
 	}
 

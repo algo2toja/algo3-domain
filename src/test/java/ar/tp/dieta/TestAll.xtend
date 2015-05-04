@@ -1,7 +1,5 @@
 package ar.tp.dieta
 
-import java.util.ArrayList
-import java.util.List
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -11,19 +9,15 @@ class TestAll {
 	//Objetos para Usuario
 	Usuario nuevoUsuario
 	RutinaActiva taeBo
-	List<Condicion> condiciones = new ArrayList<Condicion>
-	List<String> preferencias = new ArrayList<String>
+
 	//Objetos para Receta
 	Receta arrozConPollo
 	RecetarioPublico recetarioPublico
 	Ingrediente arroz
 	Ingrediente pollo
-	Ingrediente zanahoria
-	Condimento sal
-	Condimento caldo
-	
-	
-	
+	Ingrediente morron
+	Ingrediente sal
+	Ingrediente caldo
 	
 	@Before
 	def void init(){
@@ -33,8 +27,8 @@ class TestAll {
 		
 		nuevoUsuario = new Usuario() =>[
 			setPeso(105.3)
-			setAltura(1.95)
-			setFechaDeNacimiento(1985, 4, 13) // Nacio el 28 de junio de 1989
+			setAltura(1.75)
+			setFechaDeNacimiento(1985, 4, 13) // Nacio el 13 de Abril de 1985
 			setSexo("Masculino")
 			setNombre("Marco")
 			setRutina(taeBo)
@@ -42,21 +36,31 @@ class TestAll {
 			agregarPreferencia("fruta")
 		]
 		
-		pollo = new IngredienteCarne
-		pollo.setCantidad(250)
+		pollo = new Ingrediente => [
+			setCantidad(250)
+			setNombre("pollo")
+		]
+
+		arroz = new Ingrediente => [
+			setCantidad(250)
+			setNombre("arroz")
+		]
+
+		morron = new Ingrediente =>[
+			setCantidad(1)
+			setNombre("morron")
+		]
 		
-		arroz = new Ingrediente
-		arroz.setCantidad(250)
-		
-		zanahoria = new Ingrediente
-		zanahoria.setCantidad(1)
-		
-		sal = new CondimentoSalado
-		sal.setCantidad(0)
-		
-		caldo = new CondimentoSalado
-		caldo.setCantidad(1)
-				
+		sal = new Ingrediente => [
+			setCantidad(0)
+			setNombre("sal")
+		]
+
+		caldo = new Ingrediente =>[
+			setCantidad(1)
+			setNombre("caldo")
+		]	
+
 		arrozConPollo = new Receta => [
 			setNombreDeLaReceta("Arroz con Pollo")
 			setCalorias(500)
@@ -96,18 +100,15 @@ class TestAll {
 	
 		//Verifica si el ingrediente y el condimento solo se agrego en la receta del usuario y no en la publica
 		
-		nuevoUsuario.devolverReceta("arroz con llopo").agregarIngrediente(zanahoria)
+		nuevoUsuario.devolverReceta("arroz con llopo").agregarIngrediente(morron)
 		nuevoUsuario.devolverReceta("arroz con llopo").agregarCondimento(caldo)
 		
-		Assert.assertTrue((nuevoUsuario.devolverReceta("arroz con llopo").ingredientes.contains(zanahoria)))
-		Assert.assertFalse((recetarioPublico.busquedaReceta("Arroz con Pollo")).ingredientes.contains(zanahoria))
-		Assert.assertTrue((nuevoUsuario.devolverReceta("arroz con llopo").condimentos.contains(caldo)))
-		Assert.assertFalse((recetarioPublico.busquedaReceta("Arroz con Pollo")).condimentos.contains(caldo))
+		Assert.assertTrue((nuevoUsuario.devolverReceta("arroz con llopo").elementosDeReceta.contains(morron)))
+		Assert.assertFalse((recetarioPublico.busquedaReceta("Arroz con Pollo")).elementosDeReceta.contains(morron))
+		Assert.assertTrue((nuevoUsuario.devolverReceta("arroz con llopo").elementosDeReceta.contains(caldo)))
+		Assert.assertFalse((recetarioPublico.busquedaReceta("Arroz con Pollo")).elementosDeReceta.contains(caldo))
 	
-		//Verifica si la receta no es apta para veganos, ni para hipertensos
-		Assert.assertFalse((nuevoUsuario.devolverReceta("arroz con llopo")).inadecuadaParaCondiciones().exists[esDiabetes])
-		Assert.assertTrue((nuevoUsuario.devolverReceta("arroz con llopo")).inadecuadaParaCondiciones().exists[esVegano])
-		Assert.assertTrue((nuevoUsuario.devolverReceta("arroz con llopo")).inadecuadaParaCondiciones().exists[esHipertension])
+		//El usuario es Vegano, el arroz con pollo no le tiene que gustar, o sea que es falso.
+		Assert.assertFalse(nuevoUsuario.meConvieneReceta(arrozConPollo))
 	}
-	
 }

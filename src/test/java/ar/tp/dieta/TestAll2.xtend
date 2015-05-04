@@ -16,8 +16,8 @@ class TestAll2 {
 	Ingrediente arroz
 	Ingrediente pollo
 	Ingrediente zanahoria
-	Condimento sal
-	Condimento caldo
+	Ingrediente sal
+	Ingrediente caldo
 	
 	@Before
 	def void init(){
@@ -25,11 +25,11 @@ class TestAll2 {
 			setTiempoDeEjercicio(90)
 		]
 		
-		nuevoUsuario = new Usuario =>[
+		nuevoUsuario = new Usuario => [
 			setPeso(106.2)
 			setAltura(1.95)
-			setFechaDeNacimiento(1985, 4, 13) // Nacio el 28 de junio de 1989
-			//setSexo("Masculino")
+			setFechaDeNacimiento(1985, 4, 13)
+			setSexo("Masculino")
 			setNombre("Marco")
 			setRutina(taebo)
 			agregarCondicion(new CondicionDiabetes)
@@ -37,28 +37,37 @@ class TestAll2 {
 			agregarPreferencia("manzana")
 		]
 		
-		pollo = new IngredienteCarne
-		pollo.setCantidad(250)
+		pollo = new Ingrediente => [
+			setNombre("pollo")
+			setCantidad(10)
+		]
 		
-		arroz = new Ingrediente
-		arroz.setCantidad(250)
+		arroz = new Ingrediente => [
+			setCantidad(250)
+			setNombre("arroz")
+		]
 		
-		zanahoria = new Ingrediente
-		zanahoria.setCantidad(1)
+		zanahoria = new Ingrediente => [
+			setCantidad(1)
+			setNombre("zanahoria")
+		]
 		
-		sal = new CondimentoSalado
-		sal.setCantidad(0)
+		sal = new Ingrediente =>[
+			setCantidad(0)
+			setNombre("sal")
+		]
 		
-		caldo = new CondimentoSalado
-		caldo.setCantidad(1)
-				
+		caldo = new Ingrediente => [
+			setCantidad(1)
+			setNombre("caldo")
+		]				
+		
 		arrozConPollo = new Receta => [
 			setNombreDeLaReceta("Arroz con Pollo")
 			setCalorias(500)
 			setProcesoDePreparacion("1)Hervir el arroz y el Pollo 2)Agregar azafran y mezclar 3)Comer")
 			setDificultadDePreparacion("Media")
 			setTemporadaALaQueCorresponde("Cualquiera")
-			agregarIngrediente(pollo)
 			agregarIngrediente(arroz)
 			agregarCondimento(sal)
 		]
@@ -69,11 +78,11 @@ class TestAll2 {
 	}
 	
 	@Test
-	def void validarUnUsuario() {
-		Assert.assertTrue(nuevoUsuario.validacionUsuario())	
+	def void validarUnUsuario(){
+		Assert.assertFalse(nuevoUsuario.validacionUsuario())	
 	}
 	
-	@Test(expected=typeof(BusinessException))
+	@Test
 	def void usuarioConRutinaSaludable(){
 		Assert.assertTrue(nuevoUsuario.sigoUnaRutinaSaludable())
 	}
@@ -94,15 +103,13 @@ class TestAll2 {
 		nuevoUsuario.devolverReceta("arroz con llopo").agregarIngrediente(zanahoria)
 		nuevoUsuario.devolverReceta("arroz con llopo").agregarCondimento(caldo)
 		
-		Assert.assertTrue((nuevoUsuario.devolverReceta("arroz con llopo").ingredientes.contains(zanahoria)))
-		Assert.assertFalse((recetarioPublico.busquedaReceta("Arroz con Pollo")).ingredientes.contains(zanahoria))
-		Assert.assertTrue((nuevoUsuario.devolverReceta("arroz con llopo").condimentos.contains(caldo)))
-		Assert.assertFalse((recetarioPublico.busquedaReceta("Arroz con Pollo")).condimentos.contains(caldo))
+		Assert.assertTrue((nuevoUsuario.devolverReceta("arroz con llopo").elementosDeReceta.contains(zanahoria)))
+		Assert.assertFalse((recetarioPublico.busquedaReceta("Arroz con Pollo")).elementosDeReceta.contains(zanahoria))
+		Assert.assertTrue((nuevoUsuario.devolverReceta("arroz con llopo").elementosDeReceta.contains(caldo)))
+		Assert.assertFalse((recetarioPublico.busquedaReceta("Arroz con Pollo")).elementosDeReceta.contains(caldo))
 	
 		//Verifica si la receta no es apta para veganos, ni para hipertensos
-		Assert.assertFalse((nuevoUsuario.devolverReceta("arroz con llopo")).inadecuadaParaCondiciones().exists[esDiabetes])
-		Assert.assertTrue((nuevoUsuario.devolverReceta("arroz con llopo")).inadecuadaParaCondiciones().exists[esVegano])
-		Assert.assertTrue((nuevoUsuario.devolverReceta("arroz con llopo")).inadecuadaParaCondiciones().exists[esHipertension])
+		Assert.assertFalse(nuevoUsuario.meConvieneReceta(arrozConPollo))
 	}
 	
 }

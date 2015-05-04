@@ -76,6 +76,7 @@ class Usuario {
 	public def boolean sigoUnaRutinaSaludable(){
 		rutina.rutinaSaludable(this)
 	} 
+	
 	//Agregar condiciones preexistentes
 	public def void agregarCondicion(Condicion unaCondicion) {
 		condicionesPreexistentes.add(unaCondicion)

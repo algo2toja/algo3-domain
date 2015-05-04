@@ -13,16 +13,28 @@ class TestUsuarioInteractuaRecetas {
 	Receta polloAsado 
 	Receta papasEspañolas
 
-	Ingrediente patitas = new IngredienteCarne
-	Condimento sal = new CondimentoSalado
-	Condimento ajo = new Condimento
+	Ingrediente patitas
+	Ingrediente sal
+	Ingrediente ajo
 	
 	@Before
 	def void init() {
 
-		patitas.setCantidad(232)
-		sal.setCantidad(90)
-		ajo.setCantidad(2)
+		patitas = new Ingrediente =>[
+			setCantidad(232)
+			setNombre("patitas")
+		]
+
+		sal = new Ingrediente => [
+			setCantidad(90)
+			setNombre("sal")
+		]
+		
+		ajo = new Ingrediente => [
+			setCantidad(2)
+			setNombre("ajo")
+		]
+		
 		polloAsado = new Receta => [
 
 			cambiarNombre("pollo asado")
