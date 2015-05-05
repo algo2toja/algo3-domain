@@ -108,7 +108,7 @@ class TestEntregaDos {
 		var List<Receta> recetasFiltradas = new ArrayList<Receta>
 		usuarioNormal.misGrupos.add(grupoConHipertenso)
 		grupoConHipertenso.agregarUsuario(usuarioNormal)
-		arrozBlanco.setCalorias(500)
+		arrozBlanco.setCalorias(100)
 		ensalada.setCalorias(499)
 		asado.setCalorias(501)
 		recetario.agregarReceta(arrozBlanco)
@@ -117,10 +117,10 @@ class TestEntregaDos {
 		usuarioNormal.misFiltros.add(new FiltroExcesoDeCalorias)
 		
 		recetasFiltradas = usuarioNormal.busquedaFiltrada(recetario)
-		
-		Assert.assertTrue(recetasFiltradas.exists[equals(arrozBlanco)])
-		Assert.assertTrue(recetasFiltradas.exists[equals(ensalada)])
 		Assert.assertFalse(recetasFiltradas.exists[equals(asado)])
+		Assert.assertTrue(recetasFiltradas.exists[equals(ensalada)])
+		Assert.assertTrue(recetasFiltradas.exists[equals(arrozBlanco)])
+		
 		
 		}
 /*	
