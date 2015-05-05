@@ -104,7 +104,7 @@ class TestEntregaDos {
 	}
 	
 	@Test
-	def recetasSeFiltranPorCalorias(){
+	def combinacionDeFiltros(){
 		var List<Receta> recetasFiltradas = new ArrayList<Receta>
 		usuarioNormal.misGrupos.add(grupoConHipertenso)
 		grupoConHipertenso.agregarUsuario(usuarioNormal)
@@ -114,13 +114,16 @@ class TestEntregaDos {
 		recetario.agregarReceta(arrozBlanco)
 		usuarioHipertenso.misRecetas.add(ensalada)
 		usuarioNormal.misRecetas.add(asado)
-		usuarioNormal.misFiltros.add(new FiltroExcesoDeCalorias)
+		usuarioNormal.agregarComidaQueMeDisgusta("arroz")
+		//usuarioNormal.misFiltros.add(new FiltroExcesoDeCalorias)
+		//usuarioNormal.misFiltros.add(new FiltroPorGustos)
+		usuarioNormal.setProceso(new PosteriorBusquedaOrdenadoCalorias)
 		
 		recetasFiltradas = usuarioNormal.busquedaFiltrada(recetario)
-		Assert.assertFalse(recetasFiltradas.exists[equals(asado)])
+		Assert.assertTrue(recetasFiltradas.exists[equals(asado)])
 		Assert.assertTrue(recetasFiltradas.exists[equals(ensalada)])
 		Assert.assertTrue(recetasFiltradas.exists[equals(arrozBlanco)])
-		
+		Assert.assertTrue(recetasFiltradas.get(0).equals(arrozBlanco))
 		
 		}
 /*	
