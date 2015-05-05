@@ -13,7 +13,6 @@ class TestEntregaDos {
 	Usuario usuarioVegano = new Usuario
 	Usuario usuarioHipertenso = new Usuario
 	Usuario usuarioDiabetico = new Usuario
-	Grupo	grupoConVegano = new Grupo
 	Grupo	grupoConHipertenso = new Grupo
 	Receta	recetaPropia = new Receta
 	Receta	recetaPorGrupo = new Receta
@@ -30,6 +29,8 @@ class TestEntregaDos {
 	
 	
 	
+	
+	
 	@Before
 	def void init(){
 		usuarioVegano.condicionesPreexistentes.add(new CondicionVegano)
@@ -37,6 +38,9 @@ class TestEntregaDos {
 		usuarioHipertenso.condicionesPreexistentes.add(new CondicionHipertension)
 		
 		grupoConHipertenso.agregarUsuario(usuarioHipertenso)
+		
+		usuarioNormal.setAltura(1.3)
+		usuarioNormal.setPeso(150.0)
 		
 		sal.setNombre("sal")
 		cebolla.setNombre("cebolla")
@@ -84,15 +88,46 @@ class TestEntregaDos {
 		var List<Receta> recetasQuePuedeVer = new ArrayList<Receta>
 		recetario.agregarReceta(recetaPublica)
 		usuarioNormal.misRecetas.add(recetaPrivada)
-		usuarioDiabetico.misRecetas.add(recetaPropia)
-		usuarioHipertenso.misRecetas.add(recetaPorGrupo)
 		
 		grupoConHipertenso.agregarUsuario(usuarioDiabetico)
 		
+		usuarioDiabetico.misRecetas.add(recetaPropia)
+		usuarioDiabetico.misGrupos.add(grupoConHipertenso)
+		usuarioHipertenso.misRecetas.add(recetaPorGrupo)
+
 		recetasQuePuedeVer = usuarioDiabetico.recetasQuePuedoVer(recetario)
 		
 		Assert.assertTrue(recetasQuePuedeVer.exists[rec| rec.equals(recetaPublica)])
-		Assert.assertTrue(recetasQuePuedeVer.exists[rec| rec.equals(recetaPublica)])
+		Assert.assertTrue(recetasQuePuedeVer.exists[rec| rec.equals(recetaPorGrupo)])
+		Assert.assertTrue(recetasQuePuedeVer.exists[rec| rec.equals(recetaPropia)])
+		Assert.assertFalse(recetasQuePuedeVer.exists[rec| rec.equals(recetaPrivada)])
+	}
+	
+	@Test
+	def recetasSeFiltranPorCalorias(){
+		var List<Receta> recetasFiltradas = new ArrayList<Receta>
+		usuarioNormal.misGrupos.add(grupoConHipertenso)
+		grupoConHipertenso.agregarUsuario(usuarioNormal)
+		arrozBlanco.setCalorias(500)
+		ensalada.setCalorias(499)
+		asado.setCalorias(501)
+		recetario.agregarReceta(arrozBlanco)
+		usuarioHipertenso.misRecetas.add(ensalada)
+		usuarioNormal.misRecetas.add(asado)
+		usuarioNormal.misFiltros.add(new FiltroExcesoDeCalorias)
+		
+		recetasFiltradas = usuarioNormal.busquedaFiltrada(recetario)
+		
+		Assert.assertTrue(recetasFiltradas.exists[equals(arrozBlanco)])
+		Assert.assertTrue(recetasFiltradas.exists[equals(ensalada)])
+		Assert.assertFalse(recetasFiltradas.exists[equals(asado)])
+		
+		}
+/*	
+	@Test
+	def void usuarioAgregaRecetaAFavoritos(){
 		
 	}
+	* 
+	*/
 }

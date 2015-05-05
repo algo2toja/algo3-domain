@@ -148,7 +148,7 @@ class Usuario {
 	}
 
 	// Devuelve una receta buscandola por su nombre.
-	public def devolverReceta(String nombre) {
+	public def devolverReceta(String nombre) {// tambien buscar sobre las que puede ver
 		var Receta receta = misRecetas.findFirst[receta|receta.devolverNombre.equals(nombre)]
 		if (receta.equals(null)) {
 			throw new BusinessException("No existe la receta en la lista de recetas.")
@@ -200,8 +200,9 @@ class Usuario {
 		
 		recetario.recetas.forEach[receta | recetasQueVeo.add(receta)]//esta probada
 		
-		misGrupos.forEach[grupo | grupo.devolverTodosLosMiembros.forEach[usuario | usuario.misRecetas.forEach[receta | recetasQueVeo.add(receta)]]]
+		misGrupos.forEach[grupo | recetasQueVeo.addAll[grupo.recetasDelGrupoPara(this).iterator]]
 		
+		recetasQueVeo.addAll[misRecetas.iterator]
 		recetasQueVeo
 	}
 

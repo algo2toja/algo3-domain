@@ -15,8 +15,17 @@ class Grupo {
 		unUsuario.misGrupos.remove(this)
 	}
 	
+	def recetasDelGrupoPara(Usuario unUsuario){
+		//todas las recetas de los usuarios de un grupo, exepto de unUsuario
+		miembros.filter[usr | usr != unUsuario].map[misRecetas].flatten()
+	}
+	
 	def boolean esMiembro(Usuario unUsuario){
 		miembros.contains(unUsuario)
+	}
+	
+	def agregarUsuario(Usuario unUsuario){
+		miembros.add(unUsuario)
 	}
 	
 	def Receta devolverRecetaDeMiembro(String nombreReceta){
@@ -51,7 +60,7 @@ class Grupo {
 	}
 	
 	def meGustaEstaReceta(Receta receta){
-		preferencias.exists[ingrediente | receta.elementosDeReceta.contains(ingrediente)]
+		preferencias.exists[ingrediente | receta.elementosDeReceta.exists(elem | elem.getNombre.equals(ingrediente))]
 	}
 	
 	
