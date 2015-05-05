@@ -21,12 +21,13 @@ class TestEntregaDos {
 	Receta  ensalada = new Receta
 	Receta	asado = new Receta
 	Receta  arrozBlanco = new Receta
+	Receta  arrozConPollo = new Receta
 	
 	Ingrediente cebolla = new Ingrediente
 	Ingrediente carne = new Ingrediente
 	Ingrediente sal = new Ingrediente
 	Ingrediente arroz = new Ingrediente
-	
+	Ingrediente pollo = new Ingrediente
 	
 	
 	
@@ -46,6 +47,7 @@ class TestEntregaDos {
 		cebolla.setNombre("cebolla")
 		carne.setNombre("carne")
 		arroz.setNombre("arroz")
+		pollo.setNombre("pollo")
 		
 		ensalada.agregarIngrediente(sal)
 		ensalada.agregarIngrediente(cebolla)
@@ -54,6 +56,9 @@ class TestEntregaDos {
 		asado.agregarIngrediente(sal)
 		
 		arrozBlanco.agregarIngrediente(arroz)
+		
+		arrozConPollo.agregarIngrediente(pollo)
+		arrozConPollo.agregarIngrediente(arroz)
 		
 	}
 	
@@ -104,33 +109,41 @@ class TestEntregaDos {
 	}
 	
 	@Test
-	def combinacionDeFiltros(){
+	def combinacionDeFiltrosYProcesoPostBusqueda(){
 		var List<Receta> recetasFiltradas = new ArrayList<Receta>
+		var List<Receta> recetasProcesadas = new ArrayList<Receta>
 		usuarioNormal.misGrupos.add(grupoConHipertenso)
 		grupoConHipertenso.agregarUsuario(usuarioNormal)
-		arrozBlanco.setCalorias(100)
-		ensalada.setCalorias(499)
+		
+		arrozBlanco.setCalorias(499)
+		ensalada.setCalorias(100)
 		asado.setCalorias(501)
+		arrozConPollo.setCalorias(200)
+		
 		recetario.agregarReceta(arrozBlanco)
+		recetario.agregarReceta(arrozConPollo)
+		
 		usuarioHipertenso.misRecetas.add(ensalada)
+		
 		usuarioNormal.misRecetas.add(asado)
-		usuarioNormal.agregarComidaQueMeDisgusta("arroz")
-		//usuarioNormal.misFiltros.add(new FiltroExcesoDeCalorias)
-		//usuarioNormal.misFiltros.add(new FiltroPorGustos)
-		usuarioNormal.setProceso(new PosteriorBusquedaOrdenadoCalorias)
+		usuarioNormal.agregarComidaQueMeDisgusta("pollo") 						// le disgusta el pollo
+		usuarioNormal.misFiltros.add(new FiltroExcesoDeCalorias)
+		usuarioNormal.misFiltros.add(new FiltroPorGustos)
+		
 		
 		recetasFiltradas = usuarioNormal.busquedaFiltrada(recetario)
-		Assert.assertTrue(recetasFiltradas.exists[equals(asado)])
+		Assert.assertFalse(recetasFiltradas.exists[equals(asado)]) 				//descarta el asado por las caloias
+		Assert.assertFalse(recetasFiltradas.exists[equals(arrozConPollo)])		// descarta el arroz con pollo por los gustos
+		
 		Assert.assertTrue(recetasFiltradas.exists[equals(ensalada)])
 		Assert.assertTrue(recetasFiltradas.exists[equals(arrozBlanco)])
-		Assert.assertTrue(recetasFiltradas.get(0).equals(arrozBlanco))
 		
+		Assert.assertTrue(recetasFiltradas.get(0).equals(arrozBlanco))			// el primero es el arroz
+		
+		
+		usuarioNormal.setProceso(new PosteriorBusquedaOrdenadoCalorias)
+		recetasProcesadas = usuarioNormal.aplicarProcesamientoBusqueda(recetasFiltradas)
+		Assert.assertTrue(recetasProcesadas.get(0).equals(ensalada)) 			//ahora despues de ordenar, el primero es la ensalada
+		Assert.assertTrue(recetasProcesadas.get(1).equals(arrozBlanco))
 		}
-/*	
-	@Test
-	def void usuarioAgregaRecetaAFavoritos(){
-		
-	}
-	* 
-	*/
 }
