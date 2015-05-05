@@ -9,8 +9,7 @@ class Grupo {
 	String nombre
 	List<String> preferencias = new ArrayList<String>
 	List<Usuario> miembros = new ArrayList<Usuario>
-	
-	
+		
 	def void eliminarUsuario(Usuario unUsuario){
 		miembros.remove(unUsuario)
 		unUsuario.misGrupos.remove(this)

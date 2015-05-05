@@ -23,7 +23,9 @@ class Usuario {
 	List<Grupo> misGrupos = new ArrayList<Grupo>
 	List<Receta> recetasFavoritas = new ArrayList<Receta>
 	List<Filtro> misFiltros = new ArrayList<Filtro>
-
+	PosteriorBusqueda proceso = new PosteriorBusqueda
+	
+	
 	// Punto 1 y 2 validacion usuario
 	public def validacionUsuario() {
 		(this.validarCampos() && this.condicionesValidas())
@@ -218,6 +220,10 @@ class Usuario {
 	
 	def noMeGustaEstaReceta(Receta receta){
 		comidasQueNoMeGustan.exists[ingrediente | receta.elementosDeReceta.contains(ingrediente)]
+	}
+	
+	def tieneSobrepeso() {
+		indiceDeMasaCorporal >= 30
 	}
 
 }

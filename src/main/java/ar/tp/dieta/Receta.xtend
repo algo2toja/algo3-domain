@@ -63,5 +63,9 @@ class Receta extends ElementoDeReceta implements Cloneable {
 	override soyInadecuadoParaCondicion(Condicion unaCondicion) {
 		elementosDeReceta.exists[ elemento | elemento.soyInadecuadoParaCondicion(unaCondicion)]
 	}
+	
+	def exesoDeCalorias() {
+		calorias > 500
+	}
 
 }
