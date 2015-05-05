@@ -197,8 +197,11 @@ class Usuario {
 						//////////////////////RECETAS QUE PUEDO VER//////////////////////////
 	def List<Receta> recetasQuePuedoVer(RecetarioPublico recetario){
 		val List<Receta> recetasQueVeo = new ArrayList<Receta>
-		recetario.recetas.forEach[receta | recetasQueVeo.add(receta)]
+		
+		recetario.recetas.forEach[receta | recetasQueVeo.add(receta)]//esta probada
+		
 		misGrupos.forEach[grupo | grupo.devolverTodosLosMiembros.forEach[usuario | usuario.misRecetas.forEach[receta | recetasQueVeo.add(receta)]]]
+		
 		recetasQueVeo
 	}
 
@@ -214,12 +217,12 @@ class Usuario {
 	}
 	
 	def tePuedoSugerirEstaReceta(Receta receta){
-		(!receta.esInadecuadaParaUsuario(this) && noMeGustaEstaReceta(receta))
+		!(receta.esInadecuadaParaUsuario(this)) && !noMeGustaEstaReceta(receta)
 		
 	}
 	
 	def noMeGustaEstaReceta(Receta receta){
-		comidasQueNoMeGustan.exists[ingrediente | receta.elementosDeReceta.contains(ingrediente)]
+		(comidasQueNoMeGustan.exists[ingrediente | receta.elementosDeReceta.exists(elem | elem.getNombre.equals(ingrediente))])
 	}
 	
 	def tieneSobrepeso() {
