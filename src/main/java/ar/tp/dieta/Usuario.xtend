@@ -229,5 +229,9 @@ class Usuario {
 	def tieneSobrepeso() {
 		indiceDeMasaCorporal >= 30
 	}
+	
+	def aplicarProcesamientoBusqueda(List<Receta> recetas) {
+		proceso.procesarBusqueda(recetas)
+	}
 
 }
