@@ -9,6 +9,7 @@ class Grupo {
 	String nombre
 	List<String> preferencias = new ArrayList<String>
 	List<Usuario> miembros = new ArrayList<Usuario>
+	RecetarioPublico recetario = new RecetarioPublico
 		
 	def void eliminarUsuario(Usuario unUsuario){
 		miembros.remove(unUsuario)
@@ -63,5 +64,11 @@ class Grupo {
 		preferencias.exists[ingrediente | receta.elementosDeReceta.exists(elem | elem.getNombre.equals(ingrediente))]
 	}
 	
+	def devolverRecetas(){
+		val List<Receta> recetasDeGrupo = new ArrayList<Receta>
+		recetasDeGrupo.addAll(recetario.recetas)
+		recetasDeGrupo.addAll(miembros.map[misRecetas].flatten())
+		recetasDeGrupo
+	}
 	
 }

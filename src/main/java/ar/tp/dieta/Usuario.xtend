@@ -212,7 +212,7 @@ class Usuario {
 		if(!misFiltros.empty){
 			var Iterator<Filtro> iterFiltro = misFiltros.iterator()
 	 		while(iterFiltro.hasNext){
-	   			recetasFiltradas = (iterFiltro.next).aplicarFiltro(this,recetasFiltradas)
+	   			recetasFiltradas = (iterFiltro.next).aplicarFiltroUsuario(this,recetasFiltradas)
 			}
 		}recetasFiltradas
 	}
@@ -233,5 +233,6 @@ class Usuario {
 	def aplicarProcesamientoBusqueda(List<Receta> recetas) {
 		proceso.procesarBusqueda(recetas)
 	}
+	
 
 }
