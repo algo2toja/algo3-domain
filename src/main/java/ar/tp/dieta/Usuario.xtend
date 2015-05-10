@@ -24,7 +24,7 @@ class Usuario {
 	List<Receta> recetasFavoritas = new ArrayList<Receta>
 	List<Filtro> misFiltros = new ArrayList<Filtro>
 	PosteriorBusqueda proceso = new PosteriorBusqueda
-	
+	RecetarioPublico recetario = new RecetarioPublico
 	
 	// Punto 1 y 2 validacion usuario
 	public def validacionUsuario() {
@@ -120,7 +120,7 @@ class Usuario {
 	}
 	
 	//Copiar una recetaPublica a la coleccion de recetas del usuario
-	public def void agregarRecetaPublicaAMiColeccion(String nombreReceta, RecetarioPublico recetario) {
+	public def void agregarRecetaPublicaAMiColeccion(String nombreReceta) {
 		var Receta recetaNueva = new Receta
 		misRecetas.add(recetario.copiarReceta(recetaNueva, nombreReceta))
 	}
@@ -195,8 +195,9 @@ class Usuario {
 	}
 
 						//////////////////////RECETAS QUE PUEDO VER//////////////////////////
-	def List<Receta> recetasQuePuedoVer(RecetarioPublico recetario){
+	protected def List<Receta> recetasQuePuedoVer(){
 		val List<Receta> recetasQueVeo = new ArrayList<Receta>
+		
 		
 		recetario.recetas.forEach[receta | recetasQueVeo.add(receta)]//esta probada
 		
@@ -206,15 +207,16 @@ class Usuario {
 		recetasQueVeo
 	}
 
-	def List<Receta> busquedaFiltrada(RecetarioPublico recetario){
-		var List<Receta> recetasFiltradas = recetasQuePuedoVer(recetario)
+	def List<Receta> busquedaFiltrada(){
+		var List<Receta> recetasFiltradas = recetasQuePuedoVer()
 	
 		if(!misFiltros.empty){
 			var Iterator<Filtro> iterFiltro = misFiltros.iterator()
 	 		while(iterFiltro.hasNext){
 	   			recetasFiltradas = (iterFiltro.next).aplicarFiltroUsuario(this,recetasFiltradas)
 			}
-		}recetasFiltradas
+		}
+		recetasFiltradas
 	}
 	
 	def tePuedoSugerirEstaReceta(Receta receta){

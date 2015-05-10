@@ -2,8 +2,11 @@ package ar.tp.dieta
 
 import java.util.List
 
-interface Filtro {
+public interface Filtro {
 	
-	def List<Receta> aplicarFiltroUsuario(Usuario unUsuario, List<Receta> recetasSinFiltrar)
-	def List<Receta> aplicarFiltroGrupo(Grupo unGrupo)			
+	def void getRecetasFromUsuario(Usuario unUsuario)
+	def void getRecetasFromGrupo(Grupo unGrupo)
+	def List<Receta> aplicarFiltro()
+	def Filtro getFiltro()
+	
 }
