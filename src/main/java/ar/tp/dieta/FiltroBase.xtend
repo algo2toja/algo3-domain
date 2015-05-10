@@ -17,7 +17,7 @@ class FiltroBase implements Filtro{
 		throw new UnsupportedOperationException("TODO: auto-generated method stub")
 	}
 
-	override aplicarFiltro() {
+	override aplicarFiltro(Usuario unUsuario) {
 		recetasFiltradas
 	}
 	

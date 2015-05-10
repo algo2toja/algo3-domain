@@ -3,8 +3,8 @@ package ar.tp.dieta
 import java.util.ArrayList
 import java.util.List
 
-class FiltroPorCondicion implements Filtro {
-	override aplicarFiltroUsuario(Usuario unUsuario, List<Receta> recetas){
+class FiltroPorCondicion extends FiltroDecorator {
+	/*override aplicarFiltroUsuario(Usuario unUsuario, List<Receta> recetas){
 		recetas.forEach[receta | if(receta.esInadecuadaParaUsuario(unUsuario)){
 			recetas.remove(receta)}]
 		recetas
@@ -17,6 +17,16 @@ class FiltroPorCondicion implements Filtro {
 			recetasFiltradas.add(receta)}]
 		recetasFiltradas
 		
+	}*/
+	
+	new(Filtro decorado) {
+		super(decorado)
 	}
+	
+	override aplicarFiltro(Usuario unUsuario){
+		val List<Receta> recetasFinal = new ArrayList<Receta>
+		recetasFiltradas.forEach[receta | if(!receta.esInadecuadaParaUsuario(unUsuario)){recetasFinal.add(receta)}]
+		recetasFinal
+	}	
 		
 }

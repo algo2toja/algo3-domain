@@ -6,7 +6,7 @@ public interface Filtro {
 	
 	def void getRecetasFromUsuario(Usuario unUsuario)
 	def void getRecetasFromGrupo(Grupo unGrupo)
-	def List<Receta> aplicarFiltro()
+	def List<Receta> aplicarFiltro(Usuario unUsuario)
 	def Filtro getFiltro()
 	
 }

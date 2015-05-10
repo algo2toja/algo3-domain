@@ -1,37 +1,27 @@
 package ar.tp.dieta
 
+import java.util.ArrayList
+import java.util.List
+
 abstract class FiltroDecorator implements Filtro {
 	
 	Filtro decorado
+	public List<Receta> recetasFiltradas = new ArrayList<Receta>
 	
-	new(Filtro filtro) {
-		decorado = filtro
+	def setFiltro(Filtro filtro) {
+		this.decorado = filtro
 	}
 	
 	override getRecetasFromUsuario(Usuario unUsuario){
 		decorado.getRecetasFrom(unUsuario)
 	}
 
-
-	override getRecetasFromGrupo(Grupo unGrupo)
-	override aplicarFiltro()
-	override getFiltro()
-	
-	
-	override pagarVencimiento(int monto) {
-		decorado.pagarVencimiento(monto)
+	override getRecetasFromGrupo(Grupo unGrupo){
+		
 	}
-	
-	override getPuntos() {
-		decorado.puntos
-	} 
-	
-	override getSaldo() {
-		decorado.saldo
+	override aplicarFiltro(Usuario unUsuario){}
+	override getFiltro(){
+		decorado
 	}
-	
-	override esMoroso() {
-		saldo > 0
-	} 
 	
 }
