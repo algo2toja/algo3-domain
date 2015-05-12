@@ -18,6 +18,7 @@ class FiltroBase implements Filtro{
 	}
 
 	override aplicarFiltro(Usuario unUsuario) {
+		getRecetasFromUsuario(unUsuario)
 		recetasFiltradas
 	}
 	

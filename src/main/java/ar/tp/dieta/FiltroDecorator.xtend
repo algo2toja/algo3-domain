@@ -5,7 +5,7 @@ import java.util.List
 
 abstract class FiltroDecorator implements Filtro {
 	
-	Filtro decorado
+	public Filtro decorado
 	public List<Receta> recetasFiltradas = new ArrayList<Receta>
 	
 	new(Filtro filtro){

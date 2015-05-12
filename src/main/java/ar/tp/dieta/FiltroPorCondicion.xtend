@@ -25,6 +25,7 @@ class FiltroPorCondicion extends FiltroDecorator {
 	
 	override aplicarFiltro(Usuario unUsuario){
 		val List<Receta> recetasFinal = new ArrayList<Receta>
+		recetasFiltradas = decorado.aplicarFiltro(unUsuario)
 		recetasFiltradas.forEach[receta | if(!receta.esInadecuadaParaUsuario(unUsuario)){recetasFinal.add(receta)}]
 		recetasFinal
 	}	

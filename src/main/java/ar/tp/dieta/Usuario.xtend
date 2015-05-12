@@ -22,7 +22,7 @@ class Usuario {
 	List<Receta> misRecetas = new ArrayList<Receta>
 	List<Grupo> misGrupos = new ArrayList<Grupo>
 	List<Receta> recetasFavoritas = new ArrayList<Receta>
-	List<Filtro> misFiltros = new ArrayList<Filtro>
+	Filtro filtro
 	PosteriorBusqueda proceso = new PosteriorBusqueda
 	RecetarioPublico recetario = new RecetarioPublico
 	
@@ -209,14 +209,8 @@ class Usuario {
 
 	def List<Receta> busquedaFiltrada(){
 		var List<Receta> recetasFiltradas = recetasQuePuedoVer()
-	
-		if(!misFiltros.empty){
-			var Iterator<Filtro> iterFiltro = misFiltros.iterator()
-	 		while(iterFiltro.hasNext){
-	   			recetasFiltradas = (iterFiltro.next).aplicarFiltroUsuario(this,recetasFiltradas)
-			}
-		}
-		recetasFiltradas
+			
+		recetasFiltradas = filtro.aplicarFiltro(this)
 	}
 	
 	def tePuedoSugerirEstaReceta(Receta receta){

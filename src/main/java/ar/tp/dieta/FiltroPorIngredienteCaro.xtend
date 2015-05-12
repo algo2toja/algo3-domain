@@ -1,16 +1,24 @@
 package ar.tp.dieta
 
+import java.util.ArrayList
 import java.util.List
 
-class FiltroPorIngredienteCaro implements Filtro {
+class FiltroPorIngredienteCaro extends FiltroDecorator {
 	//val String[] elementosCaros = #["lechon", "lomo", "salmon", "alcaparras"]
-	override aplicarFiltroUsuario(Usuario unUsuario, List<Receta> recetas){
-		recetas.forEach[receta | if(receta.elementosDeReceta.contains("lechon") || receta.elementosDeReceta.contains("lomo") || receta.elementosDeReceta.contains("salmon") || receta.elementosDeReceta.contains("alcaparras")){
-			recetas.remove(receta)}]
-		recetas
+	
+	new(Filtro decorado){
+		super(decorado)
+	}
+	
+	override aplicarFiltro(Usuario unUsuario){
+		val List<Receta> recetasFinal = new ArrayList<Receta>
+		recetasFiltradas = decorado.aplicarFiltro(unUsuario)
+			recetasFiltradas.forEach[receta | if(!receta.elementosDeReceta.contains("lechon") || !receta.elementosDeReceta.contains("lomo") || !receta.elementosDeReceta.contains("salmon") || receta.elementosDeReceta.contains("alcaparras")){
+			recetasFinal.add(receta)}]
+		recetasFinal
 		
 	}
 	
-	override aplicarFiltroGrupo(Grupo unGrupo){}
+	//override aplicarFiltroGrupo(Grupo unGrupo){}
 	
 }
