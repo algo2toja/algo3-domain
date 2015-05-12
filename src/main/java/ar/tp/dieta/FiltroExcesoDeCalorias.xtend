@@ -25,7 +25,7 @@ class FiltroExcesoDeCalorias extends FiltroDecorator {
 	override aplicarFiltro(Usuario unUsuario){
 		val List<Receta> recetasFinal = new ArrayList<Receta>
 		recetasFiltradas = decorado.aplicarFiltro(unUsuario)
-		recetasFiltradas.forEach[receta | if(!receta.esInadecuadaParaUsuario(unUsuario)){recetasFinal.add(receta)}]
+		recetasFiltradas.forEach[receta | if(!(unUsuario.tieneSobrepeso && receta.exesoDeCalorias)){recetasFinal.add(receta)}]
 		recetasFinal
 	}	
 }
