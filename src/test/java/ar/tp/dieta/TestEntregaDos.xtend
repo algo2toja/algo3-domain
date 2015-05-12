@@ -130,13 +130,13 @@ class TestEntregaDos {
 		
 		usuarioNormal.misRecetas.add(asado)
 		usuarioNormal.agregarComidaQueMeDisgusta("pollo") 						// le disgusta el pollo
-		var Filtro filtrazo = (new FiltroExcesoDeCalorias(new FiltroBase))
+		var Filtro filtrazo = new FiltroPorGustos(new FiltroExcesoDeCalorias(new FiltroBase))
 		usuarioNormal.setFiltro(filtrazo)
 		
 				
 		recetasFiltradas = usuarioNormal.busquedaFiltrada()
 		Assert.assertFalse(recetasFiltradas.exists[equals(asado)]) 				//descarta el asado por las caloias
-		Assert.assertTrue(recetasFiltradas.exists[equals(arrozConPollo)])		// descarta el arroz con pollo por los gustos
+		Assert.assertFalse(recetasFiltradas.exists[equals(arrozConPollo)])		// descarta el arroz con pollo por los gustos
 		
 		Assert.assertTrue(recetasFiltradas.exists[equals(ensalada)])
 		Assert.assertTrue(recetasFiltradas.exists[equals(arrozBlanco)])

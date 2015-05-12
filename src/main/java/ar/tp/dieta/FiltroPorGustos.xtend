@@ -12,7 +12,7 @@ class FiltroPorGustos extends FiltroDecorator {
 	override aplicarFiltro(Usuario unUsuario){
 		var List<Receta> recetasADevolver = new ArrayList<Receta>
 		recetasFiltradas = decorado.aplicarFiltro(unUsuario)
-		for (Receta elemento :unUsuario.misRecetas.filter[receta | !unUsuario.noMeGustaEstaReceta(receta)]) {
+		for (Receta elemento : recetasFiltradas.filter[receta | !unUsuario.noMeGustaEstaReceta(receta)]) {
 				recetasADevolver.add(elemento)
 			}
 			recetasADevolver
