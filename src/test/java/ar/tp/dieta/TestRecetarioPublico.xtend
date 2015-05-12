@@ -107,7 +107,7 @@ class TestUsuarioInteractuaRecetas {
 	
 	//Usuario agrega una de esas recetas a su recetario, la modifica, y revisa que esos cambios no afecten a la publica
 		
-		usuarioDePruebas.agregarRecetaPublicaAMiColeccion("pollo asado",recetario)
+		usuarioDePruebas.agregarRecetaPublicaAMiColeccion("pollo asado")
 		Assert.assertTrue(usuarioDePruebas.misRecetas.size == 1)
 		usuarioDePruebas.modificarReceta("pollo asado","pollito",0,"0","0","0")
 		Assert.assertTrue((usuarioDePruebas.devolverReceta("pollito")).devolverNombre() == "pollito")	

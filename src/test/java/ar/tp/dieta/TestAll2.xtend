@@ -89,7 +89,7 @@ class TestAll2 {
 
 	@Test
 	def void usuarioModificaRecetaPublica() {
-		nuevoUsuario.agregarRecetaPublicaAMiColeccion("Arroz con Pollo", recetarioPublico)
+		nuevoUsuario.agregarRecetaPublicaAMiColeccion("Arroz con Pollo")
 		nuevoUsuario.modificarReceta("Arroz con Pollo", "arroz con llopo", 200, "1)Cocinar 2)Comer", "facil", "invierno")
 		
 		//Verifica si el nombre de la receta fue modificado en la coleccion de recetas del usuario.

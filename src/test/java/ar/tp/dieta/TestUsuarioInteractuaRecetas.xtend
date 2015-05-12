@@ -81,7 +81,7 @@ class TestUsuarioInteractuaRecetas {
 		Assert.assertTrue(recetario.recetas.size().equals(2))
 	
 		//Usuario agrega una de esas recetas a su recetario
-		usuarioDePruebas.agregarRecetaPublicaAMiColeccion("pollo asado", recetario)
+		usuarioDePruebas.agregarRecetaPublicaAMiColeccion("pollo asado")
 		Assert.assertTrue(usuarioDePruebas.misRecetas.size.equals(1))
 		
 		usuarioDePruebas.modificarReceta("pollo asado", "Pollo Asado", 1500, "1)Cocinar 2)Comer", "Dificil", "Cualquiera")
