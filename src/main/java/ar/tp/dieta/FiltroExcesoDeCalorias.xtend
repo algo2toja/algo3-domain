@@ -3,7 +3,7 @@ package ar.tp.dieta
 import java.util.List
 import java.util.ArrayList
 
-class FiltroExcesoDeCalorias implements Filtro {
+class FiltroExcesoDeCalorias extends FiltroDecorator {
 
 	/*override List<Receta> aplicarFiltro(Usuario unUsuario, List<Receta> recetas) {
 		if (unUsuario.tieneSobrepeso) {
@@ -14,9 +14,13 @@ class FiltroExcesoDeCalorias implements Filtro {
 			recetasADevolver
 		}else { recetas }
 	}*/
-	override setFiltro(Filtro filtro){
-		super(filtro)
+	new (Filtro decorado){
+		super(decorado)
 	}
+	
+	/*override setFiltro(Filtro filtro){
+		super(filtro)
+	}*/
 	
 	override aplicarFiltro(Usuario unUsuario){
 		val List<Receta> recetasFinal = new ArrayList<Receta>

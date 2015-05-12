@@ -8,18 +8,23 @@ abstract class FiltroDecorator implements Filtro {
 	Filtro decorado
 	public List<Receta> recetasFiltradas = new ArrayList<Receta>
 	
+	new(Filtro filtro){
+		decorado=filtro
+	}
+	
 	def setFiltro(Filtro filtro) {
 		this.decorado = filtro
 	}
 	
 	override getRecetasFromUsuario(Usuario unUsuario){
-		decorado.getRecetasFrom(unUsuario)
+		decorado.getRecetasFromUsuario(unUsuario)
 	}
 
 	override getRecetasFromGrupo(Grupo unGrupo){
 		
+		
 	}
-	override aplicarFiltro(Usuario unUsuario){}
+	//override aplicarFiltro(Usuario unUsuario){}
 	override getFiltro(){
 		decorado
 	}

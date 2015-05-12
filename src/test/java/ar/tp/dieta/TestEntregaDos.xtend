@@ -100,7 +100,7 @@ class TestEntregaDos {
 		usuarioDiabetico.misGrupos.add(grupoConHipertenso)
 		usuarioHipertenso.misRecetas.add(recetaPorGrupo)
 
-		recetasQuePuedeVer = usuarioDiabetico.recetasQuePuedoVer(recetario)
+		recetasQuePuedeVer = usuarioDiabetico.recetasQuePuedoVer()
 		
 		Assert.assertTrue(recetasQuePuedeVer.exists[rec| rec.equals(recetaPublica)])
 		Assert.assertTrue(recetasQuePuedeVer.exists[rec| rec.equals(recetaPorGrupo)])
@@ -127,11 +127,9 @@ class TestEntregaDos {
 		
 		usuarioNormal.misRecetas.add(asado)
 		usuarioNormal.agregarComidaQueMeDisgusta("pollo") 						// le disgusta el pollo
-		usuarioNormal.misFiltros.add(new FiltroExcesoDeCalorias)
-		usuarioNormal.misFiltros.add(new FiltroPorGustos)
+				
 		
-		
-		recetasFiltradas = usuarioNormal.busquedaFiltrada(recetario)
+		recetasFiltradas = usuarioNormal.busquedaFiltrada()
 		Assert.assertFalse(recetasFiltradas.exists[equals(asado)]) 				//descarta el asado por las caloias
 		Assert.assertFalse(recetasFiltradas.exists[equals(arrozConPollo)])		// descarta el arroz con pollo por los gustos
 		
