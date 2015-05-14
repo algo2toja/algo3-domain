@@ -6,6 +6,8 @@ import org.junit.Assert
 import java.util.List
 import java.util.ArrayList
 
+///////////////////////////////////////////////////FALTA TEST INGREDIENTE CARO////////////////////////////////
+
 class TestEntregaDos {
 	
 	RecetarioPublico recetario = new RecetarioPublico
@@ -56,6 +58,8 @@ class TestEntregaDos {
 		usuarioHipertenso.setRecetario(recetario)
 		
 		usuarioDiabetico.setRecetario(recetario)
+		
+		grupoConHipertenso.setRecetario(recetario)
 		
 		sal.setNombre("sal")
 		cebolla.setNombre("cebolla")
@@ -186,6 +190,7 @@ class TestEntregaDos {
 		grupoConHipertenso.agregarUsuario(usuarioNormal)
 		usuarioDiabetico.misGrupos.add(grupoConHipertenso)
 		grupoConHipertenso.agregarUsuario(usuarioDiabetico)
+		grupoConHipertenso.setQuieroFiltrar(true)
 		
 		
 		recetario.agregarReceta(arrozBlanco)
@@ -200,14 +205,14 @@ class TestEntregaDos {
 		usuarioDiabetico.misRecetas.add(fideos)
 		
 		recetasAptas = grupoConHipertenso.filtrarRecetas(new FiltroPorCondicion)
-		Assert.assertTrue(recetasAptas.size.equals(5))
+		Assert.assertTrue(recetasAptas.size.equals(4))
 		Assert.assertTrue(recetasAptas.contains(bofe))
-		Assert.assertTrue(recetasAptas.contains(cerealitos))
-		Assert.assertTrue(recetasAptas.contains(fideos))
-		Assert.assertTrue(recetasAptas.contains(asado))
+		Assert.assertFalse(recetasAptas.contains(cerealitos))
+		Assert.assertFalse(recetasAptas.contains(fideos))
+		Assert.assertFalse(recetasAptas.contains(asado))
 		Assert.assertTrue(recetasAptas.contains(gelatina))
-		//Assert.assertTrue(recetasAptas.contains(arrozConPollo))
-		//Assert.assertTrue(recetasAptas.contains(arrozBlanco))
+		Assert.assertTrue(recetasAptas.contains(arrozConPollo))
+		Assert.assertTrue(recetasAptas.contains(arrozBlanco))
 		Assert.assertFalse(bofe.esInadecuadaParaGrupo(grupoConHipertenso))
 		Assert.assertFalse(gelatina.esInadecuadaParaGrupo(grupoConHipertenso))
 		Assert.assertFalse(arrozBlanco.esInadecuadaParaGrupo(grupoConHipertenso))
@@ -218,4 +223,5 @@ class TestEntregaDos {
 		Assert.assertTrue(bondiola.esInadecuadaParaGrupo(grupoConHipertenso))
 
 	}
+
 }
