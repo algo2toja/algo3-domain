@@ -8,11 +8,11 @@ import java.util.ArrayList
 class PosteriorBusquedaDiezPrimeros extends PosteriorBusqueda {
 	
 	override List<Receta> procesarBusqueda(List<Receta> recetasObtenidas){
-		//solo toma los 10 primeros resultados *** modificado a lo 2 primeros para test***
+		//solo toma los 10 primeros resultados *** modificado a los 5 primeros para test***
 		var List<Receta> recetasADevolver = new ArrayList<Receta>
 		var Iterator<Receta> iterRecetas = recetasObtenidas.iterator()
 		var int contador = 0
-		while(contador < 2){
+		while(contador < 5){
 			recetasADevolver.add(iterRecetas.next)
 			contador++
 		}

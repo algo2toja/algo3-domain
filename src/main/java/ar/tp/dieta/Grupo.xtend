@@ -10,6 +10,7 @@ class Grupo {
 	List<String> preferencias = new ArrayList<String>
 	List<Usuario> miembros = new ArrayList<Usuario>
 	RecetarioPublico recetario = new RecetarioPublico
+	boolean quieroFiltrar
 		
 	def void eliminarUsuario(Usuario unUsuario){
 		miembros.remove(unUsuario)
@@ -71,4 +72,9 @@ class Grupo {
 		recetasDeGrupo
 	}
 	
+	def filtrarRecetas(Filtro filtro){
+		if(quieroFiltrar.equals(true)){
+			filtro.aplicarFiltroGrupo(this)
+		}else{devolverRecetas()}
+	}
 }

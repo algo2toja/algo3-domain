@@ -4,7 +4,7 @@ import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 
-class TestAll2 {
+class TestEntregaUno2 {
 	
 	//Objetos para Usuario
 	Usuario nuevoUsuario

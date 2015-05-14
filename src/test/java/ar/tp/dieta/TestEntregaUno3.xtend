@@ -4,7 +4,7 @@ import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 
-class TestNuevoUsuario {
+class TestEntregaUno3 {
 
 	Usuario usuarioNuevo
 	Usuario usuarioSinNombre
