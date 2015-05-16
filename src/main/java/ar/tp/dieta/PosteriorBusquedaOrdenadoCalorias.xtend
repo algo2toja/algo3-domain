@@ -1,11 +1,24 @@
 package ar.tp.dieta
 
-import ar.tp.dieta.PosteriorBusqueda
 import java.util.List
 
-class PosteriorBusquedaOrdenadoCalorias extends PosteriorBusqueda {
+class PosteriorBusquedaOrdenadoCalorias extends FiltroDecorator {
 	
-	override List<Receta> procesarBusqueda(List<Receta> recetasObtenidas){
-		recetasObtenidas.sortBy[calorias]
+	new(Filtro decorado){
+		super(decorado)
+	}
+	
+	override List<Receta> aplicarFiltro(Usuario unUsuario){
+		
+		recetasFiltradas = decorado.aplicarFiltro(unUsuario)
+		recetasFiltradas.sortBy[calorias]
+		recetasFiltradas
+	}
+	
+	override aplicarFiltroGrupo(Grupo unGrupo){
+		
+		recetasFiltradas = decorado.aplicarFiltroGrupo(unGrupo)
+		recetasFiltradas.sortBy[calorias]
+		recetasFiltradas
 	}
 }

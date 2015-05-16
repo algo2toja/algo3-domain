@@ -25,6 +25,7 @@ abstract class FiltroDecorator implements Filtro {
 		
 	}
 	//override aplicarFiltro(Usuario unUsuario){}
+	//override aplicarFiltroGrupo(Grupo unGrupo){}
 	override getFiltro(){
 		decorado
 	}

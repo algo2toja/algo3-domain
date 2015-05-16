@@ -18,7 +18,10 @@ class FiltroPorGustos extends FiltroDecorator {
 			recetasADevolver
 	}
 		
-	//override aplicarFiltroGrupo(Grupo unGrupo){}	
+	override aplicarFiltroGrupo(Grupo unGrupo){
+		recetasFiltradas = decorado.aplicarFiltroGrupo(unGrupo)
+		recetasFiltradas
+	}	
 		
 }
 

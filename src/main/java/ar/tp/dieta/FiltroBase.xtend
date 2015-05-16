@@ -22,6 +22,10 @@ class FiltroBase implements Filtro{
 		recetasFiltradas
 	}
 	
+	override aplicarFiltroGrupo(Grupo unGrupo){
+		recetasFiltradas = unGrupo.devolverRecetas
+	}
+	
 	override getFiltro() {
 		this
 	}

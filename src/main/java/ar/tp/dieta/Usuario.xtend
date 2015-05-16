@@ -23,7 +23,6 @@ class Usuario {
 	List<Grupo> misGrupos = new ArrayList<Grupo>
 	List<Receta> recetasFavoritas = new ArrayList<Receta>
 	Filtro filtro
-	PosteriorBusqueda proceso = new PosteriorBusqueda
 	RecetarioPublico recetario = new RecetarioPublico
 	
 	// Punto 1 y 2 validacion usuario
@@ -225,10 +224,5 @@ class Usuario {
 	def tieneSobrepeso() {
 		indiceDeMasaCorporal >= 30
 	}
-	
-	def aplicarProcesamientoBusqueda(List<Receta> recetas) {
-		proceso.procesarBusqueda(recetas)
-	}
-	
 
 }

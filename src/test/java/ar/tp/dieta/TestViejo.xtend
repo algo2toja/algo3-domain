@@ -6,7 +6,8 @@ import org.junit.Assert
 import java.util.List
 import java.util.ArrayList
 
-///////////////////////////////////////////////////FALTA TEST INGREDIENTE CARO////////////////////////////////
+
+////////////////////////////////////////////TOMALO COMO EJEMPLO Y BORRALO//////////////////////////////////////////
 
 class TestEntregaDos {
 	
@@ -24,20 +25,14 @@ class TestEntregaDos {
 	Receta	asado = new Receta
 	Receta  arrozBlanco = new Receta
 	Receta  arrozConPollo = new Receta
-	Receta bondiola = new Receta
-	Receta fideos = new Receta
-	Receta cerealitos = new Receta
-	Receta bofe = new Receta
-	Receta gelatina = new Receta
 	
 	Ingrediente cebolla = new Ingrediente
 	Ingrediente carne = new Ingrediente
 	Ingrediente sal = new Ingrediente
 	Ingrediente arroz = new Ingrediente
 	Ingrediente pollo = new Ingrediente
-	Ingrediente pasta = new Ingrediente
-	Ingrediente cereal = new Ingrediente
-	Ingrediente azucar = new Ingrediente
+	
+	
 	
 	
 	@Before
@@ -45,36 +40,20 @@ class TestEntregaDos {
 		usuarioVegano.condicionesPreexistentes.add(new CondicionVegano)
 		usuarioVegano.agregarComidaQueMeDisgusta("arroz")
 		usuarioHipertenso.condicionesPreexistentes.add(new CondicionHipertension)
-		usuarioDiabetico.condicionesPreexistentes.add(new CondicionDiabetes)
 		
 		grupoConHipertenso.agregarUsuario(usuarioHipertenso)
 		
 		usuarioNormal.setAltura(1.3)
 		usuarioNormal.setPeso(150.0)
 		usuarioNormal.setRecetario(recetario)
-		
-		usuarioVegano.setRecetario(recetario)
-		
-		usuarioHipertenso.setRecetario(recetario)
-		
 		usuarioDiabetico.setRecetario(recetario)
-		
-		grupoConHipertenso.setRecetario(recetario)
+		usuarioHipertenso.setRecetario(recetario)
 		
 		sal.setNombre("sal")
 		cebolla.setNombre("cebolla")
 		carne.setNombre("carne")
 		arroz.setNombre("arroz")
 		pollo.setNombre("pollo")
-		azucar.setCantidad(300)
-		azucar.setNombre("azucar")
-		pasta.setNombre("pasta")
-		cereal.setNombre("cereal")
-		
-		arrozBlanco.setCalorias(499)
-		ensalada.setCalorias(100)
-		asado.setCalorias(501)
-		arrozConPollo.setCalorias(200)
 		
 		ensalada.agregarIngrediente(sal)
 		ensalada.agregarIngrediente(cebolla)
@@ -86,19 +65,6 @@ class TestEntregaDos {
 		
 		arrozConPollo.agregarIngrediente(pollo)
 		arrozConPollo.agregarIngrediente(arroz)
-		
-		bondiola.agregarIngrediente(carne)
-		bondiola.agregarIngrediente(sal)
-		
-		fideos.agregarIngrediente(sal)
-		fideos.agregarIngrediente(pasta)
-		
-		cerealitos.agregarIngrediente(cereal)
-		cerealitos.agregarIngrediente(azucar)
-		
-		bofe.agregarIngrediente(carne)
-		
-		gelatina.agregarIngrediente(cebolla)
 		
 	}
 	
@@ -155,6 +121,11 @@ class TestEntregaDos {
 		usuarioNormal.misGrupos.add(grupoConHipertenso)
 		grupoConHipertenso.agregarUsuario(usuarioNormal)
 		
+		arrozBlanco.setCalorias(499)
+		ensalada.setCalorias(100)
+		asado.setCalorias(501)
+		arrozConPollo.setCalorias(200)
+		
 		recetario.agregarReceta(arrozBlanco)
 		recetario.agregarReceta(arrozConPollo)
 		
@@ -162,10 +133,10 @@ class TestEntregaDos {
 		
 		usuarioNormal.misRecetas.add(asado)
 		usuarioNormal.agregarComidaQueMeDisgusta("pollo") 						// le disgusta el pollo
-		usuarioNormal.misFiltros.add(new FiltroExcesoDeCalorias)
-		usuarioNormal.misFiltros.add(new FiltroPorGustos)
+		var Filtro filtrazo = new FiltroPorGustos(new FiltroExcesoDeCalorias(new FiltroBase))
+		usuarioNormal.setFiltro(filtrazo)
 		
-		
+				
 		recetasFiltradas = usuarioNormal.busquedaFiltrada()
 		Assert.assertFalse(recetasFiltradas.exists[equals(asado)]) 				//descarta el asado por las caloias
 		Assert.assertFalse(recetasFiltradas.exists[equals(arrozConPollo)])		// descarta el arroz con pollo por los gustos
@@ -174,55 +145,10 @@ class TestEntregaDos {
 		Assert.assertTrue(recetasFiltradas.exists[equals(arrozBlanco)])
 		
 		Assert.assertTrue(recetasFiltradas.get(0).equals(arrozBlanco))			// el primero es el arroz
+		}
 		
-		
-		usuarioNormal.setProceso(new PosteriorBusquedaOrdenadoCalorias)
+		/*usuarioNormal.setProceso(new PosteriorBusquedaOrdenadoCalorias)
 		recetasProcesadas = usuarioNormal.aplicarProcesamientoBusqueda(recetasFiltradas)
 		Assert.assertTrue(recetasProcesadas.get(0).equals(ensalada)) 			//ahora despues de ordenar, el primero es la ensalada
 		Assert.assertTrue(recetasProcesadas.get(1).equals(arrozBlanco))
-		
-		}
-		
-	@Test
-	def filtradoDePrimerasRecetas(){
-		var List<Receta> recetasAptas = new ArrayList<Receta>
-		var List<Receta> recetasProcesadas = new ArrayList<Receta>
-		usuarioNormal.misGrupos.add(grupoConHipertenso)
-		grupoConHipertenso.agregarUsuario(usuarioNormal)
-		usuarioDiabetico.misGrupos.add(grupoConHipertenso)
-		grupoConHipertenso.agregarUsuario(usuarioDiabetico)
-		grupoConHipertenso.setQuieroFiltrar(true)
-		
-		
-		recetario.agregarReceta(arrozBlanco)
-		recetario.agregarReceta(arrozConPollo)
-		recetario.agregarReceta(bondiola)
-		
-		usuarioNormal.misRecetas.add(asado)
-		usuarioNormal.misRecetas.add(gelatina)
-		
-		usuarioDiabetico.misRecetas.add(bofe)
-		usuarioDiabetico.misRecetas.add(cerealitos)
-		usuarioDiabetico.misRecetas.add(fideos)
-		
-		recetasAptas = grupoConHipertenso.filtrarRecetas(new FiltroPorCondicion)
-		Assert.assertTrue(recetasAptas.size.equals(4))
-		Assert.assertTrue(recetasAptas.contains(bofe))
-		Assert.assertFalse(recetasAptas.contains(cerealitos))
-		Assert.assertFalse(recetasAptas.contains(fideos))
-		Assert.assertFalse(recetasAptas.contains(asado))
-		Assert.assertTrue(recetasAptas.contains(gelatina))
-		Assert.assertTrue(recetasAptas.contains(arrozConPollo))
-		Assert.assertTrue(recetasAptas.contains(arrozBlanco))
-		Assert.assertFalse(bofe.esInadecuadaParaGrupo(grupoConHipertenso))
-		Assert.assertFalse(gelatina.esInadecuadaParaGrupo(grupoConHipertenso))
-		Assert.assertFalse(arrozBlanco.esInadecuadaParaGrupo(grupoConHipertenso))
-		Assert.assertFalse(arrozConPollo.esInadecuadaParaGrupo(grupoConHipertenso))
-		Assert.assertTrue(cerealitos.esInadecuadaParaGrupo(grupoConHipertenso))
-		Assert.assertTrue(fideos.esInadecuadaParaGrupo(grupoConHipertenso))
-		Assert.assertTrue(asado.esInadecuadaParaGrupo(grupoConHipertenso))
-		Assert.assertTrue(bondiola.esInadecuadaParaGrupo(grupoConHipertenso))
-
-	}
-
-}
+		}*/

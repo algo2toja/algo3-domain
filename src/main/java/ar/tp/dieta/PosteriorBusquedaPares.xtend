@@ -1,21 +1,34 @@
 package ar.tp.dieta
 
-import ar.tp.dieta.PosteriorBusqueda
-import java.util.List
 import java.util.ArrayList
-import java.util.Iterator
+import java.util.List
 
-class PosteriorBusquedaPares extends PosteriorBusqueda {
+class PosteriorBusquedaPares extends FiltroDecorator {
 	
-	override List<Receta> procesarBusqueda(List<Receta> recetasObtenidas){
+	new(Filtro decorado){
+		super(decorado)
+	}
+	
+	override List<Receta> aplicarFiltro(Usuario unUsuario){
 		//solo toma las recetas en posiciones pares en el array.
-		var List<Receta> recetasADevolver = new ArrayList<Receta>
-		var Iterator<Receta> iterRecetas = recetasObtenidas.iterator()
-		var int contador = 1
-		while(contador <= 10){
-			if((contador%2).equals(0)){ recetasADevolver.add(iterRecetas.next) }
-			contador++
+		var List<Receta> recetasFinal = new ArrayList<Receta>
+		recetasFiltradas = decorado.aplicarFiltro(unUsuario)
+		var int contador = 0
+		while(contador <= recetasFiltradas.size){
+			recetasFinal.add(recetasFiltradas.get(contador))
+			contador += 2
 		}
-		recetasADevolver
+		recetasFinal
 	}	
+	
+	override List<Receta> aplicarFiltroGrupo(Grupo unGrupo){
+		var List<Receta> recetasFinal = new ArrayList<Receta>
+		recetasFiltradas = decorado.aplicarFiltroGrupo(unGrupo)
+		var int contador = 0
+		while(contador <= recetasFiltradas.size){
+			recetasFinal.add(recetasFiltradas.get(contador))
+			contador += 2
+		}
+		recetasFinal
+	}
 }

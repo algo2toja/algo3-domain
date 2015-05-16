@@ -7,4 +7,5 @@ class Ingrediente extends ElementoDeReceta{
 		unaCondicion.ingredienteEsInadecuado(this)
 	}
 	
+	
 }

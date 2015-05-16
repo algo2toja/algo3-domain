@@ -1,6 +1,7 @@
 package ar.tp.dieta
 
 import java.util.ArrayList
+import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
 
 @Accessors
@@ -59,7 +60,7 @@ class Receta extends ElementoDeReceta implements Cloneable {
 	}
 
 	def devolverNombre() {
-		getNombreDeLaReceta()
+		getNombre()
 	}
 	
 	override soyInadecuadoParaCondicion(Condicion unaCondicion) {

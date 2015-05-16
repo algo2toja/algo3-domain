@@ -1,21 +1,36 @@
 package ar.tp.dieta
 
-import ar.tp.dieta.PosteriorBusqueda
 import java.util.List
-import java.util.Iterator
 import java.util.ArrayList
 
-class PosteriorBusquedaDiezPrimeros extends PosteriorBusqueda {
+class PosteriorBusquedaDiezPrimeros extends FiltroDecorator {
 	
-	override List<Receta> procesarBusqueda(List<Receta> recetasObtenidas){
-		//solo toma los 10 primeros resultados *** modificado a lo 2 primeros para test***
-		var List<Receta> recetasADevolver = new ArrayList<Receta>
-		var Iterator<Receta> iterRecetas = recetasObtenidas.iterator()
+	new(Filtro decorado){
+		super(decorado)
+	}
+	
+	override aplicarFiltro(Usuario unUsuario){
+		var List<Receta> recetasFinal = new ArrayList<Receta>
+		recetasFiltradas = decorado.aplicarFiltro(unUsuario)
+	
+		/*var Iterator<Receta> iterRecetas = recetasFiltradas.iterator()
 		var int contador = 0
-		while(contador < 2){
-			recetasADevolver.add(iterRecetas.next)
+		while(contador < 10){
+			recetasFinal.add(iterRecetas.next)
 			contador++
 		}
-		recetasADevolver
+		recetasFinal*/
+		
+		recetasFinal = recetasFiltradas.subList(0,9)
+		recetasFinal
+		
 	}
+	
+	override aplicarFiltroGrupo(Grupo unGrupo){
+		var List<Receta> recetasFinal = new ArrayList<Receta>
+		recetasFiltradas = decorado.aplicarFiltroGrupo(unGrupo)
+		recetasFinal = recetasFiltradas.subList(0,9)
+		recetasFinal
+	}
+	
 }
