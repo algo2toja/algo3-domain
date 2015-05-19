@@ -41,17 +41,17 @@ class TestPostBusqueda {
 		
 		usuarioPruebas.setRecetario(recetario)
 		
-		receta1.setCalorias(10)
+		receta1.setCalorias(50)
 		receta2.setCalorias(20)
-		receta3.setCalorias(30)
-		receta4.setCalorias(40)
-		receta5.setCalorias(50)
+		receta3.setCalorias(40)
+		receta4.setCalorias(30)
+		receta5.setCalorias(80)
 		receta6.setCalorias(60)
-		receta7.setCalorias(70)
-		receta8.setCalorias(80)
+		receta7.setCalorias(120)
+		receta8.setCalorias(100)
 		receta9.setCalorias(90)
-		receta10.setCalorias(100)
-		receta11.setCalorias(110)
+		receta10.setCalorias(110)
+		receta11.setCalorias(70)
 	}
 	
 	@Test
@@ -92,7 +92,26 @@ class TestPostBusqueda {
 		Assert.assertTrue(pares.contains(receta9))	//	SI
 		Assert.assertFalse(pares.contains(receta10))//		NO
 		Assert.assertTrue(pares.contains(receta11)) //	SI
+	}
+	
+	@Test
+		def  OrdenPorCalorias(){
+		var List<Receta> recetas = new ArrayList<Receta>
+		var Filtro ordenarCalorias = new PosteriorBusquedaOrdenadoCalorias(filtro)
 		
+		recetas = ordenarCalorias.aplicarFiltro(usuarioPruebas)
+		
+		Assert.assertTrue(recetas.get(0).getCalorias.equals(20))
+		Assert.assertTrue(recetas.get(1).getCalorias.equals(30))
+		Assert.assertTrue(recetas.get(2).getCalorias.equals(40))
+		Assert.assertTrue(recetas.get(3).getCalorias.equals(50))
+		Assert.assertTrue(recetas.get(4).getCalorias.equals(60))
+		Assert.assertTrue(recetas.get(5).getCalorias.equals(70))
+		Assert.assertTrue(recetas.get(6).getCalorias.equals(80))
+		Assert.assertTrue(recetas.get(7).getCalorias.equals(90))
+		Assert.assertTrue(recetas.get(8).getCalorias.equals(100))
+		Assert.assertTrue(recetas.get(9).getCalorias.equals(110))
+		Assert.assertTrue(recetas.get(10).getCalorias.equals(120))
 	}
 
 }
