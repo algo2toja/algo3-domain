@@ -47,8 +47,6 @@ class Receta extends ElementoDeReceta implements Cloneable {
 		//Para cada condicion del usuario, llamo al método para ver si es inadecuada la receta.
 		unUsuario.condicionesPreexistentes.exists[ condicion | this.soyInadecuadoParaCondicion(condicion)]
 	}
-	
-	
 
 	def agregarSubreceta(Receta unaSubreceta) {
 		 elementosDeReceta.add(unaSubreceta)

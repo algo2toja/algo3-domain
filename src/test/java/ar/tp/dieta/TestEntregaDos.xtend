@@ -149,6 +149,10 @@ class TestEntregaDos {
 	}
 	
 	@Test
+	def filtradoPorIngredienteCaro(){
+		
+	}
+	@Test
 	def combinacionDeFiltrosYProcesoPostBusqueda(){
 		var List<Receta> recetasFiltradas = new ArrayList<Receta>
 		var List<Receta> recetasProcesadas = new ArrayList<Receta>
