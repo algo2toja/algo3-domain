@@ -21,7 +21,7 @@ class PosteriorBusquedaDiezPrimeros extends FiltroDecorator {
 		}
 		recetasFinal*/
 		
-		recetasFinal = recetasFiltradas.subList(0,9)
+		recetasFinal = recetasFiltradas.subList(0,10)  // .sublist(a,b) -> [a;b)
 		recetasFinal
 		
 	}
