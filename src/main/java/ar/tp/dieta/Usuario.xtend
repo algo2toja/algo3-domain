@@ -194,7 +194,7 @@ class Usuario {
 	}
 
 						//////////////////////RECETAS QUE PUEDO VER//////////////////////////
-	protected def List<Receta> recetasQuePuedoVer(){
+	def List<Receta> recetasQuePuedoVer(){
 		val List<Receta> recetasQueVeo = new ArrayList<Receta>
 		
 		
