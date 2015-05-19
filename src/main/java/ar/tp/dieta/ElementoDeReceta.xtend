@@ -9,5 +9,8 @@ abstract class ElementoDeReceta {
 	
 	abstract public def boolean soyInadecuadoParaCondicion(Condicion unaCondicion)
 	
+	def String getNombre(){
+		nombre
+	}
 }	
 	

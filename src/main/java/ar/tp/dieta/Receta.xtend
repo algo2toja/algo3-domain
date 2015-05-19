@@ -2,6 +2,7 @@ package ar.tp.dieta
 
 import java.util.ArrayList
 import org.eclipse.xtend.lib.annotations.Accessors
+import java.util.List
 
 @Accessors
 class Receta extends ElementoDeReceta implements Cloneable {
@@ -76,7 +77,7 @@ class Receta extends ElementoDeReceta implements Cloneable {
 		elementosDeReceta.exists[elem | elem.getNombre.equals(nombreIngrediente)]
 	}
 	
-	def boolean contieneAlguno(String[] nombresIngredientes) {
+	def boolean contieneAlguno(List<String> nombresIngredientes) {
 		nombresIngredientes.exists[nombreIngrediente | this.contieneIngrediente(nombreIngrediente)]
 	}
 }
