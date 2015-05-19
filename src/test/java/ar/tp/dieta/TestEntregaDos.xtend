@@ -86,7 +86,7 @@ class TestEntregaDos {
 		
 		asado.agregarIngrediente(carne)
 		asado.agregarIngrediente(sal)
-		
+		lomoMostaza.agregarIngrediente(lomo)
 		arrozBlanco.agregarIngrediente(arroz)
 		
 		arrozConPollo.agregarIngrediente(pollo)
