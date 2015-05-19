@@ -113,5 +113,35 @@ class TestPostBusqueda {
 		Assert.assertTrue(recetas.get(9).getCalorias.equals(110))
 		Assert.assertTrue(recetas.get(10).getCalorias.equals(120))
 	}
+	
+	@Test
+	def integracionFiltroMasProcesoPosterior(){
+		var List<Receta> recetas = new ArrayList<Receta>
+		var Filtro ordenarCalorias = new PosteriorBusquedaOrdenadoCalorias(filtro)
+		
+		receta1.setCalorias(650) //antes tenia 50
+		receta2.setCalorias(501) //antes tenia 20
+		receta3.setCalorias(750) //antes tenia 40
+		receta4.setCalorias(900)//atntes tenia 30
+		
+		usuarioPruebas.setAltura(1.2)
+		usuarioPruebas.setPeso(100.5)
+		Assert.assertTrue(usuarioPruebas.tieneSobrepeso)
+		
+		recetas = ordenarCalorias.aplicarFiltro(usuarioPruebas)
+
+		Assert.assertFalse(recetas.contains(receta1))
+		Assert.assertFalse(recetas.contains(receta2))
+		Assert.assertFalse(recetas.contains(receta3))
+		Assert.assertFalse(recetas.contains(receta4))
+
+		Assert.assertTrue(recetas.get(0).getCalorias.equals(60))
+		Assert.assertTrue(recetas.get(1).getCalorias.equals(70))
+		Assert.assertTrue(recetas.get(2).getCalorias.equals(80))
+		Assert.assertTrue(recetas.get(3).getCalorias.equals(90))
+		Assert.assertTrue(recetas.get(4).getCalorias.equals(100))
+		Assert.assertTrue(recetas.get(5).getCalorias.equals(110))
+		Assert.assertTrue(recetas.get(6).getCalorias.equals(120))
+	}
 
 }

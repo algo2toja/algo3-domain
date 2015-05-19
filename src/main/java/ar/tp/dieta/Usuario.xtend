@@ -10,7 +10,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 @Accessors
 class Usuario {
 	Double peso
-	Double altura
+	Double altura 
 	GregorianCalendar fechaDeNacimiento
 	GregorianCalendar diaDeHoy
 	String sexo

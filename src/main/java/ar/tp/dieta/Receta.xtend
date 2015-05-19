@@ -5,7 +5,7 @@ import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
 
 @Accessors
-class Receta extends ElementoDeReceta implements Cloneable {
+class Receta extends ElementoDeReceta implements Cloneable{
 
 	String nombreDeLaReceta
 	double calorias //Tiene que ser sumatoria de ingredientes/condimentos
@@ -82,5 +82,6 @@ class Receta extends ElementoDeReceta implements Cloneable {
 	def boolean contieneAlguno(String[] nombresIngredientes) {
 		nombresIngredientes.exists[nombreIngrediente | this.contieneIngrediente(nombreIngrediente)]
 	}
+
 
 }

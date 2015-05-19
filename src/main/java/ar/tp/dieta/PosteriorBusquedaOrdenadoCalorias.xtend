@@ -9,8 +9,8 @@ class PosteriorBusquedaOrdenadoCalorias extends FiltroDecorator {
 	}
 	
 	override List<Receta> aplicarFiltro(Usuario unUsuario){
-		
 		recetasFiltradas = decorado.aplicarFiltro(unUsuario)
+			
 		recetasFiltradas.sortBy[calorias]
 		recetasFiltradas
 	}
