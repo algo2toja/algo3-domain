@@ -71,5 +71,12 @@ class Receta extends ElementoDeReceta implements Cloneable {
 	def esInadecuadaParaGrupo(Grupo grupo) {
 		grupo.miembros.exists[miembro | this.esInadecuadaParaUsuario(miembro)]
 	}
-
+	
+	def boolean contieneIngrediente(String nombreIngrediente) {
+		elementosDeReceta.exists[elem | elem.getNombre.equals(nombreIngrediente)]
+	}
+	
+	def boolean contieneAlguno(String[] nombresIngredientes) {
+		nombresIngredientes.exists[nombreIngrediente | this.contieneIngrediente(nombreIngrediente)]
+	}
 }

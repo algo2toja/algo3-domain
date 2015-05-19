@@ -29,7 +29,11 @@ class TestEntregaDos {
 	Receta cerealitos = new Receta
 	Receta bofe = new Receta
 	Receta gelatina = new Receta
+	Receta lomoMostaza = new Receta
+
+
 	
+	Ingrediente lomo = new Ingrediente
 	Ingrediente cebolla = new Ingrediente
 	Ingrediente carne = new Ingrediente
 	Ingrediente sal = new Ingrediente
@@ -70,6 +74,7 @@ class TestEntregaDos {
 		azucar.setNombre("azucar")
 		pasta.setNombre("pasta")
 		cereal.setNombre("cereal")
+		lomo.setNombre("lomo")
 		
 		arrozBlanco.setCalorias(499)
 		ensalada.setCalorias(100)
@@ -149,7 +154,25 @@ class TestEntregaDos {
 	}
 	
 	@Test
-	def filtradoPorIngredienteCaro(){
+	def filtroPorIngredienteCaro(){
+		var List<Receta> recetasFiltradas = new ArrayList<Receta>
+
+		
+		usuarioNormal.misFiltros.add(new FiltroPorIngredienteCaro)
+		
+		usuarioNormal.misRecetas.add(lomoMostaza) // contiene ingrediente caro (lomo)
+		usuarioNormal.misRecetas.add(arrozBlanco)
+		usuarioNormal.misRecetas.add(arrozConPollo)
+		usuarioNormal.misRecetas.add(ensalada)
+		usuarioNormal.misRecetas.add(asado)
+		
+		recetasFiltradas = usuarioNormal.busquedaFiltrada
+		
+		Assert.assertTrue(recetasFiltradas.contains(ensalada))
+		Assert.assertTrue(recetasFiltradas.contains(asado))
+		Assert.assertTrue(recetasFiltradas.contains(arrozBlanco))
+		Assert.assertTrue(recetasFiltradas.contains(arrozConPollo))
+		Assert.assertFalse(recetasFiltradas.contains(lomoMostaza)) // no lo contiene
 		
 	}
 	@Test
