@@ -218,7 +218,8 @@ class Usuario {
 	}
 	
 	def noMeGustaEstaReceta(Receta receta){
-		(comidasQueNoMeGustan.exists[ingrediente | receta.elementosDeReceta.exists(elem | elem.getNombre.equals(ingrediente))])
+		//(comidasQueNoMeGustan.exists[ingrediente | receta.elementosDeReceta.exists(elem | elem.getNombre.equals(ingrediente))])
+		receta.contieneAlguno(comidasQueNoMeGustan)
 	}
 	
 	def tieneSobrepeso() {
