@@ -158,7 +158,7 @@ class TestEntregaDos {
 		var List<Receta> recetasFiltradas = new ArrayList<Receta>
 
 		
-		usuarioNormal.misFiltros.add(new FiltroPorIngredienteCaro)
+		usuarioNormal.getMisBusquedas.add(new FiltroPorIngredienteCaro)
 		
 		usuarioNormal.misRecetas.add(lomoMostaza) // contiene ingrediente caro (lomo)
 		usuarioNormal.misRecetas.add(arrozBlanco)
@@ -189,8 +189,8 @@ class TestEntregaDos {
 		
 		usuarioNormal.misRecetas.add(asado)
 		usuarioNormal.agregarComidaQueMeDisgusta("pollo") 						// le disgusta el pollo
-		usuarioNormal.misFiltros.add(new FiltroExcesoDeCalorias)
-		usuarioNormal.misFiltros.add(new FiltroPorGustos)
+		usuarioNormal.getMisBusquedas.add(new FiltroExcesoDeCalorias)
+		usuarioNormal.getMisBusquedas.add(new FiltroPorGustos)
 		
 		
 		recetasFiltradas = usuarioNormal.busquedaFiltrada()
