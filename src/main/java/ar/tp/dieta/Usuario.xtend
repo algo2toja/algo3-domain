@@ -2,7 +2,6 @@ package ar.tp.dieta
 
 import java.util.ArrayList
 import java.util.GregorianCalendar
-import java.util.Iterator
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
 
