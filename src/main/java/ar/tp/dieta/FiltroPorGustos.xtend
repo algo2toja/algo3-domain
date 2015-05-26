@@ -13,7 +13,8 @@ class FiltroPorGustos implements Filtro {
 			recetasADevolver
 	}
 		
-	override aplicarFiltroGrupo(Grupo unGrupo){}	
+	override aplicarFiltroGrupo(Grupo unGrupo, List<Receta> recetasSinFiltrar) {
+	}
 		
 }
 

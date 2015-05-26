@@ -10,13 +10,14 @@ class FiltroPorCondicion implements Filtro {
 		recetas
 		
 		}
-		
-	override aplicarFiltroGrupo(Grupo unGrupo){
+	
+	override aplicarFiltroGrupo(Grupo unGrupo, List<Receta> recetasSinFiltrar) {
 		val List<Receta> recetasFiltradas = new ArrayList<Receta>
-		unGrupo.devolverRecetas.forEach[receta | if(!receta.esInadecuadaParaGrupo(unGrupo)){
-			recetasFiltradas.add(receta)}]
+		recetasSinFiltrar.forEach[receta | if(!receta.esInadecuadaParaGrupo(unGrupo)){
+			recetasFiltradas.add(receta)
+			}
+		]
 		recetasFiltradas
-		
 	}
 		
 }

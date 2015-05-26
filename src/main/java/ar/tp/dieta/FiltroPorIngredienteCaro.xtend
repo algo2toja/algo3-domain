@@ -23,6 +23,7 @@ class FiltroPorIngredienteCaro implements Filtro {
 		
 	}
 */	
-	override aplicarFiltroGrupo(Grupo unGrupo){}
+	override aplicarFiltroGrupo(Grupo unGrupo, List<Receta> recetasSinFiltrar) {
+	}
 	
 }

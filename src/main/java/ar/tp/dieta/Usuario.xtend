@@ -22,8 +22,7 @@ class Usuario {
 	List<Receta> misRecetas = new ArrayList<Receta>
 	List<Grupo> misGrupos = new ArrayList<Grupo>
 	List<Receta> recetasFavoritas = new ArrayList<Receta>
-	List<Filtro> misFiltros = new ArrayList<Filtro>
-	PosteriorBusqueda proceso = new PosteriorBusqueda
+	List<Busqueda> misBusquedas = new ArrayList<Busqueda>
 	RecetarioPublico recetario
 	
 	
@@ -206,16 +205,25 @@ class Usuario {
 		recetasQueVeo.addAll[misRecetas.iterator]
 		recetasQueVeo
 	}
+	
+	def void agregarBusqueda(Busqueda unaBusqueda){
+		misBusquedas.add(unaBusqueda)
+	}
+	
+	def void removerBusqueda(Busqueda unaBusqueda){
+		misBusquedas.remove(unaBusqueda)
+	}
 
 	def List<Receta> busquedaFiltrada(){
 		var List<Receta> recetasFiltradas = recetasQuePuedoVer()
 	
-		if(!misFiltros.empty){
-			var Iterator<Filtro> iterFiltro = misFiltros.iterator()
-	 		while(iterFiltro.hasNext){
-	   			recetasFiltradas = (iterFiltro.next).aplicarFiltroUsuario(this,recetasFiltradas)
+		if(!misBusquedas.empty){
+			var Iterator<Busqueda> iterBusqueda = misBusquedas.iterator()
+	 		while(iterBusqueda.hasNext){
+	   			recetasFiltradas = (iterBusqueda.next).aplicarBusquedaUsuario(this,recetasFiltradas)
 			}
-		}recetasFiltradas
+		}
+		recetasFiltradas
 	}
 	
 	def tePuedoSugerirEstaReceta(Receta receta){
@@ -231,9 +239,4 @@ class Usuario {
 		indiceDeMasaCorporal >= 30
 	}
 	
-	def aplicarProcesamientoBusqueda(List<Receta> recetas) {
-		proceso.procesarBusqueda(recetas)
-	}
-	
-
 }
