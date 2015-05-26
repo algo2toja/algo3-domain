@@ -25,7 +25,6 @@ class Usuario {
 	List<Busqueda> misBusquedas = new ArrayList<Busqueda>
 	RecetarioPublico recetario
 	
-	
 	// Punto 1 y 2 validacion usuario
 	public def validacionUsuario() {
 		(this.validarCampos() && this.condicionesValidas())
@@ -237,6 +236,11 @@ class Usuario {
 	
 	def tieneSobrepeso() {
 		indiceDeMasaCorporal >= 30
+	}
+	
+	def boolean tenesEstaCondicion(Condicion unaCondicion){
+		//Si existe un objeto de la misma clase que alguna de las condiciones en la coleccion condicionesPreexistentes, devuelvo true.
+		condicionesPreexistentes.exists[ condicion | condicion.getClass().equals(unaCondicion.getClass()) ]
 	}
 	
 }

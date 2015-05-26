@@ -9,4 +9,14 @@
 	  <artifactId>uqbar-xtend-parent</artifactId>
 	  <version>2.7.3</version>
   </parent>
+  <parent>
+	  <groupId>org.uqbar-project</groupId>
+	  <artifactId>uqbar-domain</artifactId>
+	  <version>3.5.1</version>
+  </parent>
+  <dependency>
+	  <groupId>org.uqbar-project</groupId>
+	  <artifactId>queComemos-repoRecetas-entrega3</artifactId>
+	  <version>0.0.2</version>
+  </dependency>
 </project>
