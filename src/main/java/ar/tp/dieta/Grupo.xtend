@@ -2,11 +2,10 @@ package ar.tp.dieta
 
 import java.util.ArrayList
 import java.util.List
-import java.util.Iterator
 import org.eclipse.xtend.lib.annotations.Accessors
 
 @Accessors
-class Grupo {
+class Grupo extends Miembro{
 	String nombre
 	List<String> preferencias = new ArrayList<String>
 	List<Usuario> miembros = new ArrayList<Usuario>
@@ -72,24 +71,4 @@ class Grupo {
 		recetasDeGrupo.addAll(miembros.map[misRecetas].flatten())
 		recetasDeGrupo
 	}
-	
-	def void agregarBusqueda(Busqueda unaBusqueda){
-		misBusquedas.add(unaBusqueda)
-	}
-	
-	def void removerBusqueda(Busqueda unaBusqueda){
-		misBusquedas.remove(unaBusqueda)
-	}
-	
-	def List<Receta> busquedaFiltrada(){
-		var List<Receta> recetasFiltradas = this.devolverRecetas()
-		if(!misBusquedas.empty){
-			var Iterator<Busqueda> iterBusqueda = misBusquedas.iterator()
-	 		while(iterBusqueda.hasNext){
-	   			recetasFiltradas = (iterBusqueda.next).aplicarBusquedaGrupo(this,recetasFiltradas)
-			}
-		}
-		recetasFiltradas
-	}
-		
 }

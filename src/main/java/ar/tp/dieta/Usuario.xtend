@@ -2,13 +2,12 @@ package ar.tp.dieta
 
 import java.util.ArrayList
 import java.util.GregorianCalendar
-import java.util.Iterator
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
 
 //ENTREGA 1
 @Accessors
-class Usuario {
+class Usuario extends Miembro {
 	Double peso
 	Double altura
 	GregorianCalendar fechaDeNacimiento
@@ -23,6 +22,7 @@ class Usuario {
 	List<Grupo> misGrupos = new ArrayList<Grupo>
 	List<Receta> recetasFavoritas = new ArrayList<Receta>
 	List<Busqueda> misBusquedas = new ArrayList<Busqueda>
+	Consulta consulta
 	RecetarioPublico recetario
 	
 	// Punto 1 y 2 validacion usuario
@@ -203,26 +203,6 @@ class Usuario {
 		
 		recetasQueVeo.addAll[misRecetas.iterator]
 		recetasQueVeo
-	}
-	
-	def void agregarBusqueda(Busqueda unaBusqueda){
-		misBusquedas.add(unaBusqueda)
-	}
-	
-	def void removerBusqueda(Busqueda unaBusqueda){
-		misBusquedas.remove(unaBusqueda)
-	}
-
-	def List<Receta> busquedaFiltrada(){
-		var List<Receta> recetasFiltradas = recetasQuePuedoVer()
-	
-		if(!misBusquedas.empty){
-			var Iterator<Busqueda> iterBusqueda = misBusquedas.iterator()
-	 		while(iterBusqueda.hasNext){
-	   			recetasFiltradas = (iterBusqueda.next).aplicarBusquedaUsuario(this,recetasFiltradas)
-			}
-		}
-		recetasFiltradas
 	}
 	
 	def tePuedoSugerirEstaReceta(Receta receta){
