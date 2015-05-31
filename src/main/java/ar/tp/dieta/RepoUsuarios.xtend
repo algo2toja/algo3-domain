@@ -25,21 +25,23 @@ class RepoUsuarios {
 		usuarios.findFirst[ usuario | usuario.getNombre().equals(nombreDeUsuario) ]
 	}
 
-	public def List<Usuario> getListaDeUsuarios(String nombreDeUsuario){
-		var List<Usuario> usuariosTemporales = new ArrayList<Usuario>
+	public def getListaDeUsuarios(String nombreDeUsuario){
+		/*var List<Usuario> usuariosTemporales = new ArrayList<Usuario>
 		usuarios.forEach[ usuario | if(usuario.getNombre().equals(nombreDeUsuario)){
 				usuariosTemporales.add(usuario)		
 			}
 		]
-		usuariosTemporales
+		usuariosTemporales*/
+		usuarios.filter[usuario | usuario.getNombre().equals(nombreDeUsuario)]
 	}
 
-	public def List<Usuario> getListaDeUsuarios(Condicion unaCondicion){
-		var List<Usuario> usuariosTemporales = new ArrayList<Usuario>
+	public def getListaDeUsuarios(Condicion unaCondicion){
+		/*var List<Usuario> usuariosTemporales = new ArrayList<Usuario>
 		usuarios.forEach[ usuario | if(usuario.tenesEstaCondicion(unaCondicion)){
 			usuariosTemporales.add(usuario)
 		}]
-		usuariosTemporales
+		usuariosTemporales*/
+		usuarios.filter[usuario | usuario.tenesEstaCondicion(unaCondicion)]
 	}	
 
 }
