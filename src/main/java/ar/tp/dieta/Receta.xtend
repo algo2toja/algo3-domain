@@ -7,12 +7,15 @@ import java.util.List
 @Accessors
 class Receta extends ElementoDeReceta implements Cloneable {
 
+	String autor
 	String nombreDeLaReceta
 	double calorias //Tiene que ser sumatoria de ingredientes/condimentos
 	ArrayList<ElementoDeReceta> elementosDeReceta = new ArrayList<ElementoDeReceta> //Integra ingredientes, condimentos y subrecetas.	
 	String procesoDePreparacion
 	String dificultadDePreparacion
 	String temporadaALaQueCorresponde
+	int tiempoPreparacion
+	int añoDeCreacion
 
 	def void agregarIngrediente(Ingrediente unIngrediente){
 		elementosDeReceta.add(unIngrediente)

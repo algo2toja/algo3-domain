@@ -1,6 +1,7 @@
 package ar.tp.dieta
 
 import java.util.ArrayList
+import java.util.Iterator
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
 
@@ -71,4 +72,15 @@ class Grupo extends Miembro{
 		recetasDeGrupo.addAll(miembros.map[misRecetas].flatten())
 		recetasDeGrupo
 	}
+	
+	override List<Receta> busquedaFiltrada(){
+  		var List<Receta> recetasFiltradas = this.devolverRecetas()
+		  if(!misBusquedas.empty){
+		   var Iterator<Busqueda> iterBusqueda = misBusquedas.iterator()
+		    while(iterBusqueda.hasNext){
+		       recetasFiltradas = (iterBusqueda.next).aplicarBusquedaGrupo(this,recetasFiltradas)
+		   }
+		  }
+		  recetasFiltradas
+ }
 }
