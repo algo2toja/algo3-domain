@@ -20,4 +20,8 @@ class ConsultasPorHoraObserver implements ConsultaObserver{
 	
 	}
 	
+	def mostrarConsultasDeHora(int hora){
+		println(consultasPorHora.get(hora))
+	}
+	
 }

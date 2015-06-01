@@ -9,6 +9,10 @@ class ConsultasDificilesDeVeganoObserver implements ConsultaObserver{
 			contadorDeVeganos++
 		}
 	}
+	
+	def public mostrarCantidadDeVeganos(){
+		contadorDeVeganos
+	}
 
 	
 }
