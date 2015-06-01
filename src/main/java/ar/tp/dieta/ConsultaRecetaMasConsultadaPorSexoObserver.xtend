@@ -1,9 +1,14 @@
 package ar.tp.dieta
 
+import java.util.ArrayList
 import java.util.HashMap
+import java.util.List
 import java.util.Map
 
-class RecetaMasConsultadaObserver implements ConsultaObserver {
+class ConsultaRecetaMasConsultadaPorSexoObserver implements ConsultaObserver {
+
+	List<String> nombresRecetas = new ArrayList<String>
+	protected String nombreMaximo
 
 	Map<String, Integer> recetasMasConsultadasPorHombres = new HashMap<String, Integer>()
 	Map<String, Integer> recetasMasConsultadasPorMujeres = new HashMap<String, Integer>()
@@ -14,10 +19,10 @@ class RecetaMasConsultadaObserver implements ConsultaObserver {
 		} else {
 			actualizarMap(recetasMasConsultadasPorHombres, receta)
 		}
-
+		nombresRecetas.add(receta.nombreDeLaReceta)
 	}
 
-	def private actualizarMap(Map<String, Integer> elMap, Receta receta) {
+	def protected actualizarMap(Map<String, Integer> elMap, Receta receta) {
 		var clave = receta.nombreDeLaReceta
 		if (!elMap.containsKey(clave)) {
 			elMap.put(clave, 1)
@@ -28,14 +33,23 @@ class RecetaMasConsultadaObserver implements ConsultaObserver {
 	}
 
 	def public recetasMasConsultadasHombres() {
-		masConsultadas(recetasMasConsultadasPorHombres)
+		masConsultada(recetasMasConsultadasPorHombres)
 	}
 
 	def public recetasMasConsultadasMujeres() {
-		masConsultadas(recetasMasConsultadasPorMujeres)
+		masConsultada(recetasMasConsultadasPorMujeres)
+
 	}
 
-	def protected masConsultadas(Map<String, Integer> unMap) {
-		//ordena el map y lo devuelve
+	def protected masConsultada(Map<String, Integer> unMap) {
+		var int i = 0
+		var Integer valorMaximo = 0
+		for (i = 0; i < nombresRecetas.size; i++) {
+			if (unMap.get(nombresRecetas.get(i)) > valorMaximo) {
+				valorMaximo = unMap.get(nombresRecetas.get(i))
+				nombreMaximo = nombresRecetas.get(i)
+			}
+		}
+		nombreMaximo
 	}
 }
