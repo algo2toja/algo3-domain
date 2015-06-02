@@ -5,7 +5,7 @@ import java.util.List
 
 class Consulta extends ConsultaBase{
 	
-	JsonSimplePrinter json
+	JsonSimplePrinter json = new JsonSimplePrinter
 	
 	public def buscarReceta(Usuario usuario, String nombre){
 		var List<Receta> listaTemporal = usuario.recetasQuePuedoVer
