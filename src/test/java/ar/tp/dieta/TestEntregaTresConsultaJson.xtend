@@ -189,7 +189,7 @@ class TestEntregaTresConsultaJson {
 		Assert.assertTrue(consulta2.recetaMasConsultada.equals("bofe"))
 	}
 	
-		@Test
+	@Test
 	def void comprobarJsonPorSexoHombre(){
 		var ConsultaRecetaMasConsultadaPorSexoObserver consulta1 = new ConsultaRecetaMasConsultadaPorSexoObserver
 		val List<String> pClave = new ArrayList<String>

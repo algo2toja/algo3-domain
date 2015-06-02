@@ -8,7 +8,6 @@ class Consulta extends ConsultaBase{
 	public def buscarReceta(Usuario usuario, String nombre){
 		var List<Receta> listaTemporal = usuario.recetasQuePuedoVer
 		val List<Receta> listaTemporal2 = new ArrayList<Receta>
-		//listaTemporal = listaTemporal.filter[receta | receta.devolverNombre.equals(nombre)]
 		listaTemporal.forEach[receta | if(receta.tuNombreEsEste(nombre)){
 										listaTemporal2.add(receta)
 		}]
@@ -17,7 +16,6 @@ class Consulta extends ConsultaBase{
 		if(listaTemporal2.size.equals(0)){
 			println("No hay recetas que cumplan con la busqueda")
 		}else{
-			//resultado = listaTemporal.get(0)
 			listaTemporal2.forEach[receta | actualizarObservers(usuario,receta)]
 			(new JsonSimplePrinter).printListaDeRecetas(listaTemporal2)
 		}	
@@ -31,7 +29,6 @@ class Consulta extends ConsultaBase{
 		if(listaTemporal.size.equals(0)){
 			println("No hay recetas que cumplan con la busqueda")
 		}else{
-			//resultado = listaTemporal.get(0)
 			listaTemporal.forEach[receta | actualizarObservers(usuario,receta)]
 			(new JsonSimplePrinter).printListaDeRecetas(listaTemporal)
 		}
