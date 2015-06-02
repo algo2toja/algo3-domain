@@ -3,11 +3,9 @@ package ar.tp.dieta
 import java.util.ArrayList
 import org.eclipse.xtend.lib.annotations.Accessors
 import java.util.List
-import org.json.simple.JSONAware
-import org.json.simple.JSONObject
 
 @Accessors
-class Receta extends ElementoDeReceta implements Cloneable, JSONAware{
+class Receta extends ElementoDeReceta implements Cloneable{
 
 	String autor
 	String nombreDeLaReceta
