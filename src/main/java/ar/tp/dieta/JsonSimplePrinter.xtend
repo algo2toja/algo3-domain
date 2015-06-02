@@ -14,7 +14,7 @@ class JsonSimplePrinter {
     public def void printListaDeRecetas(Iterable<Receta> listaDeRecetas){
 		val JSONArray recetasJson = new JSONArray()
 		listaDeRecetas.forEach[ receta | this.agregarRecetaAJson(recetasJson, receta)]
-		System.out.println(recetasJson);
+		recetasJson.forEach[ receta | System.out.println(receta) ]
 	}
 	
 	protected def void agregarRecetaAJson(JSONArray unArrayJson, Receta unaReceta){
