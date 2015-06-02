@@ -3,13 +3,15 @@ package ar.tp.dieta
 import java.util.ArrayList
 import org.eclipse.xtend.lib.annotations.Accessors
 import java.util.List
+import org.json.simple.JSONAware
+import org.json.simple.JSONObject
 
 @Accessors
-class Receta extends ElementoDeReceta implements Cloneable {
+class Receta extends ElementoDeReceta implements Cloneable, JSONAware{
 
 	String autor
 	String nombreDeLaReceta
-	double calorias //Tiene que ser sumatoria de ingredientes/condimentos
+	double calorias
 	ArrayList<ElementoDeReceta> elementosDeReceta = new ArrayList<ElementoDeReceta> //Integra ingredientes, condimentos y subrecetas.	
 	String procesoDePreparacion
 	String dificultadDePreparacion
@@ -83,4 +85,25 @@ class Receta extends ElementoDeReceta implements Cloneable {
 	def boolean contieneAlguno(List<String> nombresIngredientes) {
 		nombresIngredientes.exists[nombreIngrediente | this.contieneIngrediente(nombreIngrediente)]
 	}
+	
+	def ingredientesAString(){
+		var String[] stringsList = new ArrayList<String>(elementosDeReceta.size()) 
+		for(ElementoDeReceta elemento : elementosDeReceta){
+			stringsList.add(elemento.toString())
+		}				
+		stringsList
+	}
+
+	override toJSONString(){
+    	var JSONObject objetoJson = new JSONObject()
+    	objetoJson.put("Nombre", this.nombreDeLaReceta)
+    	objetoJson.put("Lista de Ingredientes", this.ingredientesAString)
+		objetoJson.put("Tiempo de preparacion", this.tiempoPreparacion)    	
+		objetoJson.put("Calorias", this.calorias)
+		objetoJson.put("Dificultad", this.dificultadDePreparacion)		
+		objetoJson.put("Autor", this.autor)
+		objetoJson.put("Ano de creacion", this.añoDeCreacion)
+	    return objetoJson.toString()
+  	}
+	
 }
