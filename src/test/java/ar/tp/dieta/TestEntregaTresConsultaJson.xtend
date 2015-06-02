@@ -14,6 +14,7 @@ class TestEntregaTresConsultaJson {
 	Usuario usuarioVegano = new Usuario
 	Usuario usuarioHipertenso = new Usuario
 	Usuario usuarioDiabetico = new Usuario
+	Consulta consultaCentral = new Consulta
 	Grupo	grupoConHipertenso = new Grupo
 	Receta	recetaPropia = new Receta
 	Receta	recetaPorGrupo = new Receta
@@ -29,6 +30,7 @@ class TestEntregaTresConsultaJson {
 	Receta bofe = new Receta
 	Receta gelatina = new Receta
 	Receta lomoMostaza = new Receta
+	
 	
 	Ingrediente lomo = new Ingrediente
 	Ingrediente cebolla = new Ingrediente
@@ -50,12 +52,21 @@ class TestEntregaTresConsultaJson {
 		
 		grupoConHipertenso.agregarUsuario(usuarioHipertenso)
 		
-		usuarioNormal.setAltura(1.3)
-		usuarioNormal.setPeso(150.0)
-		usuarioNormal.setSexo("F")
-		usuarioNormal.setRecetario(recetario)
-		usuarioNormal.setConsulta(new Consulta)
+		usuarioNormal => [
+			setAltura(1.3)
+			setPeso(150.0)
+			setSexo("F")
+			setRecetario(recetario)
+			setConsulta(consultaCentral)
+		]
 		
+		usuarioHipertenso =>[ 
+			setAltura(1.88)
+			setPeso(94.3)
+			setSexo("M")
+			setRecetario(recetario)
+			setConsulta(consultaCentral)
+		]
 		
 		usuarioVegano.setRecetario(recetario)
 		
@@ -156,17 +167,17 @@ class TestEntregaTresConsultaJson {
 	}
 	
 	@Test
-	def void comprobarJson(){
+	def void comprobarJsonEImprimir(){
 		val List<String> pClave = new ArrayList<String>
 		pClave.add("carne")
 		usuarioNormal.getRecetas("asado")
 	}
 	
 	@Test
-	def void comprobarJson2(){
+	def void comprobarJsonMasConsultado(){
 		var ConsultasDificilesDeVeganoObserver consulta1 = new ConsultasDificilesDeVeganoObserver
 		var ConsultaRecetaMasConsultadaObserver consulta2 = new ConsultaRecetaMasConsultadaObserver
-		usuarioNormal.condicionesPreexistentes.add(new CondicionVegano)
+		usuarioNormal.agregarCondicion(new CondicionVegano)
 		val List<String> pClave = new ArrayList<String>
 		pClave.add("carne")
 		usuarioNormal.consulta.observadores.add(consulta1)
@@ -175,8 +186,29 @@ class TestEntregaTresConsultaJson {
 		usuarioNormal.getRecetas("Dificil",pClave)
 		Assert.assertTrue(consulta1.mostrarCantidadDeVeganos.equals(2))
 		usuarioNormal.getRecetas("bofe")		
-		Assert.assertTrue(consulta2.mostrarRecetaMasConsultada.equals("bofe"))
-		
+		Assert.assertTrue(consulta2.recetaMasConsultada.equals("bofe"))
 	}
+	
+		@Test
+	def void comprobarJsonPorSexoHombre(){
+		var ConsultaRecetaMasConsultadaPorSexoObserver consulta1 = new ConsultaRecetaMasConsultadaPorSexoObserver
+		val List<String> pClave = new ArrayList<String>
+		pClave.add("carne")
+		usuarioHipertenso.consulta.observadores.add(consulta1)
+		usuarioHipertenso.getRecetas("lomoMostaza")
+		usuarioHipertenso.getRecetas("Media",pClave)
+		Assert.assertTrue(consulta1.recetasMasConsultadasHombres.equals("lomoMostaza"))
+	}
+	
+	@Test		
+	def void comprobarJsonPorHora(){
+		var ConsultasPorHoraObserver consulta1 = new ConsultasPorHoraObserver
+		val List<String> pClave = new ArrayList<String>
+		pClave.add("azucar")
+		usuarioHipertenso.consulta.observadores.add(consulta1)
+		usuarioHipertenso.getRecetas("bondiola")
+		usuarioHipertenso.getRecetas("fideos")
+		Assert.assertTrue(consulta1.mostrarConsultasDeHora(15).equals(2))
+	}		
 			
 }

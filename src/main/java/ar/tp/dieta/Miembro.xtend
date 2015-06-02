@@ -14,14 +14,5 @@ abstract class Miembro {
 	def void removerBusqueda(Busqueda unaBusqueda){
 		misBusquedas.remove(unaBusqueda)
 	}
-	
-	////////////////////////////////METODOS PARA IMPRIMIR EN JSON////////////////////////////////////
-	
-	/*public def getRecetas(String nombre, String dificultad, List<String> palabrasClave){
-		consulta.buscarReceta(this,nombre,dificultad,palabrasClave)
- 	}*/
- 	
- 	////////////////////////////////////////////////////////////////////////////////////////////////
- 	
- }
- 
+
+}

@@ -7,15 +7,17 @@ import java.util.Map
 
 class ConsultaRecetaMasConsultadaObserver implements ConsultaObserver{
 	
-	Map<String,Integer> recetasMasConsultadas = new HashMap<String,Integer>()
+	public Map<String,Integer> recetasMasConsultadas = new HashMap<String,Integer>()
 	List<String> nombresRecetas = new ArrayList<String>
-	protected String nombreMaximo
+	public String nombreMaximo
 	
 	override actualizar(Usuario usuario,Receta receta){
-		if(!recetasMasConsultadas.containsKey(receta.getNombre())){
-			recetasMasConsultadas.put(receta.getNombre(),1)
+		
+		if(!recetasMasConsultadas.containsKey(receta.devolverNombre)){
+			recetasMasConsultadas.put(receta.devolverNombre(),1)
+			nombresRecetas.add(receta.devolverNombre())
 		}else{
-			recetasMasConsultadas.put(receta.getNombre(),recetasMasConsultadas.get(receta.getNombre())+1)
+			recetasMasConsultadas.put(receta.devolverNombre(),recetasMasConsultadas.get(receta.devolverNombre())+1)
 		}
 		
 	}
