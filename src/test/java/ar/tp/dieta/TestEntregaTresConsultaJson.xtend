@@ -52,8 +52,10 @@ class TestEntregaTresConsultaJson {
 		
 		usuarioNormal.setAltura(1.3)
 		usuarioNormal.setPeso(150.0)
+		usuarioNormal.setSexo("F")
 		usuarioNormal.setRecetario(recetario)
 		usuarioNormal.setConsulta(new Consulta)
+		
 		
 		usuarioVegano.setRecetario(recetario)
 		
@@ -121,6 +123,7 @@ class TestEntregaTresConsultaJson {
 		asado.agregarIngrediente(carne)
 		asado.agregarIngrediente(sal)
 		lomoMostaza.agregarIngrediente(lomo)
+		lomoMostaza.agregarIngrediente(carne)
 		arrozBlanco.agregarIngrediente(arroz)
 		
 		arrozConPollo.agregarIngrediente(pollo)
@@ -161,9 +164,19 @@ class TestEntregaTresConsultaJson {
 	
 	@Test
 	def void comprobarJson2(){
+		var ConsultasDificilesDeVeganoObserver consulta1 = new ConsultasDificilesDeVeganoObserver
+		var ConsultaRecetaMasConsultadaObserver consulta2 = new ConsultaRecetaMasConsultadaObserver
+		usuarioNormal.condicionesPreexistentes.add(new CondicionVegano)
 		val List<String> pClave = new ArrayList<String>
 		pClave.add("carne")
+		usuarioNormal.consulta.observadores.add(consulta1)
+		usuarioNormal.consulta.observadores.add(consulta2)
+		Assert.assertTrue(consulta1.mostrarCantidadDeVeganos.equals(0))
 		usuarioNormal.getRecetas("Dificil",pClave)
+		Assert.assertTrue(consulta1.mostrarCantidadDeVeganos.equals(2))
+		usuarioNormal.getRecetas("bofe")		
+		Assert.assertTrue(consulta2.mostrarRecetaMasConsultada.equals("bofe"))
+		
 	}
 			
 }

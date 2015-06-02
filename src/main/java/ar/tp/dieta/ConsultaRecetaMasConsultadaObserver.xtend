@@ -36,4 +36,8 @@ class ConsultaRecetaMasConsultadaObserver implements ConsultaObserver{
 		nombreMaximo
 	}
 	
+	def public mostrarRecetaMasConsultada(){
+		nombreMaximo
+	}
+	
 }
