@@ -85,11 +85,11 @@ class Receta extends ElementoDeReceta implements Cloneable{
 	}
 	
 	def ingredientesAString(){
-		var String[] stringsList = new ArrayList<String>(elementosDeReceta.size()) 
+		var List<String> stringsList = new ArrayList<String>();
 		for(ElementoDeReceta elemento : elementosDeReceta){
-			stringsList.add(elemento.toString())
+			stringsList.add(elemento.nombre)
 		}				
-		stringsList
+		stringsList.toString()
 	}
 	
 	def boolean tuNombreEsEste(String nombre){

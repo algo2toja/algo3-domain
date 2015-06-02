@@ -30,10 +30,10 @@ class JsonSimplePrinter {
 		sb.append(":");
 		sb.append("\"" + JSONObject.escape(unaReceta.nombreDeLaReceta) + "\"");
 		sb.append(",");
-//		sb.append(JSONObject.escape("Lista de Ingredientes"));
-//		sb.append(":");
-//		sb.append(unaReceta.ingredientesAString);
-//      sb.append(",");
+		sb.append(JSONObject.escape("Lista de Ingredientes"));
+		sb.append(":");
+		sb.append(unaReceta.ingredientesAString);
+        sb.append(",");
 		sb.append(JSONObject.escape("Tiempo de preparacion"));
 		sb.append(":");
 		sb.append(unaReceta.tiempoPreparacion);
@@ -50,7 +50,7 @@ class JsonSimplePrinter {
 		sb.append(":");
 		sb.append(unaReceta.autor)
 		sb.append(",");
-		sb.append(JSONObject.escape("Ano de creacion"));
+		sb.append(JSONObject.escape("Año de creacion"));
 		sb.append(":");
 		sb.append(unaReceta.añoDeCreacion)
 		sb.append("}");
