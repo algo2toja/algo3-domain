@@ -1,7 +1,6 @@
 package ar.tp.dieta
 
 import org.json.simple.JSONArray
-import java.util.List
 
 class JsonSimplePrinter {
 

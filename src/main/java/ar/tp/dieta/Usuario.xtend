@@ -2,6 +2,7 @@ package ar.tp.dieta
 
 import java.util.ArrayList
 import java.util.GregorianCalendar
+import java.util.Iterator
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
 
@@ -221,6 +222,26 @@ class Usuario extends Miembro {
 	def boolean tenesEstaCondicion(Condicion unaCondicion){
 		//Si existe un objeto de la misma clase que alguna de las condiciones en la coleccion condicionesPreexistentes, devuelvo true.
 		condicionesPreexistentes.exists[ condicion | condicion.getClass().equals(unaCondicion.getClass()) ]
+	}
+	
+	public def getRecetas(String nombre){
+		consulta.buscarReceta(this,nombre)
+ 	}
+ 	
+ 	public def getRecetas(String dificultad, List<String> palabrasClave){
+		consulta.buscarReceta(this,dificultad,palabrasClave)
+ 	}
+ 	
+ 	def List<Receta> busquedaFiltrada(){
+		var List<Receta> recetasFiltradas = recetasQuePuedoVer()
+	
+		if(!misBusquedas.empty){
+			var Iterator<Busqueda> iterBusqueda = misBusquedas.iterator()
+	 		while(iterBusqueda.hasNext){
+	   			recetasFiltradas = (iterBusqueda.next).aplicarBusquedaUsuario(this,recetasFiltradas)
+			}
+		}
+		recetasFiltradas
 	}
 	
 }

@@ -73,7 +73,7 @@ class Grupo extends Miembro{
 		recetasDeGrupo
 	}
 	
-	override List<Receta> busquedaFiltrada(){
+	def List<Receta> busquedaFiltrada(){
   		var List<Receta> recetasFiltradas = this.devolverRecetas()
 		  if(!misBusquedas.empty){
 		   var Iterator<Busqueda> iterBusqueda = misBusquedas.iterator()
