@@ -178,11 +178,5 @@ class TestEntregaTresConsultaJson {
 		Assert.assertTrue(consulta2.mostrarRecetaMasConsultada.equals("bofe"))
 		
 	}
-	
-	@Test
-	def void comprobarJson3(){//Imprimo una sola receta
-		val JsonSimplePrinter impre = new JsonSimplePrinter
-		impre.printUnaSolaReceta(lomoMostaza)
-	}
 			
 }
