@@ -165,5 +165,11 @@ class TestEntregaTresConsultaJson {
 		pClave.add("carne")
 		usuarioNormal.getRecetas("Dificil",pClave)
 	}
+	
+	@Test
+	def void comprobarJson3(){//Imprimo una sola receta
+		val JsonSimplePrinter impre = new JsonSimplePrinter
+		impre.printUnaSolaReceta(lomoMostaza)
+	}
 			
 }

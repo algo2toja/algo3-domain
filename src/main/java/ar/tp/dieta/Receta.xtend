@@ -93,18 +93,6 @@ class Receta extends ElementoDeReceta implements Cloneable, JSONAware{
 		}				
 		stringsList
 	}
-
-	override toJSONString(){
-    	var JSONObject objetoJson = new JSONObject()
-    	objetoJson.put("Nombre", this.nombreDeLaReceta)
-    	objetoJson.put("Lista de Ingredientes", this.ingredientesAString)
-		objetoJson.put("Tiempo de preparacion", this.tiempoPreparacion)    	
-		objetoJson.put("Calorias", this.calorias)
-		objetoJson.put("Dificultad", this.dificultadDePreparacion)		
-		objetoJson.put("Autor", this.autor)
-		objetoJson.put("Ano de creacion", this.añoDeCreacion)
-	    return objetoJson.toString()
-  	}
 	
 	def boolean tuNombreEsEste(String nombre){
 		nombreDeLaReceta.equals(nombre)

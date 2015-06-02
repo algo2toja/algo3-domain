@@ -5,8 +5,6 @@ import java.util.List
 
 class Consulta extends ConsultaBase{
 	
-	JsonSimplePrinter json = new JsonSimplePrinter
-	
 	public def buscarReceta(Usuario usuario, String nombre){
 		var List<Receta> listaTemporal = usuario.recetasQuePuedoVer
 		val List<Receta> listaTemporal2 = new ArrayList<Receta>
@@ -21,7 +19,7 @@ class Consulta extends ConsultaBase{
 		}else{
 			//resultado = listaTemporal.get(0)
 			listaTemporal2.forEach[receta | actualizarObservers(usuario,receta)]
-			json.printListaDeRecetas(listaTemporal2)
+			(new JsonSimplePrinter).printListaDeRecetas(listaTemporal2)
 		}	
  	}
  	
@@ -35,7 +33,7 @@ class Consulta extends ConsultaBase{
 		}else{
 			//resultado = listaTemporal.get(0)
 			listaTemporal.forEach[receta | actualizarObservers(usuario,receta)]
-			json.printListaDeRecetas(listaTemporal)
+			(new JsonSimplePrinter).printListaDeRecetas(listaTemporal)
 		}
  	}
 }
