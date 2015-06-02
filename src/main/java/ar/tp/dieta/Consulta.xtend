@@ -11,12 +11,12 @@ class Consulta extends ConsultaBase{
 		var List<Receta> listaTemporal = usuario.recetasQuePuedoVer
 		val List<Receta> listaTemporal2 = new ArrayList<Receta>
 		//listaTemporal = listaTemporal.filter[receta | receta.devolverNombre.equals(nombre)]
-		listaTemporal.forEach[receta | if(receta.devolverNombre.equals(nombre)){
+		listaTemporal.forEach[receta | if(receta.tuNombreEsEste(nombre)){
 										listaTemporal2.add(receta)
 		}]
 		
 		
-		if(listaTemporal.size.equals(0)){
+		if(listaTemporal2.size.equals(0)){
 			println("No hay recetas que cumplan con la busqueda")
 		}else{
 			//resultado = listaTemporal.get(0)

@@ -106,4 +106,8 @@ class Receta extends ElementoDeReceta implements Cloneable, JSONAware{
 	    return objetoJson.toString()
   	}
 	
+	def boolean tuNombreEsEste(String nombre){
+		nombreDeLaReceta.equals(nombre)
+	}
+	
 }

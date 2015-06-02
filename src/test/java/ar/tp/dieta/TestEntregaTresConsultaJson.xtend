@@ -74,9 +74,11 @@ class TestEntregaTresConsultaJson {
 		cereal.setNombre("cereal")
 		lomo.setNombre("lomo")
 		
+		arrozBlanco.setNombreDeLaReceta("arrozBlanco")
 		arrozBlanco.setCalorias(499)
 		arrozBlanco.setAutor("Daniel")
 		arrozBlanco.setDificultadDePreparacion("Dificil")
+		ensalada.setNombreDeLaReceta("ensalada")
 		ensalada.setCalorias(100)
 		ensalada.setAutor("Juan")
 		ensalada.setDificultadDePreparacion("Facil")
@@ -84,24 +86,31 @@ class TestEntregaTresConsultaJson {
 		asado.setCalorias(501)
 		asado.setAutor("Gabriel")
 		asado.setDificultadDePreparacion("Media")
+		arrozConPollo.setNombreDeLaReceta("arrozConPollo")
 		arrozConPollo.setCalorias(200)
 		arrozConPollo.setAutor("Tojo")
 		arrozConPollo.setDificultadDePreparacion("Facil")
+		lomoMostaza.setNombreDeLaReceta("lomoMostaza")
 		lomoMostaza.setCalorias(500)
 		lomoMostaza.setAutor("Miguel")
 		lomoMostaza.setDificultadDePreparacion("Dificil")
+		bondiola.setNombreDeLaReceta("bondiola")
 		bondiola.setCalorias(501)
 		bondiola.setAutor("Juan")
 		bondiola.setDificultadDePreparacion("Media")
+		fideos.setNombreDeLaReceta("fideos")
 		fideos.setCalorias(500)
 		fideos.setAutor("Daniel")
 		fideos.setDificultadDePreparacion("Facil")
+		cerealitos.setNombreDeLaReceta("cerealitos")
 		cerealitos.setCalorias(200)
 		cerealitos.setAutor("Gabriel")
 		cerealitos.setDificultadDePreparacion("Facil")
+		bofe.setNombreDeLaReceta("bofe")
 		bofe.setCalorias(600)
 		bofe.setAutor("Miguel")
 		bofe.setDificultadDePreparacion("Dificil")
+		gelatina.setNombreDeLaReceta("gelatina")
 		gelatina.setCalorias(10)
 		gelatina.setAutor("Juan")
 		gelatina.setDificultadDePreparacion("Media")
@@ -148,6 +157,13 @@ class TestEntregaTresConsultaJson {
 		val List<String> pClave = new ArrayList<String>
 		pClave.add("carne")
 		usuarioNormal.getRecetas("asado")
+	}
+	
+	@Test
+	def void comprobarJson2(){
+		val List<String> pClave = new ArrayList<String>
+		pClave.add("carne")
+		usuarioNormal.getRecetas("Dificil",pClave)
 	}
 			
 }
