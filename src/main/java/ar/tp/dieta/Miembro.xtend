@@ -13,10 +13,22 @@ abstract class Miembro {
 		misBusquedas.remove(unaBusqueda)
 	}
 	
-	public def getRecetas(String nombre, String dificultad, List<String> palabrasClave){
+	////////////////////////////////METODOS PARA IMPRIMIR EN JSON////////////////////////////////////
+	
+	/*public def getRecetas(String nombre, String dificultad, List<String> palabrasClave){
 		consulta.buscarReceta(this,nombre,dificultad,palabrasClave)
+ 	}*/
+ 	
+ 	public def getRecetas(String nombre){
+		consulta.buscarReceta(this,nombre)
  	}
  	
+ 	public def getRecetas(String dificultad, List<String> palabrasClave){
+		consulta.buscarReceta(this,dificultad,palabrasClave)
+ 	}
+ 
+ 	
+ 	////////////////////////////////////////////////////////////////////////////////////////////////
  	def List<Receta> busquedaFiltrada(){
 		var List<Receta> recetasFiltradas = recetasQuePuedoVer()
 	

@@ -23,15 +23,24 @@ class Admin {
   usuariosAActualizar.add(usuario)
  }
  def procesarUsuariosAAgregar(){
-  usuariosAAgregar.forEach[usuario| repo.usuarios.add(usuario)]
+  repo.usuarios.add(usuariosAAgregar.get(0))
+  this.usuarioAIngresarADescartar()
+  //usuariosAAgregar.remove(usuariosAAgregar.get(o))
+ }
+ def usuarioAIngresarADescartar(){
+  usuariosAAgregar.remove(usuariosAAgregar.get(0))
  }
  def procesarUsuariosARemover(){
-  usuariosAAgregar.forEach[usuario| repo.usuarios.remove(usuario)]
+  repo.usuarios.remove(usuariosAAgregar.get(0))
+  usuarioARemoverRechazado()
+ }
+ def usuarioARemoverRechazado(){
+  usuariosARemover.remove(usuariosARemover.get(0))
  }
  def procesarUsuariosAActualizar(){
- 	usuariosAActualizar.forEach[usuario | repo.removerUsuario(repo.getUsuarioPorNombre(usuario.getNombre()))
-										  repo.agregarUsuario(usuario) 		
- 								]
+  usuariosAActualizar.forEach[usuario | repo.removerUsuario(repo.getUsuarioPorNombre(usuario.getNombre()))
+            repo.agregarUsuario(usuario)   
+         ]
  }
 
 }

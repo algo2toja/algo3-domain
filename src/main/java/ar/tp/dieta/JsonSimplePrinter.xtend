@@ -12,8 +12,8 @@ class JsonSimplePrinter {
     }
     
     //Agregar una lista de recetas
-    public def void printListaDeRecetas(List<Receta> listaDeRecetas){
-		var JSONArray recetasJson = new JSONArray()
+    public def void printListaDeRecetas(Iterable<Receta> listaDeRecetas){
+		val JSONArray recetasJson = new JSONArray()
 		listaDeRecetas.forEach[ receta | this.agregarRecetaAJson(recetasJson, receta)]
 		System.out.println(recetasJson);
 	}
