@@ -3,11 +3,9 @@ package ar.tp.dieta
 import java.util.ArrayList
 import org.eclipse.xtend.lib.annotations.Accessors
 import java.util.List
-import org.json.simple.JSONAware
-import org.json.simple.JSONObject
 
 @Accessors
-class Receta extends ElementoDeReceta implements Cloneable, JSONAware{
+class Receta extends ElementoDeReceta implements Cloneable{
 
 	String autor
 	String nombreDeLaReceta
@@ -93,18 +91,6 @@ class Receta extends ElementoDeReceta implements Cloneable, JSONAware{
 		}				
 		stringsList
 	}
-
-	override toJSONString(){
-    	var JSONObject objetoJson = new JSONObject()
-    	objetoJson.put("Nombre", this.nombreDeLaReceta)
-    	objetoJson.put("Lista de Ingredientes", this.ingredientesAString)
-		objetoJson.put("Tiempo de preparacion", this.tiempoPreparacion)    	
-		objetoJson.put("Calorias", this.calorias)
-		objetoJson.put("Dificultad", this.dificultadDePreparacion)		
-		objetoJson.put("Autor", this.autor)
-		objetoJson.put("Ano de creacion", this.añoDeCreacion)
-	    return objetoJson.toString()
-  	}
 	
 	def boolean tuNombreEsEste(String nombre){
 		nombreDeLaReceta.equals(nombre)
