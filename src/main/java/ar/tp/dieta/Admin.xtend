@@ -24,7 +24,7 @@ class Admin {
  }
  def procesarUsuariosAAgregar(){
   repo.usuarios.add(usuariosAAgregar.get(0))
-  this.usuarioAIngresarADescartar()
+  usuariosAAgregar.remove(usuariosAAgregar.get(0))
   //usuariosAAgregar.remove(usuariosAAgregar.get(o))
  }
  def usuarioAIngresarADescartar(){
@@ -32,7 +32,7 @@ class Admin {
  }
  def procesarUsuariosARemover(){
   repo.usuarios.remove(usuariosAAgregar.get(0))
-  usuarioARemoverRechazado()
+  usuariosARemover.remove(usuariosARemover.get(0))
  }
  def usuarioARemoverRechazado(){
   usuariosARemover.remove(usuariosARemover.get(0))
