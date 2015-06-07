@@ -10,7 +10,7 @@ class ConsultasPorHoraObserver implements ConsultaObserver{
 	Map<Integer,Integer> consultasPorHora = new HashMap<Integer,Integer>()
 	Calendar calendario = new GregorianCalendar()
 	
-	override actualizar(Usuario usuario,Receta receta){
+	override actualizar(Usuario usuario, queComemos.entrega3.dominio.Receta receta){
 		val int hora = calendario.get(Calendar.HOUR_OF_DAY)
 		if(!consultasPorHora.containsKey(hora)){
 			consultasPorHora.put(hora,1)

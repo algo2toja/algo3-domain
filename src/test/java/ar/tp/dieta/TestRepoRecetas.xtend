@@ -1,0 +1,32 @@
+package ar.tp.dieta
+
+import queComemos.entrega3.repositorio.RepoRecetas
+import org.junit.Before
+import org.junit.Test
+import org.eclipse.xtend.lib.annotations.Accessors
+import queComemos.entrega3.repositorio.BusquedaRecetas
+import queComemos.entrega3.dominio.Dificultad
+
+@Accessors
+class TestRepoRecetas {
+	RepoRecetas repo
+	BusquedaRecetas busqueda
+	Dificultad mediana
+	
+	@Before
+	def void init(){
+		repo = new RepoRecetas => [
+			crearRepoRecetas
+		]
+		
+		busqueda = new BusquedaRecetas => [
+			setNombre("pure mixto")
+//			setDificultad(mediana)
+		]
+	}
+
+	@Test
+	def void testRepo(){
+		repo.getRecetas(busqueda)
+	}
+}

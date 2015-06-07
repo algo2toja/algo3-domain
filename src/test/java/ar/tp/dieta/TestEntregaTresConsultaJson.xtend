@@ -6,6 +6,8 @@ import org.junit.Test
 import org.junit.Assert
 import java.util.List
 import java.util.ArrayList
+import queComemos.entrega3.repositorio.RepoRecetas
+import queComemos.entrega3.dominio.Dificultad
 
 class TestEntregaTresConsultaJson {
 	
@@ -14,7 +16,6 @@ class TestEntregaTresConsultaJson {
 	Usuario usuarioVegano = new Usuario
 	Usuario usuarioHipertenso = new Usuario
 	Usuario usuarioDiabetico = new Usuario
-	Consulta consultaCentral = new Consulta
 	Grupo	grupoConHipertenso = new Grupo
 	Receta	recetaPropia = new Receta
 	Receta	recetaPorGrupo = new Receta
@@ -31,6 +32,8 @@ class TestEntregaTresConsultaJson {
 	Receta gelatina = new Receta
 	Receta lomoMostaza = new Receta
 	
+	//Implementando interfaz
+	RepoRecetas repo
 	
 	Ingrediente lomo = new Ingrediente
 	Ingrediente cebolla = new Ingrediente
@@ -49,6 +52,10 @@ class TestEntregaTresConsultaJson {
 		usuarioVegano.agregarComidaQueMeDisgusta("arroz")
 		usuarioHipertenso.condicionesPreexistentes.add(new CondicionHipertension)
 		usuarioDiabetico.condicionesPreexistentes.add(new CondicionDiabetes)
+	
+		repo = new RepoRecetas => [
+			crearRepoRecetas
+		]
 		
 		grupoConHipertenso.agregarUsuario(usuarioHipertenso)
 		
@@ -57,7 +64,6 @@ class TestEntregaTresConsultaJson {
 			setPeso(150.0)
 			setSexo("F")
 			setRecetario(recetario)
-			setConsulta(consultaCentral)
 		]
 		
 		usuarioHipertenso =>[ 
@@ -65,7 +71,6 @@ class TestEntregaTresConsultaJson {
 			setPeso(94.3)
 			setSexo("M")
 			setRecetario(recetario)
-			setConsulta(consultaCentral)
 		]
 		
 		usuarioVegano.setRecetario(recetario)
@@ -75,6 +80,8 @@ class TestEntregaTresConsultaJson {
 		usuarioDiabetico.setRecetario(recetario)
 		
 		grupoConHipertenso.setRecetario(recetario)
+		
+		////////////CREAMOS LAS RECETAS AL PEDO PORQUE VAMOS A USAR LAS QUE VIENEN PRECARGADAS EN LA INTERFAZ///////////////
 		
 		sal.setNombre("sal")
 		cebolla.setNombre("cebolla")
@@ -170,7 +177,7 @@ class TestEntregaTresConsultaJson {
 	def void comprobarJsonEImprimir(){
 		val List<String> pClave = new ArrayList<String>
 		pClave.add("carne")
-		usuarioNormal.getRecetas("asado")
+		usuarioNormal.getRecetas(repo, "pure mixto")
 	}
 	
 	@Test
@@ -179,14 +186,14 @@ class TestEntregaTresConsultaJson {
 		var ConsultaRecetaMasConsultadaObserver consulta2 = new ConsultaRecetaMasConsultadaObserver
 		usuarioNormal.agregarCondicion(new CondicionVegano)
 		val List<String> pClave = new ArrayList<String>
-		pClave.add("carne")
-		usuarioNormal.consulta.observadores.add(consulta1)
-		usuarioNormal.consulta.observadores.add(consulta2)
+		pClave.add("papa")
+		usuarioNormal.observadores.add(consulta1)
+		usuarioNormal.observadores.add(consulta2)
 		Assert.assertTrue(consulta1.mostrarCantidadDeVeganos.equals(0))
-		usuarioNormal.getRecetas("Dificil",pClave)
+		usuarioNormal.getRecetas(repo, "pure mixto", Dificultad.MEDIANA, pClave)
 		Assert.assertTrue(consulta1.mostrarCantidadDeVeganos.equals(2))
-		usuarioNormal.getRecetas("bofe")		
-		Assert.assertTrue(consulta2.recetaMasConsultada.equals("bofe"))
+		usuarioNormal.getRecetas(repo, "canelones de ricota y verdura")
+		Assert.assertTrue(consulta2.recetaMasConsultada.equals("canelones de ricota y verdura"))
 	}
 	
 	@Test
@@ -194,10 +201,10 @@ class TestEntregaTresConsultaJson {
 		var ConsultaRecetaMasConsultadaPorSexoObserver consulta1 = new ConsultaRecetaMasConsultadaPorSexoObserver
 		val List<String> pClave = new ArrayList<String>
 		pClave.add("carne")
-		usuarioHipertenso.consulta.observadores.add(consulta1)
-		usuarioHipertenso.getRecetas("lomoMostaza")
-		usuarioHipertenso.getRecetas("Media",pClave)
-		Assert.assertTrue(consulta1.recetasMasConsultadasHombres.equals("lomoMostaza"))
+		usuarioHipertenso.observadores.add(consulta1)
+		usuarioHipertenso.getRecetas(repo, "ensalada lechuga agridulce")
+		usuarioHipertenso.getRecetas(repo, "pure mixto", Dificultad.MEDIANA, pClave)
+		Assert.assertTrue(consulta1.recetasMasConsultadasHombres.equals("pure mixto"))
 	}
 	
 	@Test		
@@ -205,9 +212,9 @@ class TestEntregaTresConsultaJson {
 		var ConsultasPorHoraObserver consulta1 = new ConsultasPorHoraObserver
 		val List<String> pClave = new ArrayList<String>
 		pClave.add("azucar")
-		usuarioHipertenso.consulta.observadores.add(consulta1)
-		usuarioHipertenso.getRecetas("bondiola")
-		usuarioHipertenso.getRecetas("fideos")
+		usuarioHipertenso.observadores.add(consulta1)
+		usuarioHipertenso.getRecetas(repo, "bondiola")
+		usuarioHipertenso.getRecetas(repo, "fideos")
 		Assert.assertTrue(consulta1.mostrarConsultasDeHora(15).equals(2))
 	}		
 			

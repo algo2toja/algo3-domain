@@ -5,6 +5,9 @@ import java.util.GregorianCalendar
 import java.util.Iterator
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
+import queComemos.entrega3.repositorio.RepoRecetas
+import queComemos.entrega3.repositorio.BusquedaRecetas
+import queComemos.entrega3.dominio.Dificultad
 
 //ENTREGA 1
 @Accessors
@@ -23,8 +26,10 @@ class Usuario extends Miembro {
 	List<Grupo> misGrupos = new ArrayList<Grupo>
 	List<Receta> recetasFavoritas = new ArrayList<Receta>
 	List<Busqueda> misBusquedas = new ArrayList<Busqueda>
-	Consulta consulta
+	//Consulta consulta
 	RecetarioPublico recetario
+	BusquedaRecetas busqueda = new BusquedaRecetas
+	List<ConsultaObserver> observadores = new ArrayList<ConsultaObserver>
 	
 	// Punto 1 y 2 validacion usuario
 	public def validacionUsuario() {
@@ -224,12 +229,26 @@ class Usuario extends Miembro {
 		condicionesPreexistentes.exists[ condicion | condicion.getClass().equals(unaCondicion.getClass()) ]
 	}
 	
-	public def getRecetas(String nombre){
-		consulta.buscarReceta(this,nombre)
+	public def getRecetas(RepoRecetas repo, String nombre){
+ 		busqueda.setNombre(nombre)
+		repo.getRecetas(busqueda)
  	}
  	
- 	public def getRecetas(String dificultad, List<String> palabrasClave){
-		consulta.buscarReceta(this,dificultad,palabrasClave)
+ 	public def getRecetas(RepoRecetas repo, String nombre, Dificultad dificultad){
+		busqueda => [
+			setNombre(nombre)
+			setDificultad(dificultad)
+		]
+		repo.getRecetas(busqueda)		
+ 	}
+ 	
+ 	public def getRecetas(RepoRecetas repo, String nombre, Dificultad dificultad, List<String> palabrasClave){
+		busqueda => [
+			setNombre(nombre)
+			setDificultad(dificultad)
+		]
+		palabrasClave.forEach[ palabraClave | busqueda.agregarPalabraClave(palabraClave) ]
+		repo.getRecetas(busqueda)
  	}
  	
  	def List<Receta> busquedaFiltrada(){

@@ -2,5 +2,6 @@ package ar.tp.dieta
 
 interface ConsultaObserver {
 	
-	def void actualizar(Usuario usuario,Receta receta)
+	def void actualizar(Usuario usuario, queComemos.entrega3.dominio.Receta receta)
+	
 }

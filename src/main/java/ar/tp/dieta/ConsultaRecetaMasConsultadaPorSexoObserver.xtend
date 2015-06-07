@@ -13,17 +13,17 @@ class ConsultaRecetaMasConsultadaPorSexoObserver implements ConsultaObserver {
 	Map<String, Integer> recetasMasConsultadasPorHombres = new HashMap<String, Integer>()
 	Map<String, Integer> recetasMasConsultadasPorMujeres = new HashMap<String, Integer>()
 
-	override actualizar(Usuario usuario, Receta receta) {
+	override actualizar(Usuario usuario, queComemos.entrega3.dominio.Receta receta) {
 		if (usuario.getSexo.equals("F")) {
 			actualizarMap(recetasMasConsultadasPorMujeres, receta)
 		} else {
 			actualizarMap(recetasMasConsultadasPorHombres, receta)
 		}
-		nombresRecetas.add(receta.nombreDeLaReceta)
+		nombresRecetas.add(receta.getNombre())
 	}
 
-	def protected actualizarMap(Map<String, Integer> elMap, Receta receta) {
-		var clave = receta.nombreDeLaReceta
+	def protected actualizarMap(Map<String, Integer> elMap, queComemos.entrega3.dominio.Receta receta) {
+		var clave = receta.getNombre()
 		if (!elMap.containsKey(clave)) {
 			elMap.put(clave, 1)
 		} else {
