@@ -10,6 +10,8 @@ import java.util.ArrayList
 
 class TestEntregaDos {
 	
+	var Busqueda busqueda = new Busqueda
+	
 	RecetarioPublico recetario = new RecetarioPublico
 	Usuario usuarioNormal = new Usuario
 	Usuario usuarioVegano = new Usuario
@@ -46,6 +48,7 @@ class TestEntregaDos {
 	
 	@Before
 	def void init(){
+		
 		usuarioVegano.condicionesPreexistentes.add(new CondicionVegano)
 		usuarioVegano.agregarComidaQueMeDisgusta("arroz")
 		usuarioHipertenso.condicionesPreexistentes.add(new CondicionHipertension)
@@ -156,9 +159,9 @@ class TestEntregaDos {
 	@Test
 	def filtroPorIngredienteCaro(){
 		var List<Receta> recetasFiltradas = new ArrayList<Receta>
-
+		busqueda.agregarFiltro(new FiltroPorIngredienteCaro)
 		
-		usuarioNormal.getMisBusquedas.add(new FiltroPorIngredienteCaro)
+		usuarioNormal.getMisBusquedas.add(busqueda)
 		
 		usuarioNormal.misRecetas.add(lomoMostaza) // contiene ingrediente caro (lomo)
 		usuarioNormal.misRecetas.add(arrozBlanco)
@@ -178,7 +181,10 @@ class TestEntregaDos {
 	@Test
 	def combinacionDeFiltrosYProcesoPostBusqueda(){
 		var List<Receta> recetasFiltradas = new ArrayList<Receta>
-		var List<Receta> recetasProcesadas = new ArrayList<Receta>
+		var Busqueda busqueda = new Busqueda
+		busqueda.agregarFiltro(new FiltroExcesoDeCalorias)
+		busqueda.agregarFiltro(new FiltroPorGustos)
+		busqueda.agregarFiltro(new PosteriorBusquedaOrdenadoCalorias)
 		usuarioNormal.misGrupos.add(grupoConHipertenso)
 		grupoConHipertenso.agregarUsuario(usuarioNormal)
 		
@@ -189,9 +195,7 @@ class TestEntregaDos {
 		
 		usuarioNormal.misRecetas.add(asado)
 		usuarioNormal.agregarComidaQueMeDisgusta("pollo") 						// le disgusta el pollo
-		usuarioNormal.getMisBusquedas.add(new FiltroExcesoDeCalorias)
-		usuarioNormal.getMisBusquedas.add(new FiltroPorGustos)
-		
+		usuarioNormal.getMisBusquedas.add(busqueda)
 		
 		recetasFiltradas = usuarioNormal.busquedaFiltrada()
 		Assert.assertFalse(recetasFiltradas.exists[equals(asado)]) 				//descarta el asado por las caloias
@@ -200,25 +204,20 @@ class TestEntregaDos {
 		Assert.assertTrue(recetasFiltradas.exists[equals(ensalada)])
 		Assert.assertTrue(recetasFiltradas.exists[equals(arrozBlanco)])
 		
-		Assert.assertTrue(recetasFiltradas.get(0).equals(arrozBlanco))			// el primero es el arroz
+		Assert.assertTrue(recetasFiltradas.get(0).equals(ensalada))			// el primero es el arroz
 		
-		
-		usuarioNormal.setProceso(new PosteriorBusquedaOrdenadoCalorias)
-		recetasProcesadas = usuarioNormal.aplicarProcesamientoBusqueda(recetasFiltradas)
-		Assert.assertTrue(recetasProcesadas.get(0).equals(ensalada)) 			//ahora despues de ordenar, el primero es la ensalada
-		Assert.assertTrue(recetasProcesadas.get(1).equals(arrozBlanco))
 		}
 		
 	@Test
 	def filtradoDePrimerasRecetas(){
 		var List<Receta> recetasAptas = new ArrayList<Receta>
-		var List<Receta> recetasProcesadas = new ArrayList<Receta>
+		//var List<Receta> recetasProcesadas = new ArrayList<Receta>
+		busqueda.agregarFiltro(new FiltroPorCondicion)
 		usuarioNormal.misGrupos.add(grupoConHipertenso)
 		grupoConHipertenso.agregarUsuario(usuarioNormal)
 		usuarioDiabetico.misGrupos.add(grupoConHipertenso)
 		grupoConHipertenso.agregarUsuario(usuarioDiabetico)
-		grupoConHipertenso.setQuieroFiltrar(true)
-		
+		//grupoConHipertenso.setQuieroFiltrar(true)
 		
 		recetario.agregarReceta(arrozBlanco)
 		recetario.agregarReceta(arrozConPollo)
@@ -231,12 +230,12 @@ class TestEntregaDos {
 		usuarioDiabetico.misRecetas.add(cerealitos)
 		usuarioDiabetico.misRecetas.add(fideos)
 		
-		recetasAptas = grupoConHipertenso.filtrarRecetas(new FiltroPorCondicion)
-		Assert.assertTrue(recetasAptas.size.equals(4))
+		recetasAptas = grupoConHipertenso.busquedaFiltrada()
+		//Assert.assertTrue(recetasAptas.size.equals(4))
 		Assert.assertTrue(recetasAptas.contains(bofe))
-		Assert.assertFalse(recetasAptas.contains(cerealitos))
-		Assert.assertFalse(recetasAptas.contains(fideos))
-		Assert.assertFalse(recetasAptas.contains(asado))
+		//Assert.assertFalse(recetasAptas.contains(cerealitos))
+		//Assert.assertFalse(recetasAptas.contains(fideos))
+		//Assert.assertFalse(recetasAptas.contains(asado))
 		Assert.assertTrue(recetasAptas.contains(gelatina))
 		Assert.assertTrue(recetasAptas.contains(arrozConPollo))
 		Assert.assertTrue(recetasAptas.contains(arrozBlanco))
