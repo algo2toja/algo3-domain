@@ -8,7 +8,7 @@ import java.util.ArrayList
 
 ///////////////////////////////////////////////////FALTA TEST INGREDIENTE CARO////////////////////////////////
 
-class TestEntregaDos {
+class TestEntregaDos extends TestBase {
 	
 	var Busqueda busqueda = new Busqueda
 	
@@ -47,7 +47,7 @@ class TestEntregaDos {
 	
 	
 	@Before
-	def void init(){
+	override void init(){
 		
 		usuarioVegano.condicionesPreexistentes.add(new CondicionVegano)
 		usuarioVegano.agregarComidaQueMeDisgusta("arroz")

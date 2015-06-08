@@ -1,22 +1,15 @@
 package ar.tp.dieta
 
-
 import org.junit.Before
-import org.junit.Test
-import org.junit.Assert
-import java.util.List
-import java.util.ArrayList
 import queComemos.entrega3.repositorio.RepoRecetas
-import queComemos.entrega3.dominio.Dificultad
 
-class TestEntregaTresConsultaJson extends TestBase{
-	
-	/*RecetarioPublico recetario = new RecetarioPublico
-	Usuario usuarioNormal = new Usuario
-	Usuario usuarioVegano = new Usuario
-	Usuario usuarioHipertenso = new Usuario
-	Usuario usuarioDiabetico = new Usuario
-	Grupo	grupoConHipertenso = new Grupo
+abstract class TestBase {
+	public RecetarioPublico recetario = new RecetarioPublico
+	public Usuario usuarioNormal = new Usuario
+	public Usuario usuarioVegano = new Usuario
+	public Usuario usuarioHipertenso = new Usuario
+	public Usuario usuarioDiabetico = new Usuario
+	public Grupo	grupoConHipertenso = new Grupo
 	Receta	recetaPropia = new Receta
 	Receta	recetaPorGrupo = new Receta
 	Receta 	recetaPublica = new Receta
@@ -33,7 +26,7 @@ class TestEntregaTresConsultaJson extends TestBase{
 	Receta lomoMostaza = new Receta
 	
 	//Implementando interfaz
-	RepoRecetas repo
+	public RepoRecetas repo
 	
 	Ingrediente lomo = new Ingrediente
 	Ingrediente cebolla = new Ingrediente
@@ -172,50 +165,4 @@ class TestEntregaTresConsultaJson extends TestBase{
 		recetario.recetas.add(gelatina)
 		
 	}
-*/	
-	@Test
-	def void comprobarJsonEImprimir(){
-		val List<String> pClave = new ArrayList<String>
-		pClave.add("carne")
-		usuarioNormal.getRecetas(repo, "pure mixto")
-	}
-	
-	@Test
-	def void comprobarJsonMasConsultado(){
-		var ConsultasDificilesDeVeganoObserver consulta1 = new ConsultasDificilesDeVeganoObserver
-		var ConsultaRecetaMasConsultadaObserver consulta2 = new ConsultaRecetaMasConsultadaObserver
-		usuarioNormal.agregarCondicion(new CondicionVegano)
-		val List<String> pClave = new ArrayList<String>
-		pClave.add("papa")
-		usuarioNormal.observadores.add(consulta1)
-		usuarioNormal.observadores.add(consulta2)
-		Assert.assertTrue(consulta1.mostrarCantidadDeVeganos.equals(0))
-		usuarioNormal.getRecetas(repo, "pure mixto", Dificultad.MEDIANA, pClave)
-		Assert.assertTrue(consulta1.mostrarCantidadDeVeganos.equals(2))
-		usuarioNormal.getRecetas(repo, "canelones de ricota y verdura")
-		Assert.assertTrue(consulta2.recetaMasConsultada.equals("canelones de ricota y verdura"))
-	}
-	
-	@Test
-	def void comprobarJsonPorSexoHombre(){
-		var ConsultaRecetaMasConsultadaPorSexoObserver consulta1 = new ConsultaRecetaMasConsultadaPorSexoObserver
-		val List<String> pClave = new ArrayList<String>
-		pClave.add("papa")
-		usuarioHipertenso.observadores.add(consulta1)
-		usuarioHipertenso.getRecetas(repo, "ensalada lechuga agridulce")
-		usuarioHipertenso.getRecetas(repo, "pure mixto", Dificultad.MEDIANA, pClave)
-		Assert.assertTrue(consulta1.recetasMasConsultadasHombres.equals("pure mixto"))
-	}
-	
-	@Test		
-	def void comprobarJsonPorHora(){
-		var ConsultasPorHoraObserver consulta1 = new ConsultasPorHoraObserver
-		val List<String> pClave = new ArrayList<String>
-		pClave.add("azucar")
-		usuarioHipertenso.observadores.add(consulta1)
-		usuarioHipertenso.getRecetas(repo, "bondiola")
-		usuarioHipertenso.getRecetas(repo, "fideos")
-		Assert.assertTrue(consulta1.mostrarConsultasDeHora(15).equals(2))
-	}		
-			
 }

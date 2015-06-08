@@ -27,6 +27,6 @@ class TestRepoRecetas {
 
 	@Test
 	def void testRepo(){
-		repo.getRecetas(busqueda)
+		println(repo.getRecetas(busqueda))
 	}
 }

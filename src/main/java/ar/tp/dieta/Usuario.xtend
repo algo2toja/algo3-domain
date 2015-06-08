@@ -17,17 +17,12 @@ class Usuario extends Miembro {
 	GregorianCalendar fechaDeNacimiento
 	GregorianCalendar diaDeHoy
 	String sexo
-	String nombre
 	Rutina rutina
 	List<Condicion> condicionesPreexistentes = new ArrayList<Condicion>
-	List<String> preferencias = new ArrayList<String>
 	List<String> comidasQueNoMeGustan = new ArrayList<String>
 	List<Receta> misRecetas = new ArrayList<Receta>
 	List<Grupo> misGrupos = new ArrayList<Grupo>
 	List<Receta> recetasFavoritas = new ArrayList<Receta>
-	List<Busqueda> misBusquedas = new ArrayList<Busqueda>
-	//Consulta consulta
-	RecetarioPublico recetario
 	BusquedaRecetas busqueda = new BusquedaRecetas
 	List<ConsultaObserver> observadores = new ArrayList<ConsultaObserver>
 	
@@ -136,7 +131,6 @@ class Usuario extends Miembro {
 		
 	}
 		
-
 	// Crear una receta privada
 	public def void crearReceta(String nombre, double calorias, String proceso, String dificultad, String temporada) {
 		var Receta nuevaReceta
@@ -229,8 +223,11 @@ class Usuario extends Miembro {
 		condicionesPreexistentes.exists[ condicion | condicion.getClass().equals(unaCondicion.getClass()) ]
 	}
 	
+	///////////////////////////////  METODOS PARA OBTENER RECETAS JSON //////////////////////////////////////////
+	
 	public def getRecetas(RepoRecetas repo, String nombre){
  		busqueda.setNombre(nombre)
+ 		//observadores.forEach[it.actualizar(this,jsonReader(repo.getRecetas(busqueda))]
 		repo.getRecetas(busqueda)
  	}
  	
@@ -239,6 +236,7 @@ class Usuario extends Miembro {
 			setNombre(nombre)
 			setDificultad(dificultad)
 		]
+		//observadores.forEach[it.actualizar(this,jsonReader(repo.getRecetas(busqueda))]
 		repo.getRecetas(busqueda)		
  	}
  	
@@ -248,8 +246,11 @@ class Usuario extends Miembro {
 			setDificultad(dificultad)
 		]
 		palabrasClave.forEach[ palabraClave | busqueda.agregarPalabraClave(palabraClave) ]
+		//observadores.forEach[it.actualizar(this,jsonReader(repo.getRecetas(busqueda))]
 		repo.getRecetas(busqueda)
  	}
+ 	
+ 	///////////////////////////////////// METODO PARA FILTRAR BUSQUEDAS /////////////////////////////////////
  	
  	def List<Receta> busquedaFiltrada(){
 		var List<Receta> recetasFiltradas = recetasQuePuedoVer()

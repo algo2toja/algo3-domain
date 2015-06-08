@@ -7,11 +7,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 
 @Accessors
 class Grupo extends Miembro{
-	String nombre
-	List<String> preferencias = new ArrayList<String>
 	List<Usuario> miembros = new ArrayList<Usuario>
-	RecetarioPublico recetario = new RecetarioPublico
-	List<Busqueda> misBusquedas = new ArrayList<Busqueda>
 		
 	def void eliminarUsuario(Usuario unUsuario){
 		miembros.remove(unUsuario)
