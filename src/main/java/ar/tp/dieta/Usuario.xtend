@@ -1,13 +1,14 @@
 package ar.tp.dieta
 
 import java.util.ArrayList
+import java.util.Calendar
 import java.util.GregorianCalendar
 import java.util.Iterator
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
-import queComemos.entrega3.repositorio.RepoRecetas
-import queComemos.entrega3.repositorio.BusquedaRecetas
 import queComemos.entrega3.dominio.Dificultad
+import queComemos.entrega3.repositorio.BusquedaRecetas
+import queComemos.entrega3.repositorio.RepoRecetas
 
 //ENTREGA 1
 @Accessors
@@ -24,7 +25,7 @@ class Usuario extends Miembro {
 	List<Grupo> misGrupos = new ArrayList<Grupo>
 	List<Receta> recetasFavoritas = new ArrayList<Receta>
 	BusquedaRecetas busqueda = new BusquedaRecetas
-	List<ConsultaObserver> observadores = new ArrayList<ConsultaObserver>
+	Registro registro
 	
 	// Punto 1 y 2 validacion usuario
 	public def validacionUsuario() {
@@ -227,7 +228,8 @@ class Usuario extends Miembro {
 	
 	public def getRecetas(RepoRecetas repo, String nombre){
  		busqueda.setNombre(nombre)
- 		//observadores.forEach[it.actualizar(this,jsonReader(repo.getRecetas(busqueda))]
+ 		val Receta receta = jsonReader(repo.getRecetas(busqueda))
+ 		this.actualizarRegistro(receta,busqueda)
 		repo.getRecetas(busqueda)
  	}
  	
@@ -237,6 +239,7 @@ class Usuario extends Miembro {
 			setDificultad(dificultad)
 		]
 		//observadores.forEach[it.actualizar(this,jsonReader(repo.getRecetas(busqueda))]
+		this.actualizarRegistro(receta,busqueda)
 		repo.getRecetas(busqueda)		
  	}
  	
@@ -247,8 +250,48 @@ class Usuario extends Miembro {
 		]
 		palabrasClave.forEach[ palabraClave | busqueda.agregarPalabraClave(palabraClave) ]
 		//observadores.forEach[it.actualizar(this,jsonReader(repo.getRecetas(busqueda))]
+		this.actualizarRegistro(receta,busqueda)
 		repo.getRecetas(busqueda)
  	}
+ 	
+/////////////////////////////////////ACTUALIZAR EL REGISTRO////////////////////////////// 	
+/////////////////////AGREGAMOS EL COMPORTAMIENTO A LA CLASE USUARIO////////////////// 	
+
+ 	protected def actualizarRegistro(Receta receta, BusquedaRecetas busqueda){
+ 		//en lugar de una receta entera, se puede usar solo el nombre que devuelve el json
+ 		actualizarBusquedaPorHora()
+ 		actualizarBusquedaPorSexo(receta)
+ 		actualizarBusqueda(receta)
+ 		actualizarBusquedaPorVegano(busqueda)
+ 		registro.agregarNobreDeReceta(receta.devolverNombre)
+ 	}
+	
+	def actualizarBusqueda(Receta receta){
+		registro.incrementarBusqueda(receta.devolverNombre)
+	}
+	
+	def actualizarBusquedaPorVegano(BusquedaRecetas busqueda){
+		if(this.tenesEstaCondicion(new CondicionVegano) && busqueda.getDificultad().equals("Dificil") && !busqueda.dificultad.equals(null)){
+			registro.incrementarBusquedaPorVegano()
+		}
+		
+	}
+	
+	def actualizarBusquedaPorSexo(Receta receta) {
+		if(sexo.equals("M")){
+			registro.incrementarBusquedaPorHombre(receta.devolverNombre)
+		}else{
+			registro.incrementarBusquedaPorMujer(receta.devolverNombre)
+		}
+	}
+ 	
+ 	protected def actualizarBusquedaPorHora(){
+ 		val Calendar calendario = new GregorianCalendar()
+ 		val int hora = calendario.get(Calendar.HOUR_OF_DAY)
+ 		registro.incrementarConsultaPorHora(hora)
+ 	
+ 	}
+
  	
  	///////////////////////////////////// METODO PARA FILTRAR BUSQUEDAS /////////////////////////////////////
  	
