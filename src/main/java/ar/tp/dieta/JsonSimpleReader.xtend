@@ -1,16 +1,7 @@
 package ar.tp.dieta
 
-import com.google.gson.JsonArray
-import com.google.gson.JsonElement
-import com.google.gson.JsonParser
-import com.google.gson.JsonObject
 import com.google.gson.Gson
-import java.util.Map
-import com.google.gson.GsonBuilder
-import org.eclipse.xtend.lib.macro.declaration.Type
-import java.util.List
-import com.google.gson.reflect.TypeToken
-import queComemos.entrega3.creacionales.RecetaBuilder
+import com.google.gson.JsonArray
 
 class JsonSimpleReader {
 		
@@ -25,10 +16,11 @@ class JsonSimpleReader {
 	
 	public def parseJson(String jsonArray){
 		var Gson gson = new Gson()
-		var RecetaBuilder receta = gson.fromJson(jsonArray, RecetaBuilder)            
+		var queComemos.entrega3.dominio.Receta receta = gson.fromJson(jsonArray, queComemos.entrega3.dominio.Receta)            
 		receta
 	}
 }
+
 /*{
 "nombre":"pure mixto",
 "ingredientes": ["papa","zanahoria","calabaza","aceite"],

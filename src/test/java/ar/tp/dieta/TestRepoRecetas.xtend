@@ -31,10 +31,7 @@ class TestRepoRecetas {
 
 	@Test
 	def void testRepo(){
-		var String jsonArray = repo.getRecetas(busqueda)
-		var RecetaBuilder receta = jsonReader.parseJson(jsonArray)
-		var queComemos.entrega3.dominio.Receta receta2 = receta.build
-		println(receta2.getNombre())
+		jsonReader.parseJson(repo.getRecetas(busqueda))
 	}
 		
 }
