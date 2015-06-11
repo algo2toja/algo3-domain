@@ -5,13 +5,16 @@ import org.junit.Before
 import org.junit.Test
 import org.eclipse.xtend.lib.annotations.Accessors
 import queComemos.entrega3.repositorio.BusquedaRecetas
+import queComemos.entrega3.creacionales.RecetaBuilder
 import queComemos.entrega3.dominio.Dificultad
+import queComemos.entrega3.dominio.Receta
 
 @Accessors
 class TestRepoRecetas {
 	RepoRecetas repo
 	BusquedaRecetas busqueda
 	Dificultad mediana
+	JsonSimpleReader jsonReader
 	
 	@Before
 	def void init(){
@@ -19,14 +22,20 @@ class TestRepoRecetas {
 			crearRepoRecetas
 		]
 		
+		jsonReader = new JsonSimpleReader
+		
 		busqueda = new BusquedaRecetas => [
 			setNombre("pure mixto")
-//			setDificultad(mediana)
 		]
 	}
 
 	@Test
 	def void testRepo(){
-		println(repo.getRecetas(busqueda))
+		var String jsonArray = repo.getRecetas(busqueda)
+		var RecetaBuilder receta = jsonReader.parseJson(jsonArray)
+		var queComemos.entrega3.dominio.Receta receta2 = receta.build
+		println(receta2.getNombre())
 	}
+		
 }
+		
