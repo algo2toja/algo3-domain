@@ -12,13 +12,13 @@ class ConsultaRecetaMasConsultadaObserver implements ConsultaObserver{
 	public String nombreMaximo
 	
 	
-	override actualizar(Usuario usuario,queComemos.entrega3.dominio.Receta receta){
+	override actualizar(Usuario usuario,String nombre, String dif){
 		
-		if(!recetasMasConsultadas.containsKey(receta.getNombre())){
-			recetasMasConsultadas.put(receta.getNombre(),1)
-			nombresRecetas.add(receta.getNombre())
+		if(!recetasMasConsultadas.containsKey(nombre)){
+			recetasMasConsultadas.put(nombre,1)
+			nombresRecetas.add(nombre)
 		}else{
-			recetasMasConsultadas.put(receta.getNombre(),recetasMasConsultadas.get(receta.getNombre())+1)
+			recetasMasConsultadas.put(nombre,recetasMasConsultadas.get(nombre)+1)
 		}
 		
 	}

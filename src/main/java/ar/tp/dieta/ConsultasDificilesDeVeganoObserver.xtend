@@ -6,8 +6,8 @@ class ConsultasDificilesDeVeganoObserver implements ConsultaObserver{
 	
 	int contadorDeVeganos
 	
-	override actualizar(Usuario usuario, queComemos.entrega3.dominio.Receta receta) { //Implemento la receta de la interfaz dada.
-		if(receta.dificultadReceta.equals(Dificultad.DIFICIL) && usuario.tenesEstaCondicion(new CondicionVegano)){
+	override actualizar(Usuario usuario, String nombre, String dif) { //Implemento la receta de la interfaz dada.
+		if(dif.equals("DIFICIL") && usuario.tenesEstaCondicion(new CondicionVegano)){
 			contadorDeVeganos++
 		}
 	}

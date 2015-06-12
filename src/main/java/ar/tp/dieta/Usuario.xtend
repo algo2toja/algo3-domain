@@ -225,9 +225,11 @@ class Usuario extends Miembro {
 	
 	///////////////////////////////  METODOS PARA OBTENER RECETAS JSON //////////////////////////////////////////
 	
-	public def getRecetas(RepoRecetas repo, String nombre){
+	public def getRecetas(RepoRecetas repo, String nombre){ 
  		busqueda.setNombre(nombre)
- 		//observadores.forEach[it.actualizar(this,jsonReader(repo.getRecetas(busqueda))]
+ 		val String nombreReceta = (new JsonSimpleReader).parseJsonNombre(repo.getRecetas(busqueda))
+ 		val String dif = (new JsonSimpleReader).parseJsonDificultad(repo.getRecetas(busqueda))
+ 		observadores.forEach[it.actualizar(this,nombreReceta, dif)]
 		repo.getRecetas(busqueda)
  	}
  	
@@ -236,7 +238,9 @@ class Usuario extends Miembro {
 			setNombre(nombre)
 			setDificultad(dificultad)
 		]
-		//observadores.forEach[it.actualizar(this,jsonReader(repo.getRecetas(busqueda))]
+		val String nombreReceta = (new JsonSimpleReader).parseJsonNombre(repo.getRecetas(busqueda))
+ 		val String dif = (new JsonSimpleReader).parseJsonDificultad(repo.getRecetas(busqueda))
+ 		observadores.forEach[it.actualizar(this,nombreReceta, dif)]
 		repo.getRecetas(busqueda)		
  	}
  	
@@ -246,7 +250,9 @@ class Usuario extends Miembro {
 			setDificultad(dificultad)
 		]
 		palabrasClave.forEach[ palabraClave | busqueda.agregarPalabraClave(palabraClave) ]
-		//observadores.forEach[it.actualizar(this,jsonReader(repo.getRecetas(busqueda))]
+		val String nombreReceta = (new JsonSimpleReader).parseJsonNombre(repo.getRecetas(busqueda))
+ 		val String dif = (new JsonSimpleReader).parseJsonDificultad(repo.getRecetas(busqueda))
+ 		observadores.forEach[it.actualizar(this,nombreReceta, dif)]
 		repo.getRecetas(busqueda)
  	}
  	

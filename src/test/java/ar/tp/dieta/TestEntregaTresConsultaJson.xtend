@@ -191,8 +191,8 @@ class TestEntregaTresConsultaJson extends TestBase{
 		usuarioNormal.observadores.add(consulta2)
 		Assert.assertTrue(consulta1.mostrarCantidadDeVeganos.equals(0))
 		usuarioNormal.getRecetas(repo, "pure mixto", Dificultad.MEDIANA, pClave)
-		Assert.assertTrue(consulta1.mostrarCantidadDeVeganos.equals(2))
 		usuarioNormal.getRecetas(repo, "canelones de ricota y verdura")
+		Assert.assertTrue(consulta1.mostrarCantidadDeVeganos.equals(1))
 		Assert.assertTrue(consulta2.recetaMasConsultada.equals("canelones de ricota y verdura"))
 	}
 	
@@ -213,8 +213,7 @@ class TestEntregaTresConsultaJson extends TestBase{
 		val List<String> pClave = new ArrayList<String>
 		pClave.add("azucar")
 		usuarioHipertenso.observadores.add(consulta1)
-		usuarioHipertenso.getRecetas(repo, "bondiola")
-		usuarioHipertenso.getRecetas(repo, "fideos")
+		usuarioHipertenso.getRecetas(repo, "sushi")
 		Assert.assertTrue(consulta1.mostrarConsultasDeHora(15).equals(2))
 	}		
 			

@@ -9,8 +9,8 @@ abstract class ConsultaBase {
 	
 	List<ConsultaObserver> observadores = new ArrayList<ConsultaObserver>
 	
-	def actualizarObservers(Usuario usuario, queComemos.entrega3.dominio.Receta receta){
-		observadores.forEach[observador | observador.actualizar(usuario,receta)]
+	def actualizarObservers(Usuario usuario, String nombre, String dif){
+		observadores.forEach[observador | observador.actualizar(usuario,nombre,dif)]
 	}
 	
 }

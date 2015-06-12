@@ -7,10 +7,17 @@ import com.google.gson.JsonObject
 
 class JsonSimpleReader {
 		
-	public def parseJson(String recetaString){
+	public def parseJsonNombre(String recetaString){
 		var JsonArray jsonArray = this.stringToJsonArray(recetaString)
 		var JsonObject jobject = jsonArray.get(0).getAsJsonObject()
 		return jobject.get("nombre").toString()
+    	
+	}
+	
+	public def parseJsonDificultad(String recetaString){
+		var JsonArray jsonArray = this.stringToJsonArray(recetaString)
+		var JsonObject jobject = jsonArray.get(0).getAsJsonObject()
+		return jobject.get("dificultadReceta").toString()
     	
 	}
 	
