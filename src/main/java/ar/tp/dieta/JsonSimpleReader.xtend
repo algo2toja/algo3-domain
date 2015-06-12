@@ -1,33 +1,22 @@
 package ar.tp.dieta
 
-import com.google.gson.Gson
+import com.google.gson.JsonParser
+import com.google.gson.JsonElement
 import com.google.gson.JsonArray
+import com.google.gson.JsonObject
 
 class JsonSimpleReader {
 		
-	String nombre 
-	String[] ingredientes
-	int tiempoPreparacion
-	int totalCalorias
-	String dificultad
-	String autor
-	int anioReceta
+	public def parseJson(String recetaString){
+		var JsonArray jsonArray = this.stringToJsonArray(recetaString)
+		var JsonObject jobject = jsonArray.get(0).getAsJsonObject()
+		return jobject.get("nombre").toString()
+    	
+	}
 	
-	
-	public def parseJson(String jsonArray){
-		var Gson gson = new Gson()
-		var queComemos.entrega3.dominio.Receta receta = gson.fromJson(jsonArray, queComemos.entrega3.dominio.Receta)            
-		receta
+	protected def stringToJsonArray(String aString){
+		var JsonParser parser = new JsonParser()
+		var JsonElement tradeElement = parser.parse(aString)
+		return tradeElement.getAsJsonArray()
 	}
 }
-
-/*{
-"nombre":"pure mixto",
-"ingredientes": ["papa","zanahoria","calabaza","aceite"],
-"tiempoPreparacion":0,
-"totalCalorias":25,
-"dificultadReceta":"MEDIANA",
-"autor":"Yannick Benneteau",
-"anioReceta":2015
-}
- */

@@ -5,9 +5,7 @@ import org.junit.Before
 import org.junit.Test
 import org.eclipse.xtend.lib.annotations.Accessors
 import queComemos.entrega3.repositorio.BusquedaRecetas
-import queComemos.entrega3.creacionales.RecetaBuilder
 import queComemos.entrega3.dominio.Dificultad
-import queComemos.entrega3.dominio.Receta
 
 @Accessors
 class TestRepoRecetas {
@@ -31,7 +29,7 @@ class TestRepoRecetas {
 
 	@Test
 	def void testRepo(){
-		jsonReader.parseJson(repo.getRecetas(busqueda))
+		println(jsonReader.parseJson(repo.getRecetas(busqueda)))
 	}
 		
 }
