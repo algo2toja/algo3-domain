@@ -29,7 +29,7 @@ class TestRepoRecetas {
 
 	@Test
 	def void testRepo(){
-		println(jsonReader.parseJson(repo.getRecetas(busqueda)))
+		println(jsonReader.parseJsonNombre(repo.getRecetas(busqueda)))
 	}
 		
 }
