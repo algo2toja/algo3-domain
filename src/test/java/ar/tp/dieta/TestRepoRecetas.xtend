@@ -12,6 +12,7 @@ class TestRepoRecetas {
 	RepoRecetas repo
 	BusquedaRecetas busqueda
 	Dificultad mediana
+	JsonSimpleReader jsonReader
 	
 	@Before
 	def void init(){
@@ -19,14 +20,17 @@ class TestRepoRecetas {
 			crearRepoRecetas
 		]
 		
+		jsonReader = new JsonSimpleReader
+		
 		busqueda = new BusquedaRecetas => [
 			setNombre("pure mixto")
-//			setDificultad(mediana)
 		]
 	}
 
 	@Test
 	def void testRepo(){
-		println(repo.getRecetas(busqueda))
+		println(jsonReader.parseJson(repo.getRecetas(busqueda)))
 	}
+		
 }
+		
