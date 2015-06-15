@@ -19,8 +19,24 @@ class TestEntregaUno1 {
 	Ingrediente sal
 	Ingrediente caldo
 	
+	Receta lomoMostaza
+	Ingrediente lomo
+	Ingrediente mostaza
+	
 	@Before
 	def void init(){
+		
+		
+		lomo = new Ingrediente => [
+			setNombre("lomo")
+			setCantidad(500)
+		]
+		mostaza = new Ingrediente => [
+			setNombre("mostaza")
+			setCantidad(10)
+		]
+			
+	
 		taeBo = new RutinaActiva => [
 			setTiempoDeEjercicio(90)
 		]
@@ -60,6 +76,8 @@ class TestEntregaUno1 {
 			setCantidad(1)
 			setNombre("caldo")
 		]	
+
+		lomoMostaza = new RecetaBuilder("Lomo a la Mostaza").calorias(500).autor("Miguel").dificultad("Dificil").temporada("Invierno").agregar(lomo).agregar(mostaza).build()
 
 		arrozConPollo = new Receta => [
 			setNombreDeLaReceta("Arroz con Pollo")
@@ -111,4 +129,9 @@ class TestEntregaUno1 {
 		//El usuario es Vegano, el arroz con pollo no le tiene que gustar, o sea que es falso.
 		Assert.assertFalse(nuevoUsuario.meConvieneReceta(arrozConPollo))
 	}
+	
+	@Test
+	def void testRecetaBuilder(){
+		println(lomoMostaza.getNombreDeLaReceta())
+	} 
 }
