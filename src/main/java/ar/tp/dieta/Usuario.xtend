@@ -22,9 +22,11 @@ class Usuario extends Miembro {
 	List<String> comidasQueNoMeGustan = new ArrayList<String>
 	List<Receta> misRecetas = new ArrayList<Receta>
 	List<Grupo> misGrupos = new ArrayList<Grupo>
-	List<Receta> recetasFavoritas = new ArrayList<Receta>
+	List<String> recetasFavoritas = new ArrayList<String>
 	BusquedaRecetas busqueda = new BusquedaRecetas
 	List<ConsultaObserver> observadores = new ArrayList<ConsultaObserver>
+	List<Accion> acciones = new ArrayList<Accion>
+	String direccionCorreo
 	
 	// Punto 1 y 2 validacion usuario
 	public def validacionUsuario() {
@@ -185,12 +187,12 @@ class Usuario extends Miembro {
 	}
 	
 						////////////////////////RECETA FAVORITA//////////////////////////////
-	def void agregarRecetaFavoritaDeRecetario(String nombre){
-		recetasFavoritas.add(recetario.busquedaReceta(nombre))
+	def void agregarRecetaFavorita(String nombre){
+		recetasFavoritas.add(recetario.busquedaReceta(nombre).getNombreDeLaReceta)
 	}
 	
-	def void agregarRecetaFavoritaDeGrupo(Grupo unGrupo, String nombre){
-		recetasFavoritas.add(unGrupo.devolverRecetaDeMiembro(nombre))
+	def void agregarRecetaFavorita(Grupo unGrupo, String nombre){
+		recetasFavoritas.add(unGrupo.devolverRecetaDeMiembro(nombre).getNombreDeLaReceta)
 	}
 
 						//////////////////////RECETAS QUE PUEDO VER//////////////////////////
@@ -230,6 +232,7 @@ class Usuario extends Miembro {
  		val String nombreReceta = (new JsonSimpleReader).parseJsonNombre(repo.getRecetas(busqueda))
  		val String dif = (new JsonSimpleReader).parseJsonDificultad(repo.getRecetas(busqueda))
  		observadores.forEach[it.actualizar(this,nombreReceta, dif)]
+ 		acciones.forEach[it.execute(this)]
 		repo.getRecetas(busqueda)
  	}
  	
@@ -241,6 +244,7 @@ class Usuario extends Miembro {
 		val String nombreReceta = (new JsonSimpleReader).parseJsonNombre(repo.getRecetas(busqueda))
  		val String dif = (new JsonSimpleReader).parseJsonDificultad(repo.getRecetas(busqueda))
  		observadores.forEach[it.actualizar(this,nombreReceta, dif)]
+ 		acciones.forEach[it.execute(this)]
 		repo.getRecetas(busqueda)		
  	}
  	
@@ -253,6 +257,7 @@ class Usuario extends Miembro {
 		val String nombreReceta = (new JsonSimpleReader).parseJsonNombre(repo.getRecetas(busqueda))
  		val String dif = (new JsonSimpleReader).parseJsonDificultad(repo.getRecetas(busqueda))
  		observadores.forEach[it.actualizar(this,nombreReceta, dif)]
+ 		acciones.forEach[it.execute(this)]
 		repo.getRecetas(busqueda)
  	}
  	
