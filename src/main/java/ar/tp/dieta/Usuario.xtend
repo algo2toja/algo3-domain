@@ -231,7 +231,7 @@ class Usuario extends Miembro {
  		busqueda.setNombre(nombre)
  		val List<String> nombresRecetas = (new JsonSimpleReader).parseJsonNombre(repo.getRecetas(busqueda))
  		observadores.forEach[it.actualizar(this, nombresRecetas, busqueda)]
- 		acciones.forEach[it.execute(this)]
+ 		acciones.forEach[it.execute(this, busqueda, nombresRecetas)]
 		repo.getRecetas(busqueda)
  	}
  	
@@ -242,7 +242,7 @@ class Usuario extends Miembro {
 		]
 		val List<String> nombresRecetas = (new JsonSimpleReader).parseJsonNombre(repo.getRecetas(busqueda))
  		observadores.forEach[it.actualizar(this, nombresRecetas, busqueda)]
- 		acciones.forEach[it.execute(this)]
+ 		acciones.forEach[it.execute(this, busqueda, nombresRecetas)]
 		repo.getRecetas(busqueda)		
  	}
  	
@@ -254,7 +254,7 @@ class Usuario extends Miembro {
 		palabrasClave.forEach[ palabraClave | busqueda.agregarPalabraClave(palabraClave) ]
 		val List<String> nombresRecetas = (new JsonSimpleReader).parseJsonNombre(repo.getRecetas(busqueda))
  		observadores.forEach[it.actualizar(this, nombresRecetas, busqueda)]
- 		acciones.forEach[it.execute(this)]
+ 		acciones.forEach[it.execute(this, busqueda, nombresRecetas)]
 		repo.getRecetas(busqueda)
  	}
  	
