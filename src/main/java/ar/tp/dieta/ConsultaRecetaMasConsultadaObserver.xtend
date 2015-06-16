@@ -4,6 +4,7 @@ import java.util.ArrayList
 import java.util.HashMap
 import java.util.List
 import java.util.Map
+import queComemos.entrega3.repositorio.BusquedaRecetas
 
 class ConsultaRecetaMasConsultadaObserver implements ConsultaObserver{
 	
@@ -12,8 +13,10 @@ class ConsultaRecetaMasConsultadaObserver implements ConsultaObserver{
 	public String nombreMaximo
 	
 	
-	override actualizar(Usuario usuario,String nombre, String dif){
+	override actualizar(Usuario usuario,List<String> nombres, BusquedaRecetas busqueda){
 		
+		nombres.forEach[nombre | 
+			
 		if(!recetasMasConsultadas.containsKey(nombre)){
 			recetasMasConsultadas.put(nombre,1)
 			nombresRecetas.add(nombre)
@@ -21,6 +24,7 @@ class ConsultaRecetaMasConsultadaObserver implements ConsultaObserver{
 			recetasMasConsultadas.put(nombre,recetasMasConsultadas.get(nombre)+1)
 		}
 		
+		]
 	}
 	
 	def public recetaMasConsultada(){
