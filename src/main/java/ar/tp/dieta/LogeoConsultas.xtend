@@ -14,7 +14,9 @@ class LogeoConsultas implements Accion {
 		if(nombresRecetas.size >= max){
 			//LOGEAR RECETAS
 			logger.trace("Log de recetas")
-			nombresRecetas.forEach[ receta | logger.trace(receta)]
+			logger.trace(busqueda.nombre)
+			logger.trace(busqueda.dificultad)
+			//logger.trace(busqueda.palabrasClave)
 			logger.trace("Fin de log")
 		}
 	}
