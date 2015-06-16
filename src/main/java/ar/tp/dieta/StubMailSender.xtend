@@ -10,7 +10,7 @@ class StubMailSender implements MessageSender {
 	
 	override send(Email mail) {
 		simularEnvioMail(mail.from, mail.content)
-		println("Simulación envío de mail | From: " + mail.from + " | To: " + mail.to + " | Message: " + mail.content)
+		println("Simulación envío de mail | From: " + mail.from + " | To: " + mail.to + " | Subject : " + mail.subject + "| Message: " + mail.content)
 	}
 	
 	def simularEnvioMail(String from, String message) {
