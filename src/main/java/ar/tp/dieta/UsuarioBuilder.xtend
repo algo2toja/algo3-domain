@@ -1,51 +1,10 @@
 package ar.tp.dieta
 
+import java.util.GregorianCalendar
+
 class UsuarioBuilder {
 
-	Receta usuario
-	
-		usuarioVegano.condicionesPreexistentes.add(new CondicionVegano)
-		usuarioVegano.agregarComidaQueMeDisgusta("arroz")
-		usuarioHipertenso.condicionesPreexistentes.add(new CondicionHipertension)
-		usuarioDiabetico.condicionesPreexistentes.add(new CondicionDiabetes)
-	
-		repo = new RepoRecetas => [
-			crearRepoRecetas
-		]
-		
-		grupoConHipertenso.agregarUsuario(usuarioHipertenso)
-		
-		usuarioNormal => [
-			setAltura(1.3)
-			setPeso(150.0)
-			setSexo("F")
-			setRecetario(recetario)
-		]
-		
-		usuarioHipertenso =>[ 
-			setAltura(1.88)
-			setPeso(94.3)
-			setSexo("M")
-			setRecetario(recetario)
-		]
-				nuevoUsuario = new Usuario() =>[
-			setPeso(105.3)
-			setAltura(1.75)
-			setFechaDeNacimiento(1985, 4, 13) // Nacio el 13 de Abril de 1985
-			setSexo("Masculino")
-			setNombre("Marco")
-			setRutina(taeBo)
-			agregarCondicion(new CondicionVegano)
-			agregarPreferencia("fruta")
-		]
-		
-		usuarioVegano.setRecetario(recetario)
-		
-		usuarioHipertenso.setRecetario(recetario)
-		
-		usuarioDiabetico.setRecetario(recetario)
-		
-		grupoConHipertenso.setRecetario(recetario)
+	Usuario usuario
 	
 	new(String nombreUsuario){
 		usuario = new Usuario()
@@ -61,7 +20,7 @@ class UsuarioBuilder {
 		usuario.setAltura(altura)
 		return this
 	}
-	
+
 	public def UsuarioBuilder fechaNacimiento(int ano, int mes, int dia){
 		usuario.setFechaDeNacimiento(ano, mes, dia)
 		return this
@@ -72,22 +31,59 @@ class UsuarioBuilder {
 		return this
 	}
 	
-	public def RecetaBuilder temporada(String temporada){
-		receta.setTemporadaALaQueCorresponde(temporada)
+	public def UsuarioBuilder rutina(Rutina unaRutina){
+		usuario.setRutina(unaRutina)
 		return this
 	}
 	
-	public def RecetaBuilder agregar(Ingrediente unIngrediente){
-		receta.agregarIngrediente(unIngrediente)
+	public def UsuarioBuilder condicion(Condicion unaCondicion){
+		usuario.agregarCondicion(unaCondicion)
 		return this
 	}
 
-	public def Receta build(){
-		if (receta.elementosDeReceta.isEmpty()) {
-			throw new BusinessException("Receta sin ingredientes")
+	public def UsuarioBuilder preferencia(String unaPreferencia){
+		usuario.agregarPreferencia(unaPreferencia)
+		return this
+	}
+	
+	protected def validarUsuario(){
+		(this.validarNombreUsuario) && (this.validarPesoUsuario) && (this.validarAlturaUsuario) && (this.validarRutinaUsuario) && (this.validarFechaNacimientoUsuario) && (this.condicionesValidas)
+	}
+	
+	protected def validarNombreUsuario(){
+		(usuario.nombre.equals(null)) && (usuario.nombre.length<=4)
+	}
+	
+	protected def validarPesoUsuario(){
+		(usuario.peso.equals(null))
+	}
+
+	protected def validarAlturaUsuario(){
+		(usuario.altura.equals(null))
+	}
+	
+	protected def validarFechaNacimientoUsuario(){
+		(usuario.fechaDeNacimiento.equals(null)) && (0 <= usuario.fechaDeNacimiento.compareTo(this.getDiaDeHoy))
+	}
+	
+	protected def getDiaDeHoy() {
+		new GregorianCalendar()
+	}
+	
+	protected def boolean validarRutinaUsuario() {
+		(usuario.rutina.equals(null))
+	}
+	
+	protected def boolean condicionesValidas(){
+		usuario.condicionesPreexistentes.exists[ condicion | condicion.validarCondicion(usuario).equals(false) ]
+	}
+	
+	public def Usuario build(){
+		if (this.validarUsuario()){
+			throw new BusinessException("Usuario no valido")
 		}
-		return receta
+		return usuario
 	}
 	
 }
-}
+	

@@ -1,6 +1,7 @@
 package ar.tp.dieta
 
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.junit.Before
 
 @Accessors
 class TestRepoRecetas {
@@ -24,7 +25,11 @@ class TestRepoRecetas {
 	protected Receta gelatinaFrambuesa
 	
 	protected RecetarioPublico recetarioPublico
+	
+	public Usuario usuarioMiguel
+	protected RutinaActiva taeBo
 		
+	@Before
 	public def void init(){
 
 		//Instancio ingredientes.
@@ -51,6 +56,13 @@ class TestRepoRecetas {
 		recetarioPublico.recetas.add(lomoMostaza)
 		recetarioPublico.recetas.add(fideosConManteca)
 		recetarioPublico.recetas.add(gelatinaFrambuesa)
+
+		//Instancio Usuarios
+		taeBo = new RutinaActiva => [
+			setTiempoDeEjercicio(90)
+		]
+		
+		usuarioMiguel = new UsuarioBuilder("Miguel").peso(98.5).altura(1.73).fechaNacimiento(1989, 6, 28).sexo("M").rutina(taeBo).condicion(new CondicionVegano).preferencia("fruta").build()
 
 	}	
 		
