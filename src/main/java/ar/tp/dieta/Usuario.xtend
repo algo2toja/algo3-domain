@@ -2,12 +2,14 @@ package ar.tp.dieta
 
 import java.util.ArrayList
 import java.util.GregorianCalendar
+import java.util.HashSet
 import java.util.Iterator
 import java.util.List
+import java.util.Set
 import org.eclipse.xtend.lib.annotations.Accessors
-import queComemos.entrega3.repositorio.RepoRecetas
-import queComemos.entrega3.repositorio.BusquedaRecetas
 import queComemos.entrega3.dominio.Dificultad
+import queComemos.entrega3.repositorio.BusquedaRecetas
+import queComemos.entrega3.repositorio.RepoRecetas
 
 //ENTREGA 1
 @Accessors
@@ -22,11 +24,12 @@ class Usuario extends Miembro {
 	List<String> comidasQueNoMeGustan = new ArrayList<String>
 	List<Receta> misRecetas = new ArrayList<Receta>
 	List<Grupo> misGrupos = new ArrayList<Grupo>
-	List<String> recetasFavoritas = new ArrayList<String>
+	Set<String> recetasFavoritas = new HashSet<String>
 	BusquedaRecetas busqueda = new BusquedaRecetas
 	List<ConsultaObserver> observadores = new ArrayList<ConsultaObserver>
 	List<Accion> acciones = new ArrayList<Accion>
 	String direccionCorreo
+	Boolean resultadoDeConsultasAFavoritos
 	
 	public def setFechaDeNacimiento(int ano, int mes, int diaDelMes) {
 		fechaDeNacimiento = new GregorianCalendar(ano, mes, diaDelMes)

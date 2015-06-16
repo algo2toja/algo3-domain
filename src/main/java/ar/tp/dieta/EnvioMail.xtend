@@ -15,7 +15,7 @@ class EnvioMail implements Accion {
 			mail.from = usuario.getDireccionCorreo
 			mail.subject = "Consulta de "+ usuario.getNombre
 			mail.to = mailDestino
-			mail.content = busqueda + nombresRecetas  
+			mail.content = busqueda.nombre + busqueda.dificultad + /*busqueda.palabrasClave + */nombresRecetas.size  
 			StubMailSender.instance.send(mail)
 		} 
 	}	
