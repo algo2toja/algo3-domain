@@ -28,45 +28,8 @@ class Usuario extends Miembro {
 	List<Accion> acciones = new ArrayList<Accion>
 	String direccionCorreo
 	
-	// Punto 1 y 2 validacion usuario
-	public def validacionUsuario() {
-		(this.validarCampos() && this.condicionesValidas())
-	}
-	
-	// Metodo de validacion final
-	protected def validarCampos() {
-		((this.validarNombre) && (this.validarPeso) && (this.validarAltura) && (this.validarRutina) && (this.validarFechaDeNacimiento))
-	}
-
-	protected def boolean validarRutina() {
-		!(rutina.equals(null))
-	}
-
-	protected def boolean validarNombre(){
-		!(nombre.equals(null) && (nombre.length<=4))
-	//Probar solo con funcion length
-	}
-
-	protected def boolean validarPeso() {
-		!peso.equals(0)
-	}
-
-	protected def boolean validarAltura() {
-		!altura.equals(0)
-	}
-
-	protected def validarFechaDeNacimiento() {
-		!((fechaDeNacimiento.equals(null)) && (0 <= fechaDeNacimiento.compareTo(this.getDiaDeHoy)))
-	}
-
 	public def setFechaDeNacimiento(int ano, int mes, int diaDelMes) {
 		fechaDeNacimiento = new GregorianCalendar(ano, mes, diaDelMes)
-	}
-
-	protected def getDiaDeHoy() {
-		// Seteo el dia de la fecha en el momento que se pide validar, y devuelvo el dia de la fecha
-		// diaDeHoy = new GregorianCalendar(Calendar.YEAR, Calendar.MONTH, Calendar.DAY_OF_MONTH)
-		diaDeHoy = new GregorianCalendar()
 	}
 
 	// Calcular indice de masa corporal
@@ -98,11 +61,6 @@ class Usuario extends Miembro {
 	protected def subsanaTodasLasCondiciones() {
 		// T o F. Segun si las condiciones preexistentes estan subsanadas.
 		(condicionesPreexistentes.exists[ condicion | !condicion.seSubsana(this)])			
-	}
-
-	// Punto 3 usuario validacion usuario
-	protected def boolean condicionesValidas(){
-		!(condicionesPreexistentes.exists[condicion | condicion.validarCondicion(this).equals(false)])
 	}
 
 	protected def rutinaEsIntensiva() {
@@ -186,7 +144,6 @@ class Usuario extends Miembro {
 		receta.esInadecuadaParaUsuario(this) 
 	}
 	
-						////////////////////////RECETA FAVORITA//////////////////////////////
 	def void agregarRecetaFavorita(String nombre){
 		recetasFavoritas.add(recetario.busquedaReceta(nombre).getNombreDeLaReceta)
 	}
@@ -195,14 +152,10 @@ class Usuario extends Miembro {
 		recetasFavoritas.add(unGrupo.devolverRecetaDeMiembro(nombre).getNombreDeLaReceta)
 	}
 
-						//////////////////////RECETAS QUE PUEDO VER//////////////////////////
 	def List<Receta> recetasQuePuedoVer(){
 		val List<Receta> recetasQueVeo = new ArrayList<Receta>
-		
-		recetario.recetas.forEach[receta | recetasQueVeo.add(receta)]//esta probada
-		
+		recetario.recetas.forEach[receta | recetasQueVeo.add(receta)]
 		misGrupos.forEach[grupo | recetasQueVeo.addAll[grupo.recetasDelGrupoPara(this).iterator]]
-		
 		recetasQueVeo.addAll[misRecetas.iterator]
 		recetasQueVeo
 	}

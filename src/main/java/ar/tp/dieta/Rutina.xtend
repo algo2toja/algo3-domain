@@ -8,6 +8,6 @@ abstract class Rutina {
 	def boolean rutinaEsActiva()
 	def boolean rutinaEsIntensiva()
 	def boolean rutinaSaludable(Usuario unUsuario){
-		((unUsuario.indiceDeMasaCorporal >= 18 && unUsuario.indiceDeMasaCorporal <= 30 && unUsuario.condicionesPreexistentes.empty )|| unUsuario.condicionesPreexistentes.exists[condicion | !condicion.seSubsana(unUsuario)])
+		(unUsuario.validarIMC && unUsuario.condicionesPreexistentes.empty) || (unUsuario.condicionesPreexistentes.forall[condicion | condicion.seSubsana(unUsuario)])
 	}
 }

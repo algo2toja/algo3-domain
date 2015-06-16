@@ -1,6 +1,5 @@
 package ar.tp.dieta
 
-import org.junit.Before
 import org.junit.Test
 import org.junit.Assert
 import java.util.List
@@ -8,8 +7,8 @@ import java.util.ArrayList
 
 ///////////////////////////////////////////////////FALTA TEST INGREDIENTE CARO////////////////////////////////
 
-class TestEntregaDos extends TestBase {
-	
+class TestEntregaDos extends TestRepositorio{
+	/*
 	var Busqueda busqueda = new Busqueda
 	
 	RecetarioPublico recetario = new RecetarioPublico
@@ -109,145 +108,129 @@ class TestEntregaDos extends TestBase {
 		gelatina.agregarIngrediente(cebolla)
 		
 	}
-	
+	 */
 	@Test
 	def void sePuedeSugerirRecetaAUsuario(){
 		Assert.assertTrue(usuarioVegano.tePuedoSugerirEstaReceta(ensalada))
 	}
 	
 	@Test
-	def void noSePuedeSugeriRecetaAUsuario(){
-		Assert.assertFalse(usuarioVegano.tePuedoSugerirEstaReceta(asado))
-		Assert.assertFalse(usuarioVegano.tePuedoSugerirEstaReceta(arrozBlanco))
-		Assert.assertFalse(usuarioHipertenso.tePuedoSugerirEstaReceta(asado))
+	def void noSePuedeSugerirRecetaAUsuario(){
+		Assert.assertFalse(usuarioVegano.tePuedoSugerirEstaReceta(lomoMostaza))
+		Assert.assertFalse(usuarioVegano.tePuedoSugerirEstaReceta(arrozConPollo))
 	}
 	
 	@Test
 	def void sePuedeSugerirRecetaAUnGrupo(){
-		grupoConHipertenso.preferencias.add("arroz")
-		Assert.assertTrue(grupoConHipertenso.tePuedoSugerirEstaReceta(arrozBlanco))// el arroz, ingrediente de arrozBlanco,
-	}																			   // es preferencia del grupo
+		grupoHipertenso.preferencias.add("arroz")
+		Assert.assertTrue(grupoHipertenso.tePuedoSugerirEstaReceta(arrozConPollo))	
+	}	
 	
 	@Test
 	def void noSePuedeSugerirRecetaAUnGrupo(){
-		Assert.assertFalse(grupoConHipertenso.tePuedoSugerirEstaReceta(arrozBlanco)) //ningun ingrediente del arrozBlanco es
-																					//preferencia del grupo
-		grupoConHipertenso.preferencias.add("cebolla")
-		Assert.assertFalse(grupoConHipertenso.tePuedoSugerirEstaReceta(ensalada))// La sal no se recomienda para hipertenso
+		Assert.assertFalse(grupoHipertenso.tePuedoSugerirEstaReceta(arrozConPollo)) 
+		grupoHipertenso.preferencias.add("cebolla")
+		grupoHipertenso.agregarUsuario(usuarioHipertenso)
+		Assert.assertFalse(grupoHipertenso.tePuedoSugerirEstaReceta(ensalada)) //La sal no se recomienda para hipertensos
 	}
 
 	@Test
 	def void recetasQueUnUsuarioTieneAcceso(){
+		usuarioDiabetico.recetario = recetarioPublico
 		var List<Receta> recetasQuePuedeVer = new ArrayList<Receta>
-		recetario.agregarReceta(recetaPublica)
-		usuarioNormal.misRecetas.add(recetaPrivada)
+
+		recetarioPublico.agregarReceta(gelatinaFrambuesa)
+		usuarioSinCondicion.misRecetas.add(arrozConPollo)
 		
-		grupoConHipertenso.agregarUsuario(usuarioDiabetico)
+		grupoHipertenso.agregarUsuario(usuarioDiabetico)
 		
-		usuarioDiabetico.misRecetas.add(recetaPropia)
-		usuarioDiabetico.misGrupos.add(grupoConHipertenso)
-		usuarioHipertenso.misRecetas.add(recetaPorGrupo)
+		usuarioDiabetico.misRecetas.add(ensalada)
+		usuarioDiabetico.misGrupos.add(grupoHipertenso)
+		usuarioHipertenso.misRecetas.add(lomoMostaza)
 
 		recetasQuePuedeVer = usuarioDiabetico.recetasQuePuedoVer()
 		
-		Assert.assertTrue(recetasQuePuedeVer.exists[rec| rec.equals(recetaPublica)])
-		Assert.assertTrue(recetasQuePuedeVer.exists[rec| rec.equals(recetaPorGrupo)])
-		Assert.assertTrue(recetasQuePuedeVer.exists[rec| rec.equals(recetaPropia)])
-		Assert.assertFalse(recetasQuePuedeVer.exists[rec| rec.equals(recetaPrivada)])
+		Assert.assertTrue(recetasQuePuedeVer.exists[ receta | receta.equals(gelatinaFrambuesa) ])
+		Assert.assertTrue(recetasQuePuedeVer.exists[ receta | receta.equals(lomoMostaza) ])
+		Assert.assertTrue(recetasQuePuedeVer.exists[ receta | receta.equals(ensalada) ])
+		Assert.assertTrue(recetasQuePuedeVer.exists[ receta | receta.equals(arrozConPollo) ])
 	}
 	
 	@Test
 	def filtroPorIngredienteCaro(){
+		
+		usuarioSinCondicion.recetario = recetarioPublico
 		var List<Receta> recetasFiltradas = new ArrayList<Receta>
 		busqueda.agregarFiltro(new FiltroPorIngredienteCaro)
 		
-		usuarioNormal.getMisBusquedas.add(busqueda)
+		usuarioSinCondicion.getMisBusquedas.add(busqueda)
 		
-		usuarioNormal.misRecetas.add(lomoMostaza) // contiene ingrediente caro (lomo)
-		usuarioNormal.misRecetas.add(arrozBlanco)
-		usuarioNormal.misRecetas.add(arrozConPollo)
-		usuarioNormal.misRecetas.add(ensalada)
-		usuarioNormal.misRecetas.add(asado)
+		usuarioSinCondicion.misRecetas.add(lomoMostaza)
+		usuarioSinCondicion.misRecetas.add(arrozBlanco)
+		usuarioSinCondicion.misRecetas.add(arrozConPollo)
+		usuarioSinCondicion.misRecetas.add(ensalada)
 		
-		recetasFiltradas = usuarioNormal.busquedaFiltrada
+		recetasFiltradas = usuarioSinCondicion.busquedaFiltrada
 		
 		Assert.assertTrue(recetasFiltradas.contains(ensalada))
-		Assert.assertTrue(recetasFiltradas.contains(asado))
 		Assert.assertTrue(recetasFiltradas.contains(arrozBlanco))
 		Assert.assertTrue(recetasFiltradas.contains(arrozConPollo))
-		Assert.assertFalse(recetasFiltradas.contains(lomoMostaza)) // no lo contiene
+		Assert.assertFalse(recetasFiltradas.contains(lomoMostaza))
 		
 	}
+	
 	@Test
 	def combinacionDeFiltrosYProcesoPostBusqueda(){
+		
+		usuarioSinCondicion.recetario = recetarioPublico
 		var List<Receta> recetasFiltradas = new ArrayList<Receta>
 		var Busqueda busqueda = new Busqueda
 		busqueda.agregarFiltro(new FiltroExcesoDeCalorias)
 		busqueda.agregarFiltro(new FiltroPorGustos)
 		busqueda.agregarFiltro(new PosteriorBusquedaOrdenadoCalorias)
-		usuarioNormal.misGrupos.add(grupoConHipertenso)
-		grupoConHipertenso.agregarUsuario(usuarioNormal)
 		
-		recetario.agregarReceta(arrozBlanco)
-		recetario.agregarReceta(arrozConPollo)
-		
+		usuarioSinCondicion.misGrupos.add(grupoHipertenso)
+		grupoHipertenso.agregarUsuario(usuarioSinCondicion)
+		recetarioPublico.agregarReceta(arrozBlanco)
 		usuarioHipertenso.misRecetas.add(ensalada)
+		usuarioSinCondicion.misRecetas.add(arrozConPollo)
+		usuarioSinCondicion.agregarComidaQueMeDisgusta("pollo") //Le disgusta el pollo
+		usuarioSinCondicion.getMisBusquedas.add(busqueda)
 		
-		usuarioNormal.misRecetas.add(asado)
-		usuarioNormal.agregarComidaQueMeDisgusta("pollo") 						// le disgusta el pollo
-		usuarioNormal.getMisBusquedas.add(busqueda)
+		recetasFiltradas = usuarioSinCondicion.busquedaFiltrada()
+
+		Assert.assertFalse(recetasFiltradas.exists[ equals(arrozConPollo) ]) //Descarta el arroz con pollo por los gustos
+		Assert.assertTrue(recetasFiltradas.exists[ equals(arrozBlanco) ])
+		Assert.assertFalse(recetasFiltradas.exists[ equals(ensalada) ]) //Tiene que fallar porque no existe ensalada
 		
-		recetasFiltradas = usuarioNormal.busquedaFiltrada()
-		Assert.assertFalse(recetasFiltradas.exists[equals(asado)]) 				//descarta el asado por las caloias
-		Assert.assertFalse(recetasFiltradas.exists[equals(arrozConPollo)])		// descarta el arroz con pollo por los gustos
-		
-		Assert.assertTrue(recetasFiltradas.exists[equals(ensalada)])
-		Assert.assertTrue(recetasFiltradas.exists[equals(arrozBlanco)])
-		
-		Assert.assertTrue(recetasFiltradas.get(0).equals(ensalada))			// el primero es el arroz
+		Assert.assertFalse(recetasFiltradas.get(0).equals(ensalada))	//Primero en la posicion es el arrozBlanco
 		
 		}
 		
 	@Test
 	def filtradoDePrimerasRecetas(){
+		
+		grupoHipertenso.recetario = recetarioPublico
 		var List<Receta> recetasAptas = new ArrayList<Receta>
-		//var List<Receta> recetasProcesadas = new ArrayList<Receta>
 		busqueda.agregarFiltro(new FiltroPorCondicion)
-		usuarioNormal.misGrupos.add(grupoConHipertenso)
-		grupoConHipertenso.agregarUsuario(usuarioNormal)
-		usuarioDiabetico.misGrupos.add(grupoConHipertenso)
-		grupoConHipertenso.agregarUsuario(usuarioDiabetico)
-		//grupoConHipertenso.setQuieroFiltrar(true)
+		usuarioSinCondicion.misGrupos.add(grupoHipertenso)
+		grupoHipertenso.agregarUsuario(usuarioSinCondicion)
+		usuarioDiabetico.misGrupos.add(grupoHipertenso)
+		grupoHipertenso.agregarUsuario(usuarioDiabetico)
+		recetarioPublico.agregarReceta(arrozBlanco)
+		recetarioPublico.agregarReceta(arrozConPollo)
+		usuarioSinCondicion.misRecetas.add(gelatinaFrambuesa)
+		usuarioDiabetico.misRecetas.add(fideosConManteca)
 		
-		recetario.agregarReceta(arrozBlanco)
-		recetario.agregarReceta(arrozConPollo)
-		recetario.agregarReceta(bondiola)
-		
-		usuarioNormal.misRecetas.add(asado)
-		usuarioNormal.misRecetas.add(gelatina)
-		
-		usuarioDiabetico.misRecetas.add(bofe)
-		usuarioDiabetico.misRecetas.add(cerealitos)
-		usuarioDiabetico.misRecetas.add(fideos)
-		
-		recetasAptas = grupoConHipertenso.busquedaFiltrada()
-		//Assert.assertTrue(recetasAptas.size.equals(4))
-		Assert.assertTrue(recetasAptas.contains(bofe))
-		//Assert.assertFalse(recetasAptas.contains(cerealitos))
-		//Assert.assertFalse(recetasAptas.contains(fideos))
-		//Assert.assertFalse(recetasAptas.contains(asado))
-		Assert.assertTrue(recetasAptas.contains(gelatina))
+		recetasAptas = grupoHipertenso.busquedaFiltrada()
+		Assert.assertTrue(recetasAptas.contains(gelatinaFrambuesa))
 		Assert.assertTrue(recetasAptas.contains(arrozConPollo))
 		Assert.assertTrue(recetasAptas.contains(arrozBlanco))
-		Assert.assertFalse(bofe.esInadecuadaParaGrupo(grupoConHipertenso))
-		Assert.assertFalse(gelatina.esInadecuadaParaGrupo(grupoConHipertenso))
-		Assert.assertFalse(arrozBlanco.esInadecuadaParaGrupo(grupoConHipertenso))
-		Assert.assertFalse(arrozConPollo.esInadecuadaParaGrupo(grupoConHipertenso))
-		Assert.assertTrue(cerealitos.esInadecuadaParaGrupo(grupoConHipertenso))
-		Assert.assertTrue(fideos.esInadecuadaParaGrupo(grupoConHipertenso))
-		Assert.assertTrue(asado.esInadecuadaParaGrupo(grupoConHipertenso))
-		Assert.assertTrue(bondiola.esInadecuadaParaGrupo(grupoConHipertenso))
-
+		Assert.assertTrue(gelatinaFrambuesa.esInadecuadaParaGrupo(grupoHipertenso)) //Inadecuada porque tiene un usuarioDiabetico.
+		Assert.assertFalse(arrozBlanco.esInadecuadaParaGrupo(grupoHipertenso))
+		Assert.assertFalse(arrozConPollo.esInadecuadaParaGrupo(grupoHipertenso))
+		Assert.assertFalse(fideosConManteca.esInadecuadaParaGrupo(grupoHipertenso))
+	
 	}
 
 }

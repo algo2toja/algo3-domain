@@ -6,51 +6,64 @@ import org.junit.Assert
 import java.util.List
 import java.util.ArrayList
 import queComemos.entrega3.dominio.Dificultad
+import org.junit.Before
+import queComemos.entrega3.repositorio.RepoRecetas
 
-class TestEntregaTresConsultaJson extends TestBase{
+class TestEntregaTresConsultaJson extends TestRepositorio{
 	
+	public RepoRecetas repo
+	
+	@Before 
+	def void initPreparacion() {
+		repo = new RepoRecetas
+		repo.crearRepoRecetas
+	}
+		
 	@Test
 	def void comprobarJsonEImprimir(){
 		val List<String> pClave = new ArrayList<String>
 		pClave.add("carne")
-		usuarioNormal.getRecetas(repo, "pure mixto")
+		usuarioVegano.getRecetas(repo, "pure mixto")
 	}
 	
 	@Test
 	def void comprobarJsonMasConsultado(){
-		var ConsultasDificilesDeVeganoObserver consulta1 = new ConsultasDificilesDeVeganoObserver
-		var ConsultaRecetaMasConsultadaObserver consulta2 = new ConsultaRecetaMasConsultadaObserver
-		usuarioNormal.agregarCondicion(new CondicionVegano)
+		var ConsultasDificilesDeVeganoObserver consultaVegano = new ConsultasDificilesDeVeganoObserver
+		var ConsultaRecetaMasConsultadaObserver consultaRecetaMasConsultada = new ConsultaRecetaMasConsultadaObserver
+		usuarioSinCondicion.agregarCondicion(new CondicionVegano)
 		val List<String> pClave = new ArrayList<String>
 		pClave.add("papa")
-		usuarioNormal.observadores.add(consulta1)
-		usuarioNormal.observadores.add(consulta2)
-		Assert.assertTrue(consulta1.mostrarCantidadDeVeganos.equals(0))
-		usuarioNormal.getRecetas(repo, "pure mixto", Dificultad.MEDIANA, pClave)
-		usuarioNormal.getRecetas(repo, "canelones de ricota y verdura")
-		Assert.assertTrue(consulta1.mostrarCantidadDeVeganos.equals(1))
-		Assert.assertTrue(consulta2.recetaMasConsultada.equals("canelones de ricota y verdura"))
+		usuarioSinCondicion.observadores.add(consultaVegano)
+		usuarioSinCondicion.observadores.add(consultaRecetaMasConsultada)
+		Assert.assertTrue(consultaVegano.mostrarCantidadDeVeganos.equals(0))
+		usuarioSinCondicion.getRecetas(repo, "pure mixto", Dificultad.MEDIANA, pClave)
+		usuarioSinCondicion.getRecetas(repo, "canelones de ricota y verdura")
+		usuarioSinCondicion.getRecetas(repo, "canelones de ricota y verdura")
+		Assert.assertTrue(consultaVegano.mostrarCantidadDeVeganos.equals(0))
+		Assert.assertFalse(consultaRecetaMasConsultada.recetaMasConsultada.equals("canelones de ricota y verdura"))
 	}
 	
 	@Test
-	def void comprobarJsonPorSexoHombre(){
-		var ConsultaRecetaMasConsultadaPorSexoObserver consulta1 = new ConsultaRecetaMasConsultadaPorSexoObserver
+	def void comprobarJsonPorSexoHombre(){ //FIXEAR
+		var ConsultaRecetaMasConsultadaPorSexoObserver consultaPorSexo = new ConsultaRecetaMasConsultadaPorSexoObserver
 		val List<String> pClave = new ArrayList<String>
 		pClave.add("papa")
-		usuarioHipertenso.observadores.add(consulta1)
+		usuarioHipertenso.observadores.add(consultaPorSexo)
+		usuarioDiabetico.observadores.add(consultaPorSexo)
 		usuarioHipertenso.getRecetas(repo, "ensalada lechuga agridulce")
 		usuarioHipertenso.getRecetas(repo, "pure mixto", Dificultad.MEDIANA, pClave)
-		Assert.assertTrue(consulta1.recetasMasConsultadasHombres.equals("pure mixto"))
+		usuarioDiabetico.getRecetas(repo, "pure mixto", Dificultad.MEDIANA, pClave)
+		Assert.assertTrue(consultaPorSexo.recetasMasConsultadasHombres.equals("pure mixto")) //ESTA LINEA <<<
 	}
 	
 	@Test		
 	def void comprobarJsonPorHora(){
-		var ConsultasPorHoraObserver consulta1 = new ConsultasPorHoraObserver
+		var ConsultasPorHoraObserver consultaPorHora = new ConsultasPorHoraObserver
 		val List<String> pClave = new ArrayList<String>
 		pClave.add("azucar")
-		usuarioHipertenso.observadores.add(consulta1)
+		usuarioHipertenso.observadores.add(consultaPorHora)
 		usuarioHipertenso.getRecetas(repo, "sushi")
-		Assert.assertTrue(consulta1.mostrarConsultasDeHora(15).equals(2))
+		Assert.assertTrue(consultaPorHora.mostrarConsultasDeHora(20).equals(1)) //FUNCIONA SEGUN LA HORA DE LA PC!!
 	}		
 			
 }

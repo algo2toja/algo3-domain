@@ -1,10 +1,11 @@
 package ar.tp.dieta
 
 import ar.tp.dieta.Condicion
+import java.util.List
 
 class CondicionVegano extends Condicion {
 	//Lista de "elementos" que no son buenos para una condicion
-	val String[] elementosNoRecomendables = #["pollo", "carne", "chivito", "chori"]
+	List<String> elementosNoRecomendables = #["pollo", "carne", "chivito", "chori", "lomo"]
 
 	override esVegano() {
 		true

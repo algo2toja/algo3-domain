@@ -8,7 +8,7 @@ import queComemos.entrega3.repositorio.BusquedaRecetas
 import queComemos.entrega3.dominio.Dificultad
 
 @Accessors
-class TestJson {
+class TestImpresionJson {
 	RepoRecetas repo
 	BusquedaRecetas busqueda
 	Dificultad mediana
