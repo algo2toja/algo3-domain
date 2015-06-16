@@ -4,6 +4,7 @@ import java.util.ArrayList
 import java.util.HashMap
 import java.util.List
 import java.util.Map
+import queComemos.entrega3.repositorio.BusquedaRecetas
 
 class ConsultaRecetaMasConsultadaPorSexoObserver implements ConsultaObserver {
 
@@ -13,13 +14,18 @@ class ConsultaRecetaMasConsultadaPorSexoObserver implements ConsultaObserver {
 	Map<String, Integer> recetasMasConsultadasPorHombres = new HashMap<String, Integer>()
 	Map<String, Integer> recetasMasConsultadasPorMujeres = new HashMap<String, Integer>()
 
-	override actualizar(Usuario usuario, String nombre, String dif) {
+	override actualizar(Usuario usuario, List<String> nombres, BusquedaRecetas busqueda) {
+		
+		nombres.forEach[ nombre |
+			 
 		if (usuario.getSexo.equals("F")) {
 			actualizarMap(recetasMasConsultadasPorMujeres, nombre)
 		} else {
 			actualizarMap(recetasMasConsultadasPorHombres, nombre)
 		}
 		nombresRecetas.add(nombre)
+		
+		]
 	}
 
 	def protected actualizarMap(Map<String, Integer> elMap, String nombre) {

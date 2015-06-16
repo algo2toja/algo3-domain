@@ -1,13 +1,14 @@
 package ar.tp.dieta
 
-import queComemos.entrega3.dominio.Dificultad
+import java.util.List
+import queComemos.entrega3.repositorio.BusquedaRecetas
 
 class ConsultasDificilesDeVeganoObserver implements ConsultaObserver{
 	
 	int contadorDeVeganos
 	
-	override actualizar(Usuario usuario, String nombre, String dif) { //Implemento la receta de la interfaz dada.
-		if(dif.equals("DIFICIL") && usuario.tenesEstaCondicion(new CondicionVegano)){
+	override actualizar(Usuario usuario, List<String> nombres, BusquedaRecetas busqueda) { //Implemento la receta de la interfaz dada.
+		if(busqueda.dificultad.equals("DIFICIL") && usuario.tenesEstaCondicion(new CondicionVegano)){
 			contadorDeVeganos++
 		}
 	}
