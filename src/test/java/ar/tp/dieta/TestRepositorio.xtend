@@ -102,25 +102,25 @@ abstract class TestRepositorio {
 		
 		//Instancio Rutinas
 		//Condicion Vegano
-		usuarioVegano = new UsuarioBuilder("Miguel").peso(70.5).altura(1.73).fechaNacimiento(1989, 6, 28).sexo("M").rutina(basket).condicion(new CondicionVegano).preferencia("fruta").build()
+		usuarioVegano = new UsuarioBuilder("Miguel").peso(70.5).altura(1.73).fechaNacimiento(1989, 6, 28).sexo("M").rutina(basket).condicion(new CondicionVegano).preferencia("fruta").email("soyvegano@edrans.com").build()
 
 		//Sin Condicion
 		//Hombre
-		usuarioSinCondicion = new UsuarioBuilder("Juan").peso(70.4).altura(1.83).fechaNacimiento(1992, 6, 4).sexo("M").rutina(gaming).preferencia("carne").preferencia("pescado").build()
+		usuarioSinCondicion = new UsuarioBuilder("Juan").peso(70.4).altura(1.83).fechaNacimiento(1992, 6, 4).sexo("M").rutina(gaming).preferencia("carne").preferencia("pescado").email("usuariosincondicion@mail.com").build()
 		//Mujer
-		usuarioMujerSinCondicion = new UsuarioBuilder("Marcela").peso(60.4).altura(1.83).fechaNacimiento(1992, 6, 4).sexo("F").rutina(basket).preferencia("carne").preferencia("pescado").build()
+		usuarioMujerSinCondicion = new UsuarioBuilder("Marcela").peso(60.4).altura(1.83).fechaNacimiento(1992, 6, 4).sexo("F").rutina(basket).preferencia("carne").preferencia("pescado").email("mujersincondicion@test.com").build()
 		
 		//Condicion Celiaco
-		usuarioCeliaco = new UsuarioBuilder("Daniel").peso(103.1).altura(1.85).fechaNacimiento(1992, 11, 20).sexo("M").rutina(basket).condicion(new CondicionCeliaco).preferencia("fideos").build()
+		usuarioCeliaco = new UsuarioBuilder("Daniel").peso(103.1).altura(1.85).fechaNacimiento(1992, 11, 20).sexo("M").rutina(basket).condicion(new CondicionCeliaco).preferencia("fideos").email("userceliaco@email.com").build()
 		
 		//Condicion Hipertenso		
-		usuarioHipertenso = new UsuarioBuilder("Gabriel").peso(83.8).altura(1.83).fechaNacimiento(1987, 1, 8).sexo("M").rutina(taeBo).preferencia("limon").condicion(new CondicionHipertension).build()
+		usuarioHipertenso = new UsuarioBuilder("Gabriel").peso(83.8).altura(1.83).fechaNacimiento(1987, 1, 8).sexo("M").rutina(taeBo).preferencia("limon").condicion(new CondicionHipertension).email("usuariohipertenso@mail.com").build()
 	
 		//Condicion Diabetico
 		//Hombre
-		usuarioDiabetico = new UsuarioBuilder("Nicolas").peso(78.8).altura(1.76).fechaNacimiento(1980, 2, 12).sexo("M").rutina(programacion).condicion(new CondicionDiabetes).preferencia("ensalada").build()
+		usuarioDiabetico = new UsuarioBuilder("Nicolas").peso(78.8).altura(1.76).fechaNacimiento(1980, 2, 12).sexo("M").rutina(programacion).condicion(new CondicionDiabetes).preferencia("ensalada").email("usuariodiabetico@tutopia.com").build()
 		//Mujer
-		usuarioMujerDiabetica  = new UsuarioBuilder("Marina").peso(55.8).altura(1.66).fechaNacimiento(1965, 2, 12).sexo("F").rutina(taeBo).condicion(new CondicionDiabetes).preferencia("fruta").build()
+		usuarioMujerDiabetica  = new UsuarioBuilder("Marina").peso(55.8).altura(1.66).fechaNacimiento(1965, 2, 12).sexo("F").rutina(taeBo).condicion(new CondicionDiabetes).preferencia("fruta").email("mujerdiabetica@gratis1.com").build()
 
 		
 	}	

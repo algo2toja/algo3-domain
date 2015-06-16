@@ -9,7 +9,6 @@ class UsuarioBuilder {
 	new(String nombreUsuario){
 		usuario = new Usuario()
 		usuario.setNombre(nombreUsuario)
-		usuario.setResultadoDeConsultasAFavoritos(true)
 	}		
 
 	public def UsuarioBuilder peso(Double peso){
@@ -17,6 +16,11 @@ class UsuarioBuilder {
 		return this
 	}
 	
+	public def UsuarioBuilder email(String email){
+		usuario.setDireccionCorreo(email)
+		return this
+	}
+
 	public def UsuarioBuilder altura(Double altura){
 		usuario.setAltura(altura)
 		return this

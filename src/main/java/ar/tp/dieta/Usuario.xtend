@@ -29,7 +29,7 @@ class Usuario extends Miembro {
 	List<ConsultaObserver> observadores = new ArrayList<ConsultaObserver>
 	List<Accion> acciones = new ArrayList<Accion>
 	String direccionCorreo
-	Boolean resultadoDeConsultasAFavoritos
+	Boolean resultadoDeConsultasAFavoritos = true
 	
 	public def setFechaDeNacimiento(int ano, int mes, int diaDelMes) {
 		fechaDeNacimiento = new GregorianCalendar(ano, mes, diaDelMes)
