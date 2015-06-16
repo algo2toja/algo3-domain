@@ -5,20 +5,18 @@ import queComemos.entrega3.repositorio.BusquedaRecetas
 
 class EnvioMail implements Accion {
 
-	val String[] usuariosQueAplican = #["Juan","Miguel"] 
-	val String mailDestino = "Mail de juan"
-	
-	override execute(Usuario usuario, BusquedaRecetas busqueda, List<String> nombresRecetas){
-		
-		if(usuariosQueAplican.contains(usuario.getNombre)){
+	val String[] usuariosQueAplican = #["Juan", "Miguel"]
+	val String mailDestino = "test@mail.com"
+
+	override execute(Usuario usuario, BusquedaRecetas busqueda, List<String> nombresRecetas) {
+		if (usuariosQueAplican.contains(usuario.getNombre)) {
 			var mail = new Email
 			mail.from = usuario.getDireccionCorreo
 			mail.subject = "Consulta de " + usuario.getNombre
 			mail.to = mailDestino
-			mail.content = "Busqueda - nombre: " + busqueda.nombre + "| Busqueda - dificultad: " + busqueda.dificultad + /*busqueda.palabrasClave.get(0) +*/ "| Resultados: " + nombresRecetas.size  
+			mail.content = "Busqueda - nombre: " + busqueda.nombre + "| Busqueda - dificultad: " + busqueda.dificultad + "| Resultados: " + nombresRecetas.size
 			StubMailSender.instance.send(mail)
-		} 
-	}	
-
+		}
+	}
 	
 }

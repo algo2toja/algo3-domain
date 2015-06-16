@@ -7,16 +7,14 @@ import org.apache.logging.log4j.LogManager;
 
 
 class LogeoConsultas implements Accion {
-	int max = 2
+	int max = 2 //Maximo 5 resultados.
 	private static final Logger logger = LogManager.getLogger(LogeoConsultas) 
 	
 	override execute(Usuario usuario, BusquedaRecetas busqueda, List<String> nombresRecetas) {
 		if(nombresRecetas.size >= max){
-			//LOGEAR RECETAS
 			logger.trace("Log de recetas")
 			logger.trace(busqueda.nombre)
 			logger.trace(busqueda.dificultad)
-			//logger.trace(busqueda.palabrasClave)
 			logger.trace("Fin de log")
 		}
 	}

@@ -2,10 +2,8 @@ package ar.tp.dieta
 
 import java.util.ArrayList
 import java.util.GregorianCalendar
-import java.util.HashSet
 import java.util.Iterator
 import java.util.List
-import java.util.Set
 import org.eclipse.xtend.lib.annotations.Accessors
 import queComemos.entrega3.dominio.Dificultad
 import queComemos.entrega3.repositorio.BusquedaRecetas
@@ -24,12 +22,12 @@ class Usuario extends Miembro {
 	List<String> comidasQueNoMeGustan = new ArrayList<String>
 	List<Receta> misRecetas = new ArrayList<Receta>
 	List<Grupo> misGrupos = new ArrayList<Grupo>
-	Set<String> recetasFavoritas = new HashSet<String>
+	List<String> recetasFavoritas = new ArrayList<String>
 	BusquedaRecetas busqueda = new BusquedaRecetas
 	List<ConsultaObserver> observadores = new ArrayList<ConsultaObserver>
 	List<Accion> acciones = new ArrayList<Accion>
 	String direccionCorreo
-	Boolean resultadoDeConsultasAFavoritos = true
+	Boolean resultadoDeConsultasAFavoritos = false
 	
 	public def setFechaDeNacimiento(int ano, int mes, int diaDelMes) {
 		fechaDeNacimiento = new GregorianCalendar(ano, mes, diaDelMes)
@@ -148,7 +146,9 @@ class Usuario extends Miembro {
 	}
 	
 	def void agregarRecetaFavorita(String nombre){
-		recetasFavoritas.add(recetario.busquedaReceta(nombre).getNombreDeLaReceta)
+		if(!recetasFavoritas.contains(nombre)){
+			recetasFavoritas.add(nombre)
+		}
 	}
 	
 	def void agregarRecetaFavorita(Grupo unGrupo, String nombre){
@@ -161,6 +161,10 @@ class Usuario extends Miembro {
 	
 	def void noAgregarResultadosDeConsultasAFavoritos(){
 		resultadoDeConsultasAFavoritos = false
+	}
+	
+	def boolean contenesEstaRecetaEnFavs(String nombreReceta){
+		recetasFavoritas.contains(nombreReceta)
 	}
 
 	def List<Receta> recetasQuePuedoVer(){
