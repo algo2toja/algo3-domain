@@ -17,8 +17,8 @@ class TestLogeo extends TestRepositorio{
 		
 	@Test
 	def void PruebaDeLogeo(){
-		usuarioSinCondicion.acciones.add(new LogeoConsultas)
-		usuarioSinCondicion.acciones.add(new EnvioMail)
+		usuarioSinCondicion.agregarAccion(new LogeoConsultas)
+		usuarioSinCondicion.agregarAccion(new EnvioMail)
 		usuarioSinCondicion.getRecetas(repo,Dificultad.FACIL)
 	}
 }

@@ -243,5 +243,9 @@ class Usuario extends Miembro {
 		}
 		recetasFiltradas
 	}
+	
+	public def void agregarAccion(Accion unaAccion) {
+		acciones.add(unaAccion)
+	}
 
 }
