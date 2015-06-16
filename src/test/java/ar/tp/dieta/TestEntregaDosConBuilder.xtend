@@ -4,16 +4,13 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.Assert
 
-class TestEntregaDosConBuilder {
+class TestEntregaDosConBuilder extends TestRepoRecetas {
 	
-	TestRepoRecetas repoRecetas
 	Usuario nuevoUsuario
 	RutinaActiva taeBo
 	
 	@Before
-	def void init(){
-		repoRecetas = new TestRepoRecetas
-		repoRecetas.init()
+	def void initRecetas(){
 		
 		taeBo = new RutinaActiva => [
 			setTiempoDeEjercicio(90)
@@ -32,24 +29,32 @@ class TestEntregaDosConBuilder {
 	}
 	
 	@Test
-	def void usuarioModificaRecetaPublica() {
-	
-		nuevoUsuario.agregarRecetaPublicaAMiColeccion("Arroz con Pollo")
-		nuevoUsuario.modificarReceta("Arroz con Pollo", "arroz con llopo", 200, "1)Cocinar 2)Comer", "facil", "invierno")
-		
-		//Verifica si el nombre de la receta fue modificado en la coleccion de recetas del usuario.
-		Assert.assertTrue(nuevoUsuario.devolverReceta("arroz con llopo").getNombreDeLaReceta.equals("arroz con llopo"))
-		
-		//Verifica si el nombre de la receta se mantiene en la coleccion de recetas publicas
-		Assert.assertTrue((recetarioPublico.busquedaReceta("Arroz con Pollo")).getNombreDeLaReceta.equals("Arroz con Pollo"))
-	
-		//Verifica si el ingrediente y el condimento solo se agrego en la receta del usuario y no en la publica
-		
-		
-		Assert.assertTrue((nuevoUsuario.devolverReceta("arroz con llopo").elementosDeReceta.contains(arroz)))
-		Assert.assertFalse((recetarioPublico.busquedaReceta("Arroz con Pollo")).elementosDeReceta.contains(pollo))
-	
-		//El usuario es Vegano, el arroz con pollo no le tiene que gustar, o sea que es falso.
-		Assert.assertFalse(nuevoUsuario.meConvieneReceta(arrozConPollo))
+	def void validarUnUsuario() {
+		Assert.assertTrue(nuevoUsuario.validarCampos())
+		Assert.assertTrue(nuevoUsuario.validacionUsuario())
+			
 	}
+
+	@Test //Prueba condicion vegano e hipertension subsanadas
+	def void usuarioConRutinaSaludable() {
+		Assert.assertFalse(nuevoUsuario.sigoUnaRutinaSaludable())
+	}
+
+	@Test
+	def void usuarioCreaReceta() {
+
+		nuevoUsuario.crearReceta("Pure", 200, "1) Papar 2) Pisar", "Facil", "Todo el año")
+		Assert.assertFalse(nuevoUsuario.misRecetas.empty)
+		Assert.assertTrue(nuevoUsuario.misRecetas.exists[receta|receta.devolverNombre() == "Pure"])
+	}
+
+	@Test
+	def void modificaReceta() {
+
+		nuevoUsuario.crearReceta("Pure", 200, "1) Papar 2) Pisar", "Facil", "Todo el año")
+		nuevoUsuario.modificarReceta("Pure", "Papada", 0, "0", "0", "0")
+		Assert.assertTrue((nuevoUsuario.devolverReceta("Papada")).devolverNombre() == "Papada")
+
+	}
+
 }

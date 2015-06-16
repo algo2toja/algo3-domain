@@ -5,25 +5,25 @@ import org.eclipse.xtend.lib.annotations.Accessors
 @Accessors
 class TestRepoRecetas {
 
-	public Ingrediente pollo
-	public Ingrediente arroz
-	public Ingrediente azafran
-	public Ingrediente sal
-	public Ingrediente cebolla
-	public Ingrediente lomo
-	public Ingrediente azucar
-	public Ingrediente cereal
-	public Ingrediente pasta
-	public Ingrediente mostaza
-	public Ingrediente manteca
-	public Ingrediente gelatina
+	protected Ingrediente pollo
+	protected Ingrediente arroz
+	protected Ingrediente azafran
+	protected Ingrediente sal
+	protected Ingrediente cebolla
+	protected Ingrediente lomo
+	protected Ingrediente azucar
+	protected Ingrediente cereal
+	protected Ingrediente pasta
+	protected Ingrediente mostaza
+	protected Ingrediente manteca
+	protected Ingrediente gelatina
 	
-	public Receta arrozConPollo	
-	public Receta lomoMostaza
-	public Receta fideosConManteca
-	public Receta gelatinaFrambuesa
+	protected Receta arrozConPollo	
+	protected Receta lomoMostaza
+	protected Receta fideosConManteca
+	protected Receta gelatinaFrambuesa
 	
-	public RecetarioPublico recetarioPublico
+	protected RecetarioPublico recetarioPublico
 		
 	public def void init(){
 

@@ -148,7 +148,7 @@ class Usuario extends Miembro {
 
 	// Devuelve una receta buscandola por su nombre.
 	public def devolverReceta(String nombre) {// tambien buscar sobre las que puede ver
-		var Receta receta = misRecetas.findFirst[receta|receta.devolverNombre.equals(nombre)]
+		var Receta receta = misRecetas.findFirst[receta | receta.devolverNombre.equals(nombre)]
 		if (receta.equals(null)) {
 			throw new BusinessException("No existe la receta en la lista de recetas.")
 		}
