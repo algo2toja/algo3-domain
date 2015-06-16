@@ -155,6 +155,14 @@ class Usuario extends Miembro {
 		recetasFavoritas.add(unGrupo.devolverRecetaDeMiembro(nombre).getNombreDeLaReceta)
 	}
 
+	def void agregarResultadosDeConsultasAFavoritos(){
+		resultadoDeConsultasAFavoritos = true
+	}
+	
+	def void noAgregarResultadosDeConsultasAFavoritos(){
+		resultadoDeConsultasAFavoritos = false
+	}
+
 	def List<Receta> recetasQuePuedoVer(){
 		val List<Receta> recetasQueVeo = new ArrayList<Receta>
 		recetario.recetas.forEach[receta | recetasQueVeo.add(receta)]
@@ -185,6 +193,14 @@ class Usuario extends Miembro {
 	
 	public def getRecetas(RepoRecetas repo, String nombre){ 
  		busqueda.setNombre(nombre)
+ 		val List<String> nombresRecetas = (new JsonSimpleReader).parseJsonNombre(repo.getRecetas(busqueda))
+ 		observadores.forEach[it.actualizar(this, nombresRecetas, busqueda)]
+ 		acciones.forEach[it.execute(this, busqueda, nombresRecetas)]
+		repo.getRecetas(busqueda)
+ 	}
+ 	
+ 	public def getRecetas(RepoRecetas repo, Dificultad dificultad){
+ 		busqueda.setDificultad(dificultad)
  		val List<String> nombresRecetas = (new JsonSimpleReader).parseJsonNombre(repo.getRecetas(busqueda))
  		observadores.forEach[it.actualizar(this, nombresRecetas, busqueda)]
  		acciones.forEach[it.execute(this, busqueda, nombresRecetas)]
@@ -227,5 +243,5 @@ class Usuario extends Miembro {
 		}
 		recetasFiltradas
 	}
-	
+
 }

@@ -5,7 +5,7 @@ import queComemos.entrega3.repositorio.BusquedaRecetas
 
 class EnvioMail implements Accion {
 
-	val String[] usuariosQueAplican = #["juan","miguel"] 
+	val String[] usuariosQueAplican = #["Juan","Miguel"] 
 	val String mailDestino = new String
 	
 	override execute(Usuario usuario, BusquedaRecetas busqueda, List<String> nombresRecetas){
