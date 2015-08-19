@@ -1,5 +1,10 @@
 package ar.tp.dieta
 
+import org.eclipse.xtend.lib.annotations.Accessors
+import org.uqbar.commons.utils.Observable
+
+@Accessors
+@Observable
 abstract class Condicion {
 
 	public def boolean esDiabetes() {
