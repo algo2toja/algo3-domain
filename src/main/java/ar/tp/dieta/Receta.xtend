@@ -1,16 +1,18 @@
 package ar.tp.dieta
 
 import java.util.ArrayList
-import org.eclipse.xtend.lib.annotations.Accessors
 import java.util.List
+import org.eclipse.xtend.lib.annotations.Accessors
+import org.uqbar.commons.utils.Observable
 
 @Accessors
+@Observable
 class Receta extends ElementoDeReceta implements Cloneable{
 
 	String autor
 	String nombreDeLaReceta
 	double calorias
-	ArrayList<ElementoDeReceta> elementosDeReceta = new ArrayList<ElementoDeReceta> //Integra ingredientes, condimentos y subrecetas.	
+	List<ElementoDeReceta> elementosDeReceta = new ArrayList<ElementoDeReceta> //Integra ingredientes, condimentos y subrecetas.	
 	String procesoDePreparacion
 	String dificultadDePreparacion
 	String temporadaALaQueCorresponde
