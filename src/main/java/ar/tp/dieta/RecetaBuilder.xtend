@@ -34,8 +34,13 @@ class RecetaBuilder {
 		return this
 	}
 	
-	public def RecetaBuilder agregar(Ingrediente unIngrediente){
+	public def RecetaBuilder agregarIngrediente(Ingrediente unIngrediente){
 		receta.agregarIngrediente(unIngrediente)
+		return this
+	}
+	
+	public def RecetaBuilder agregarCondimento(Condimento unCondimento){
+		receta.agregarCondimento(unCondimento)
 		return this
 	}
 
@@ -43,6 +48,7 @@ class RecetaBuilder {
 		if (receta.elementosDeReceta.isEmpty()) {
 			throw new BusinessException("Receta sin ingredientes")
 		}
+		receta.misCondicionesInadecuadas
 		return receta
 	}
 	

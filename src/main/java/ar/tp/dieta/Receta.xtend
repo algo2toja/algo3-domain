@@ -9,6 +9,8 @@ import org.uqbar.commons.utils.Observable
 @Observable
 class Receta extends ElementoDeReceta implements Cloneable{
 
+	List<Ingrediente> ingredientes = new ArrayList<Ingrediente>
+	List<Condimento> condimentos = new ArrayList<Condimento>
 	String autor
 	String nombreDeLaReceta
 	double calorias
@@ -18,21 +20,26 @@ class Receta extends ElementoDeReceta implements Cloneable{
 	String temporadaALaQueCorresponde
 	int tiempoPreparacion
 	int añoDeCreacion
+	List<String> condicionesPreexistentes = new ArrayList<String>
 
 	def void agregarIngrediente(Ingrediente unIngrediente){
 		elementosDeReceta.add(unIngrediente)
+		ingredientes.add(unIngrediente)
 	}
 
-	def void agregarCondimento(Ingrediente unCondimento) {
+	def void agregarCondimento(Condimento unCondimento) {
 		elementosDeReceta.add(unCondimento)
+		condimentos.add(unCondimento)
 	}
 
 	def void removerIngrediente(Ingrediente unIngrediente) {
 		elementosDeReceta.remove(unIngrediente)
+		ingredientes.remove(unIngrediente)
 	}
 
-	def void removerCondimento(Ingrediente unCondimento) {
+	def void removerCondimento(Condimento unCondimento) {
 		elementosDeReceta.remove(unCondimento)
+		condimentos.remove(unCondimento)
 	}
 
 	def validar(){
@@ -98,4 +105,35 @@ class Receta extends ElementoDeReceta implements Cloneable{
 		nombreDeLaReceta.equals(nombre)
 	}
 	
+	def void misCondicionesInadecuadas(){
+		soyAptaParaVeganos
+		soyAptaParaHipertensos
+		soyAptaParaCeliacos
+		soyAptaParaDiabeticos
+		
+	}
+	
+	def void soyAptaParaVeganos(){
+		if(soyInadecuadoParaCondicion(new CondicionVegano)){
+			condicionesPreexistentes.add("Vegano")
+		}
+	}
+	
+	def void soyAptaParaDiabeticos(){
+		if(soyInadecuadoParaCondicion(new CondicionDiabetes)){
+			condicionesPreexistentes.add("Diabetico")
+		}
+	}
+	
+	def void soyAptaParaHipertensos(){
+		if(soyInadecuadoParaCondicion(new CondicionHipertension)){
+			condicionesPreexistentes.add("Hipertenso")
+		}
+	}
+	
+	def void soyAptaParaCeliacos(){
+		if(soyInadecuadoParaCondicion(new CondicionCeliaco)){
+			condicionesPreexistentes.add("Celiaco")
+		}
+	}
 }
