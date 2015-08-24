@@ -5,12 +5,14 @@ import java.util.GregorianCalendar
 import java.util.Iterator
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.uqbar.commons.utils.Observable
 import queComemos.entrega3.dominio.Dificultad
 import queComemos.entrega3.repositorio.BusquedaRecetas
 import queComemos.entrega3.repositorio.RepoRecetas
 
 //ENTREGA 1
 @Accessors
+@Observable
 class Usuario extends Miembro {
 	Double peso
 	Double altura
