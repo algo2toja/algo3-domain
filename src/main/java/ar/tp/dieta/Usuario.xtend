@@ -244,7 +244,7 @@ class Usuario extends Miembro {
 		if(!misBusquedas.empty){
 			var Iterator<Busqueda> iterBusqueda = misBusquedas.iterator()
 	 		while(iterBusqueda.hasNext){
-	   			recetasFiltradas = (iterBusqueda.next).aplicarBusquedaUsuario(this,recetasFiltradas)
+	   			recetasFiltradas = (iterBusqueda.next).aplicarBusquedtaUsuario(this,recetasFiltradas)
 			}
 		}
 		recetasFiltradas
