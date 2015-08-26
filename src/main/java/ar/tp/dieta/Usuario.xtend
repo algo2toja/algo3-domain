@@ -30,6 +30,7 @@ class Usuario extends Miembro {
 	List<Accion> acciones = new ArrayList<Accion>
 	String direccionCorreo
 	Boolean resultadoDeConsultasAFavoritos = false
+	List<Receta> recetasFavoritas2 = new ArrayList<Receta>
 	
 	public def setFechaDeNacimiento(int ano, int mes, int diaDelMes) {
 		fechaDeNacimiento = new GregorianCalendar(ano, mes, diaDelMes)
@@ -147,6 +148,8 @@ class Usuario extends Miembro {
 		receta.esInadecuadaParaUsuario(this) 
 	}
 	
+	//FAVORITAS
+	
 	def void agregarRecetaFavorita(String nombre){
 		if(!recetasFavoritas.contains(nombre)){
 			recetasFavoritas.add(nombre)
@@ -168,6 +171,40 @@ class Usuario extends Miembro {
 	def boolean contenesEstaRecetaEnFavs(String nombreReceta){
 		recetasFavoritas.contains(nombreReceta)
 	}
+
+	//FIN DE FAVORITAS
+	
+	//FAVORITAS 2
+	
+	def void agregarRecetaFavorita(Receta receta){
+		if(!recetasFavoritas2.contains(receta)){
+			recetasFavoritas2.add(receta)
+		}
+	}
+	
+	def void eliminarRecetaFavorita(Receta receta){
+		if(recetasFavoritas2.contains(receta)){
+			recetasFavoritas2.remove(receta)
+		}
+	}
+	
+	/*def void agregarRecetaFavorita(Grupo unGrupo, String nombre){
+		recetasFavoritas.add(unGrupo.devolverRecetaDeMiembro(nombre).getNombreDeLaReceta)
+	}
+
+	def void agregarResultadosDeConsultasAFavoritos(){
+		resultadoDeConsultasAFavoritos = true
+	}
+	
+	def void noAgregarResultadosDeConsultasAFavoritos(){
+		resultadoDeConsultasAFavoritos = false
+	}*/
+	
+	def boolean contenesEstaRecetaEnFavs(Receta receta){
+		recetasFavoritas2.contains(receta)
+	}
+	
+	//FIN DE FAVORITAS 2
 
 	def List<Receta> recetasQuePuedoVer(){
 		val List<Receta> recetasQueVeo = new ArrayList<Receta>
@@ -244,7 +281,7 @@ class Usuario extends Miembro {
 		if(!misBusquedas.empty){
 			var Iterator<Busqueda> iterBusqueda = misBusquedas.iterator()
 	 		while(iterBusqueda.hasNext){
-	   			recetasFiltradas = (iterBusqueda.next).aplicarBusquedtaUsuario(this,recetasFiltradas)
+	   			recetasFiltradas = (iterBusqueda.next).aplicarBusquedaUsuario(this,recetasFiltradas)
 			}
 		}
 		recetasFiltradas
