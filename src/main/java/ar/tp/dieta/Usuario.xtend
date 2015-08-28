@@ -31,6 +31,7 @@ class Usuario extends Miembro {
 	String direccionCorreo
 	Boolean resultadoDeConsultasAFavoritos = false
 	List<Receta> recetasFavoritas2 = new ArrayList<Receta>
+	Accion2 accion2
 	
 	public def setFechaDeNacimiento(int ano, int mes, int diaDelMes) {
 		fechaDeNacimiento = new GregorianCalendar(ano, mes, diaDelMes)
@@ -284,6 +285,7 @@ class Usuario extends Miembro {
 	   			recetasFiltradas = (iterBusqueda.next).aplicarBusquedaUsuario(this,recetasFiltradas)
 			}
 		}
+		accion2.seRealizoBusqueda(recetasFiltradas)
 		recetasFiltradas
 	}
 	
