@@ -4,6 +4,7 @@ import java.util.ArrayList
 import java.util.HashMap
 import java.util.List
 import java.util.Map
+import java.util.Set
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
 
@@ -13,7 +14,7 @@ class Accion2{
 	
 	public Map<Receta,Integer> recetasMasConsultadas = new HashMap<Receta,Integer>()
 	public String nombreMaximo
-	List<Receta> recetasAux
+	List<Receta> recetasAux = new ArrayList<Receta>
 	List<ContadorRecetas> contadores = new ArrayList<ContadorRecetas>
 	List<Receta> recetasFinales = new ArrayList<Receta>
 
@@ -24,11 +25,13 @@ class Accion2{
 										}
 										else{recetasMasConsultadas.put(receta,recetasMasConsultadas.get(receta)+1)}
 						]
-		ordenar
+		//this.ordenar
 	}
 	
 	def ordenar(){
-
+			
+			recetasFinales.removeAll
+			contadores.removeAll
 			recetasAux.forEach[ rec | contadores.add((new ContadorRecetas) => [
 										receta = rec
 										cantidad = recetasMasConsultadas.get(rec)])
@@ -36,4 +39,11 @@ class Accion2{
 			contadores.sortBy[cantidad]
 			contadores.forEach[ contador | recetasFinales.add(contador.receta)]		
 	}
+	
+	def getRecetasFinales(){
+		this.ordenar
+		recetasFinales
+	}
 }
+
+	
