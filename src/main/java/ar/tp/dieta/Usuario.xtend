@@ -292,5 +292,5 @@ class Usuario extends Miembro {
 	public def void agregarAccion(Accion unaAccion) {
 		acciones.add(unaAccion)
 	}
-
+	
 }

@@ -75,6 +75,7 @@ class TestAccion2 {
 				usuarios.get(0).busquedaFiltrada()
 				//println(usuarioVegano.busquedaFiltrada().size)
 				Assert.assertTrue(usuarioVegano.busquedaFiltrada().size.equals(6))
+				accion.ordenar
 				Assert.assertTrue(accion.getRecetasFinales.contains(lomoMostaza))
 				Assert.assertTrue(accion.recetasAux.contains(lomoMostaza))
 				Assert.assertTrue(accion.recetasAux.contains(arrozBlanco))
@@ -93,6 +94,12 @@ class TestAccion2 {
 				println(accion.recetasMasConsultadas.get(arrozBlanco))
 				println(accion.recetasMasConsultadas.get(lomoMostaza))
 				println(accion.recetasMasConsultadas.get(arrozConPollo))
+				println(accion.recetasFinales.get(0).nombreDeLaReceta)
+				println(accion.recetasFinales.get(1).nombreDeLaReceta)
+				println(accion.recetasFinales.get(2).nombreDeLaReceta)
+				println(accion.recetasFinales.get(3).nombreDeLaReceta)
+				println(accion.recetasFinales.get(4).nombreDeLaReceta)
+				println(accion.recetasFinales.get(5).nombreDeLaReceta)
 				
 				
 	}

@@ -39,7 +39,7 @@ class Accion2{
 			contadores.sortBy[cantidad]
 			contadores.forEach[ contador | recetasFinales.add(contador.receta)]		
 	}
-	
+
 	def getRecetasFinales(){
 		this.ordenar
 		recetasFinales
