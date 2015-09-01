@@ -1,6 +1,15 @@
 package ar.tp.dieta
 
 class RecetaBuilder {
+	
+	public static String FACIL = "Facil" 
+	public static String MEDIA = "Media"
+	public static String DIFICIL = "Dificil"
+	public static String OTOÑO = "Otoño"
+	public static String VERANO = "Verano"
+	public static String PRIMAVERA = "Primavera"
+	public static String INVIERNO = "Invierno"
+	public static String TODOELAÑO = "Todo el año"
 
 	Receta receta
 	
