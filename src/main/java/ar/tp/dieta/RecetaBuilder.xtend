@@ -18,7 +18,7 @@ class RecetaBuilder {
 		receta.setNombreDeLaReceta(nombreReceta)
 	}		
 
-	public def RecetaBuilder calorias(int calorias){
+	public def RecetaBuilder calorias(double calorias){
 		receta.setCalorias(calorias)
 		return this
 	}
@@ -54,9 +54,9 @@ class RecetaBuilder {
 	}
 
 	public def Receta build(){
-		if (receta.elementosDeReceta.isEmpty()) {
-			throw new BusinessException("Receta sin ingredientes")
-		}
+//		if (receta.elementosDeReceta.isEmpty()) {
+//			throw new BusinessException("Receta sin ingredientes")
+//		}
 		receta.misCondicionesInadecuadas
 		return receta
 	}

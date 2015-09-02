@@ -1,5 +1,6 @@
 package ar.tp.dieta
 
+import java.util.ArrayList
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.uqbar.commons.utils.Observable
@@ -8,7 +9,7 @@ import org.uqbar.commons.utils.Observable
 @Observable
 class Busqueda2 {
 
-	Boolean aplicarFiltro
+	Boolean aplicarFiltro = false
 	String dificultad
 	String nombre
 	String ingrediente
@@ -33,9 +34,7 @@ class Busqueda2 {
 		this.filtrarPorCaloriasMinimas
 		this.filtrarPorCaloriasMaximas
 		this.filtrarPorTemporada
-		//this.filtrarPorFiltroUsuario
-		//hacer busqueda por parametros de usuario
-		busquedaFinal.aplicarBusquedaUsuario(usuario,recetas)	
+		this.filtrarPorFiltroUsuario(usuario,busquedaFinal.aplicarBusquedaUsuario(usuario,recetas))
 	}
 	
 	def filtrarPorNombre(){
@@ -74,9 +73,16 @@ class Busqueda2 {
 		}
 	}
 	
-	/*def filtrarPorFiltroUsuario(){
-		if(aplicarFiltro){
-			busquedaFinal.addAll(usuario.miBusqueda.filtros)
-		}
-	}	*/
+	def filtrarPorFiltroUsuario(Usuario usuario, List<Receta> recetas){
+		
+		val List<Receta> temporal = recetas
+		
+			if(aplicarFiltro){
+				
+				usuario.misBusquedas.forEach[ busqueda | busqueda.aplicarBusquedaUsuario(usuario,temporal)]
+				
+			}
+			//usuario.resultadosConsultas.addAll(temporal)
+			return temporal
+	}
 }

@@ -286,6 +286,7 @@ class Usuario extends Miembro {
 			}
 		}
 		accion2.seRealizoBusqueda(recetasFiltradas)
+		//recetasConsultadas.addAll(recetasFiltradas)
 		recetasFiltradas
 	}
 	
