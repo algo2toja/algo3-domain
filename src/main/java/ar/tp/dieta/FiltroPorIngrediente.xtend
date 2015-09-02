@@ -3,18 +3,18 @@ package ar.tp.dieta
 import java.util.ArrayList
 import java.util.List
 
-class FiltroPorNombre implements Filtro{
+class FiltroPorIngrediente implements Filtro{
 	
-	String nombre
+	String ingrediente
 	List<Receta> temporal = new ArrayList<Receta>
 	
-	new(String parametroNombre){
-		nombre = parametroNombre
+	new(String parametroIngrediente){
+		ingrediente = parametroIngrediente
 	}
 	
 	override aplicarFiltroUsuario(Usuario unUsuario, List<Receta> recetasSinFiltrar) {
-		recetasSinFiltrar.forEach[receta | if(receta.nombreDeLaReceta.equals(nombre)){
-												temporal.add(receta)}]
+		recetasSinFiltrar.forEach[receta | receta.elementosDeReceta.forEach[ elemento | if(elemento.nombre.equals(ingrediente)){
+																								temporal.add(receta)}]]
 		return temporal
 	}
 	

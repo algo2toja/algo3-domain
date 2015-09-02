@@ -25,15 +25,17 @@ class Busqueda2 {
 		#[RecetaBuilder.INVIERNO,RecetaBuilder.PRIMAVERA,RecetaBuilder.VERANO,RecetaBuilder.OTOÑO,RecetaBuilder.TODOELAÑO]
 	}
 	
-	def filtrar(List<Receta> recetas){
+	def filtrar(Usuario usuario,List<Receta> recetas){
 		
 		this.filtrarPorNombre
 		this.filtrarPorDificultad
 		this.filtrarPorIngrediente
-		this.filtrarPorCalorias
+		this.filtrarPorCaloriasMinimas
+		this.filtrarPorCaloriasMaximas
 		this.filtrarPorTemporada
-		this.filtrarPorFiltroUsuario
-			
+		//this.filtrarPorFiltroUsuario
+		//hacer busqueda por parametros de usuario
+		busquedaFinal.aplicarBusquedaUsuario(usuario,recetas)	
 	}
 	
 	def filtrarPorNombre(){
@@ -70,5 +72,11 @@ class Busqueda2 {
 		if(!(caloriasMaximas == null)){
 			busquedaFinal.agregarFiltro(new FiltroPorCaloriasMaximas(caloriasMaximas))
 		}
-	}	
+	}
+	
+	/*def filtrarPorFiltroUsuario(){
+		if(aplicarFiltro){
+			busquedaFinal.addAll(usuario.miBusqueda.filtros)
+		}
+	}	*/
 }
