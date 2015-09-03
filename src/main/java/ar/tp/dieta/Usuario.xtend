@@ -294,4 +294,19 @@ class Usuario extends Miembro {
 		acciones.add(unaAccion)
 	}
 	
+	def List<Receta> busquedaFiltrada2(List<Receta> recetasFiltradas){
+
+		var temporal = recetasFiltradas
+		
+		if(!misBusquedas.empty){
+			var Iterator<Busqueda> iterBusqueda = misBusquedas.iterator()
+	 		while(iterBusqueda.hasNext){
+	   			temporal = (iterBusqueda.next).aplicarBusquedaUsuario(this,temporal)
+			}
+		accion2.seRealizoBusqueda(temporal)
+		//recetasConsultadas.addAll(recetasFiltradas)
+		return temporal
+		}
+	}
 }
+	

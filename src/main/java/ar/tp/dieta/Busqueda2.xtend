@@ -63,7 +63,7 @@ class Busqueda2 {
 	
 	def filtrarPorCaloriasMinimas(){
 		if(!(caloriasMinimas == null)){
-			busquedaFinal.agregarFiltro(new FiltroPorCaloriasMaximas(caloriasMinimas))
+			busquedaFinal.agregarFiltro(new FiltroPorCaloriasMinimas(caloriasMinimas))
 		}
 	}		
 
@@ -75,14 +75,12 @@ class Busqueda2 {
 	
 	def filtrarPorFiltroUsuario(Usuario usuario, List<Receta> recetas){
 		
-		val List<Receta> temporal = recetas
+		var temporal = recetas
 		
 			if(aplicarFiltro){
-				
-				usuario.misBusquedas.forEach[ busqueda | busqueda.aplicarBusquedaUsuario(usuario,temporal)]
+				temporal = usuario.busquedaFiltrada2(recetas)
 				
 			}
-			//usuario.resultadosConsultas.addAll(temporal)
 			return temporal
 	}
 }

@@ -3,9 +3,10 @@ package ar.tp.dieta
 import java.util.ArrayList
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.uqbar.commons.utils.Observable
 
 @Accessors
-
+@Observable
 class RecetarioPublico implements Cloneable{
 	List<Receta> recetas = new ArrayList<Receta>()
 

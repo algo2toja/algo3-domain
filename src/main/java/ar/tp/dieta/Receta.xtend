@@ -136,4 +136,8 @@ class Receta extends ElementoDeReceta implements Cloneable{
 			condicionesPreexistentes.add("Celiaco")
 		}
 	}
+	
+	def Receta devolverme(){
+		this
+	}
 }
