@@ -15,7 +15,7 @@ class Accion2{
 	public Map<Receta,Integer> recetasMasConsultadas = new HashMap<Receta,Integer>()
 	public String nombreMaximo
 	List<Receta> recetasAux = new ArrayList<Receta>
-	List<ContadorRecetas> contadores = new ArrayList<ContadorRecetas>
+	//List<ContadorRecetas> contadores = new ArrayList<ContadorRecetas>
 	List<Receta> recetasFinales = new ArrayList<Receta>
 
 	def seRealizoBusqueda(List<Receta> recetas){
@@ -30,19 +30,20 @@ class Accion2{
 	
 	def ordenar(){
 			
-			recetasFinales.removeAll
-			contadores.removeAll
+			val recetasTemporales = new ArrayList<Receta>
+			val contadores = new ArrayList<ContadorRecetas>	
 			recetasAux.forEach[ rec | contadores.add((new ContadorRecetas) => [
 										receta = rec
 										cantidad = recetasMasConsultadas.get(rec)])
 								]
 			contadores.sortBy[cantidad]
-			contadores.forEach[ contador | recetasFinales.add(contador.receta)]		
+			contadores.forEach[ contador | recetasTemporales.add(contador.receta)]
+			return recetasTemporales
 	}
 
 	def getRecetasFinales(){
-		this.ordenar
-		recetasFinales
+		recetasFinales = this.ordenar
+		return recetasFinales
 	}
 }
 

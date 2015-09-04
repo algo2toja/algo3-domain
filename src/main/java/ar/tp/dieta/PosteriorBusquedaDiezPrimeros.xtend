@@ -11,7 +11,7 @@ class PosteriorBusquedaDiezPrimeros implements Filtro{
 		var List<Receta> recetasADevolver = new ArrayList<Receta>
 		var Iterator<Receta> iterRecetas = recetasSinFiltrar.iterator()
 		var int contador = 0
-		while(contador < 3 && contador < recetasSinFiltrar.size){
+		while(contador < 10 && contador < recetasSinFiltrar.size){
 			recetasADevolver.add(iterRecetas.next)
 			contador++
 		}
