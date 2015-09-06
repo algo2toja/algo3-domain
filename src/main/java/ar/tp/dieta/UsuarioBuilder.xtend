@@ -6,9 +6,10 @@ class UsuarioBuilder {
 
 	Usuario usuario
 	
-	new(String nombreUsuario){
+	new(String nombreUsuario, String contraseña){
 		usuario = new Usuario()
 		usuario.setNombre(nombreUsuario)
+		usuario.contraseña = contraseña
 	}		
 
 	public def UsuarioBuilder peso(Double peso){

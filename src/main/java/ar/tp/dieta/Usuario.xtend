@@ -14,6 +14,7 @@ import queComemos.entrega3.repositorio.RepoRecetas
 @Accessors
 @Observable
 class Usuario extends Miembro {
+	String contraseña
 	Double peso
 	Double altura
 	GregorianCalendar fechaDeNacimiento
