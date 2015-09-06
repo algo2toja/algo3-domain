@@ -1,5 +1,7 @@
 package ar.tp.dieta
 
+import org.uqbar.commons.model.UserException
+
 class RecetaBuilder {
 	
 	public static String FACIL = "Facil" 
@@ -54,11 +56,12 @@ class RecetaBuilder {
 	}
 
 	public def Receta build(){
-//		if (receta.elementosDeReceta.isEmpty()) {
-//			throw new BusinessException("Receta sin ingredientes")
-//		}
-		receta.misCondicionesInadecuadas
-		return receta
+		
+		if(receta.nombreDeLaReceta.length.equals(0)){
+			throw new UserException("El nombre no puede estar vacio")
+		}else{
+			receta.misCondicionesInadecuadas
+			return receta
+		}
 	}
-	
 }

@@ -309,5 +309,9 @@ class Usuario extends Miembro {
 		return temporal
 		}
 	}
+	
+	def repitoReceta(String nombre){
+		misRecetas.exists[receta | receta.nombreDeLaReceta.equals(nombre)]
+	}
 }
 	

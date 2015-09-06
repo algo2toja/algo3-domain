@@ -3,6 +3,7 @@ package ar.tp.dieta
 import java.util.ArrayList
 import java.util.List
 import org.eclipse.xtend.lib.annotations.Accessors
+import org.uqbar.commons.model.UserException
 import org.uqbar.commons.utils.Observable
 
 @Accessors
@@ -42,7 +43,7 @@ class RepositorioUsuarios {
 		if(!(usuarioTemporal == null)){
 			return usuarioTemporal
 		}else{
-			//throwNewBus
+			//throw new UnsupportedOperationException("aaaaa")
 		}
 	}
 }
