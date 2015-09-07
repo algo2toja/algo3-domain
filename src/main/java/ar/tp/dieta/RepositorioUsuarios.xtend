@@ -25,16 +25,17 @@ class RepositorioUsuarios {
 		]
 		
 		usuarios.add(new UsuarioBuilder("Miguel","miguel").peso(70.5).altura(1.73).fechaNacimiento(1989, 6, 28).sexo("M").rutina(basket).condicion(new CondicionVegano).preferencia("fruta").email("soyvegano@edrans.com").build())
-		usuarios.add(new UsuarioBuilder("Daniel","daniel").peso(70.5).altura(1.73).fechaNacimiento(1989, 6, 28).sexo("M").rutina(basket).condicion(new CondicionVegano).preferencia("fruta").email("soyvegano@edrans.com").build())
-		usuarios.add(new UsuarioBuilder("Juan","juan").peso(70.5).altura(1.73).fechaNacimiento(1989, 6, 28).sexo("M").rutina(basket).condicion(new CondicionVegano).preferencia("fruta").email("soyvegano@edrans.com").build())
+		usuarios.add(new UsuarioBuilder("Daniel","daniel").peso(70.5).altura(1.73).fechaNacimiento(1989, 6, 28).sexo("M").rutina(basket).preferencia("fruta").email("soyvegano@edrans.com").build())
+		usuarios.add(new UsuarioBuilder("Juan","juan").peso(70.5).altura(1.73).fechaNacimiento(1989, 6, 28).sexo("M").rutina(basket).condicion(new CondicionHipertension).preferencia("fruta").email("soyvegano@edrans.com").build())
 		
-		//usuarios.get(0).agregarRecetaFavorita(usuarios.get(0).recetario.recetas.get(0))
-		//usuarios.get(0).agregarRecetaFavorita(usuarios.get(0).recetario.recetas.get(1))
-		//
+		usuarios.get(0).agregarRecetaFavorita(recetario.recetas.get(0))
+		usuarios.get(0).agregarRecetaFavorita(recetario.recetas.get(1))
+		
 		usuarios.forEach[usuario | usuario.accion2 = accion2]
 		usuarios.forEach[usuario | usuario.recetario = recetario]
+		
 		usuarios.get(1).agregarBusqueda(busqueda1)
-		usuarios.get(1).busquedaFiltrada()
+		
 	}
 	
 	def validarLogin(String nombre,String contraseña){
@@ -43,7 +44,7 @@ class RepositorioUsuarios {
 		if(!(usuarioTemporal == null)){
 			return usuarioTemporal
 		}else{
-			//throw new UnsupportedOperationException("aaaaa")
+			throw new UserException("Nombre y/o Contraseña incorrectos")
 		}
 	}
 }
