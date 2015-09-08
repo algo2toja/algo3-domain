@@ -33,6 +33,7 @@ class Usuario extends Miembro {
 	Boolean resultadoDeConsultasAFavoritos = false
 	List<Receta> recetasFavoritas2 = new ArrayList<Receta>
 	Accion2 accion2
+	List<Receta> recetasBuscadas = new ArrayList<Receta>
 	
 	public def setFechaDeNacimiento(int ano, int mes, int diaDelMes) {
 		fechaDeNacimiento = new GregorianCalendar(ano, mes, diaDelMes)
@@ -287,7 +288,7 @@ class Usuario extends Miembro {
 			}
 		}
 		accion2.seRealizoBusqueda(recetasFiltradas)
-		//recetasConsultadas.addAll(recetasFiltradas)
+		agregarRecetasBuscadas(recetasFiltradas)
 		recetasFiltradas
 	}
 	
@@ -305,7 +306,7 @@ class Usuario extends Miembro {
 	   			temporal = (iterBusqueda.next).aplicarBusquedaUsuario(this,temporal)
 			}
 		accion2.seRealizoBusqueda(temporal)
-		//recetasConsultadas.addAll(recetasFiltradas)
+		this.agregarRecetasBuscadas(recetasFiltradas)
 		return temporal
 		}
 	}
@@ -313,5 +314,12 @@ class Usuario extends Miembro {
 	def repitoReceta(String nombre){
 		misRecetas.exists[receta | receta.nombreDeLaReceta.equals(nombre)]
 	}
+	
+	def agregarRecetasBuscadas(List<Receta> recetas){
+		recetas.forEach[ receta | if(!recetasBuscadas.contains(receta)){
+									recetasBuscadas.add(receta)
+		}]
+	}
 }
+	
 	
