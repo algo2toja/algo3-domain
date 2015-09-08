@@ -14,7 +14,7 @@ class Receta extends ElementoDeReceta implements Cloneable{
 	String autor
 	String nombreDeLaReceta
 	double calorias
-	List<ElementoDeReceta> elementosDeReceta = new ArrayList<ElementoDeReceta> //Integra ingredientes, condimentos y subrecetas.	
+//	List<ElementoDeReceta> elementosDeReceta = new ArrayList<ElementoDeReceta> //Integra ingredientes, condimentos y subrecetas.	
 	String procesoDePreparacion
 	String dificultadDePreparacion
 	String temporadaALaQueCorresponde
@@ -105,39 +105,47 @@ class Receta extends ElementoDeReceta implements Cloneable{
 		nombreDeLaReceta.equals(nombre)
 	}
 	
-	def void misCondicionesInadecuadas(){
-		soyAptaParaVeganos
-		soyAptaParaHipertensos
-		soyAptaParaCeliacos
-		soyAptaParaDiabeticos
-		
-	}
-	
-	def void soyAptaParaVeganos(){
+	def void soyAptaParaVeganos(List <String> condicionesPreexistentes){
 		if(soyInadecuadoParaCondicion(new CondicionVegano)){
 			condicionesPreexistentes.add("Vegano")
 		}
 	}
 	
-	def void soyAptaParaDiabeticos(){
+	def void soyAptaParaDiabeticos(List <String>  condicionesPreexistentes){
 		if(soyInadecuadoParaCondicion(new CondicionDiabetes)){
 			condicionesPreexistentes.add("Diabetico")
 		}
 	}
 	
-	def void soyAptaParaHipertensos(){
+	def void soyAptaParaHipertensos(List <String>  condicionesPreexistentes){
 		if(soyInadecuadoParaCondicion(new CondicionHipertension)){
 			condicionesPreexistentes.add("Hipertenso")
 		}
 	}
 	
-	def void soyAptaParaCeliacos(){
+	def void soyAptaParaCeliacos(List <String>  condicionesPreexistentes){
 		if(soyInadecuadoParaCondicion(new CondicionCeliaco)){
 			condicionesPreexistentes.add("Celiaco")
 		}
 	}
 	
+	def getCondicionesPreexistentes() {
+		var condiciones = new ArrayList<String>
+		soyAptaParaVeganos(condiciones)
+		soyAptaParaHipertensos(condiciones)
+		soyAptaParaCeliacos(condiciones)
+		soyAptaParaDiabeticos(condiciones)
+		condiciones
+	}
+	
 	def Receta devolverme(){
 		this
+	}
+	
+	def List<ElementoDeReceta> getElementosDeReceta() {
+		var elementosDeReceta = new ArrayList<ElementoDeReceta>
+		elementosDeReceta.addAll(ingredientes)
+		elementosDeReceta.addAll(condimentos)
+		elementosDeReceta
 	}
 }

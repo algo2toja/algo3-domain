@@ -44,7 +44,8 @@ class Grupo extends Miembro{
 		//unaReceta.subRecetas = recetaTemporal.subRecetas.clone()
 		
 		//Workaround para ArrayList, en vez de usar clone se inicializa un nuevo ArrayList con el mismo contenido que recetaTemporal
-		unaReceta.elementosDeReceta = new ArrayList<ElementoDeReceta>(recetaTemporal.elementosDeReceta)
+		unaReceta.ingredientes = new ArrayList<Ingrediente>(recetaTemporal.ingredientes)
+		unaReceta.condimentos = new ArrayList<Condimento>(recetaTemporal.condimentos)
 		
 		//Devuelvo el objeto
 		unaReceta

@@ -60,7 +60,6 @@ class RecetaBuilder {
 		if(receta.nombreDeLaReceta.length.equals(0)){
 			throw new UserException("El nombre no puede estar vacio")
 		}else{
-			receta.misCondicionesInadecuadas
 			return receta
 		}
 	}

@@ -35,7 +35,7 @@ class RepositorioUsuarios {
 		usuarios.forEach[usuario | usuario.recetario = recetario]
 		
 		usuarios.get(1).agregarBusqueda(busqueda1)
-		usuarios.get(1).busquedaFiltrada()
+		//usuarios.get(1).busquedaFiltrada()
 		
 	}
 	
