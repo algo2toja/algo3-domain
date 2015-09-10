@@ -20,7 +20,7 @@ class Receta extends ElementoDeReceta implements Cloneable{
 	String temporadaALaQueCorresponde
 	int tiempoPreparacion
 	int añoDeCreacion
-	List<String> condicionesPreexistentes = new ArrayList<String>
+//	List<String> condicionesPreexistentes = new ArrayList<String> SE CALCULA SOLO CON EL GET
 
 	def void agregarIngrediente(Ingrediente unIngrediente){
 		elementosDeReceta.add(unIngrediente)

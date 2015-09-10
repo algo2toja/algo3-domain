@@ -15,7 +15,7 @@ class RepositorioUsuarios {
 	Busqueda busqueda1 = new Busqueda => [
 			agregarFiltro(new FiltroPorIngredienteCaro)
 	]
-	Accion2 accion2 = new Accion2
+	ContadorConsultas observer = new ContadorConsultas
 	RecetarioPublico recetario = new RecetarioPublico
 	
 	new(){
@@ -31,7 +31,7 @@ class RepositorioUsuarios {
 		usuarios.get(0).agregarRecetaFavorita(recetario.recetas.get(0))
 		usuarios.get(0).agregarRecetaFavorita(recetario.recetas.get(1))
 		
-		usuarios.forEach[usuario | usuario.accion2 = accion2]
+		usuarios.forEach[usuario | usuario.observerConsulta = observer]
 		usuarios.forEach[usuario | usuario.recetario = recetario]
 		
 		usuarios.get(1).agregarBusqueda(busqueda1)

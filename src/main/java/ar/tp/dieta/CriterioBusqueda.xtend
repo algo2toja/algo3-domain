@@ -6,7 +6,7 @@ import org.uqbar.commons.utils.Observable
 
 @Accessors
 @Observable
-class Busqueda2 {
+class CriterioBusqueda {
 
 	Boolean aplicarFiltro = false
 	String dificultad

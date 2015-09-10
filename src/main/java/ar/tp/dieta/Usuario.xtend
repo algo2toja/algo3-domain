@@ -32,7 +32,7 @@ class Usuario extends Miembro {
 	String direccionCorreo
 	Boolean resultadoDeConsultasAFavoritos = false
 	List<Receta> recetasFavoritas2 = new ArrayList<Receta>
-	Accion2 accion2
+	ContadorConsultas observerConsulta
 	List<Receta> recetasBuscadas = new ArrayList<Receta>
 	
 	public def setFechaDeNacimiento(int ano, int mes, int diaDelMes) {
@@ -287,7 +287,7 @@ class Usuario extends Miembro {
 	   			recetasFiltradas = (iterBusqueda.next).aplicarBusquedaUsuario(this,recetasFiltradas)
 			}
 		}
-		accion2.seRealizoBusqueda(recetasFiltradas)
+		observerConsulta.seRealizoBusqueda(recetasFiltradas)
 		agregarRecetasBuscadas(recetasFiltradas)
 		recetasFiltradas
 	}
@@ -305,7 +305,7 @@ class Usuario extends Miembro {
 	 		while(iterBusqueda.hasNext){
 	   			temporal = (iterBusqueda.next).aplicarBusquedaUsuario(this,temporal)
 			}
-		accion2.seRealizoBusqueda(temporal)
+		observerConsulta.seRealizoBusqueda(temporal)
 		this.agregarRecetasBuscadas(recetasFiltradas)
 		return temporal
 		}
